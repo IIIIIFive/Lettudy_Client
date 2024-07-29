@@ -1,7 +1,30 @@
-import { useState } from 'react';
+import { GlobalStyle } from './styles/GlobalStyle';
+import { ThemeProvider } from 'styled-components';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { theme } from './styles/theme';
+import HomePage from './pages/HomePage';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <HomePage />,
+  },
+  {
+    path: 'test',
+    children: [
+      { index: true, element: <div>test</div> },
+      { path: 'nesting', element: <div>/test/nesting</div> },
+    ],
+  },
+]);
 
 function App() {
-  return <div>Hello world</div>;
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 }
 
 export default App;
