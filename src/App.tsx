@@ -3,11 +3,21 @@ import { ThemeProvider } from 'styled-components';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { theme } from './styles/theme';
 import HomePage from './pages/HomePage';
+import Join from './pages/Join';
+import Login from './pages/Login';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
+  },
+  {
+    path: '/join',
+    element: <Join />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
   },
   {
     path: 'test',
