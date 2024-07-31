@@ -36,7 +36,7 @@ const ButtonStyle = styled.button<{
   color: ${({ theme }) => theme.textWhite};
   background-color: #feac3e;
   border-radius: 15px;
-  font-weight: 700;
+  font-weight: ${({ $size }) => ($size === 'small' ? '300' : '700')};
   box-shadow: ${({ $size }) =>
     $size === 'medium' ? '0px 3px 0px 0px #3333' : 'none'};
 `;
