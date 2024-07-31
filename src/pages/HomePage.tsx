@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 function HomePage() {
-  return <HomePageStyle>HOME</HomePageStyle>;
+  return <HomePageStyle>HOME~~~~~</HomePageStyle>;
 }
 
 const HomePageStyle = styled.div``;
