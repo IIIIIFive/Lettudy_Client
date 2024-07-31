@@ -9,7 +9,7 @@ function Header() {
       <img
         src='/assets/images/logo-withLettudy.png'
         alt='logo'
-        height={70}
+        height={60}
         onClick={() => navigate('/')}
       />
       <div className='icons'>
@@ -17,13 +17,13 @@ function Header() {
           <img
             src='/assets/images/mypage-face.png'
             alt='mypage'
-            width={50}
+            width={45}
             onClick={() => navigate('/mypage')}
           />
           <span>마이페이지</span>
         </div>
         <div className='icon'>
-          <img src='/assets/images/logout-face.png' alt='logout' width={50} />
+          <img src='/assets/images/logout-face.png' alt='logout' width={45} />
           <span>로그아웃</span>
         </div>
       </div>
@@ -33,7 +33,7 @@ function Header() {
 
 const HeaderStyle = styled.div`
   width: 100%;
-  height: 110px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: space-between;

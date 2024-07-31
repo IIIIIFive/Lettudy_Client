@@ -1,3 +1,4 @@
+import RoomList from '@/components/homepage/RoomList';
 import styled from 'styled-components';
 
 function HomePage() {
@@ -9,7 +10,7 @@ function HomePage() {
             className='plus'
             src='/assets/icon/plus-icon.svg'
             alt='plus'
-            width={30}
+            width={25}
           />
           <span>스터디 생성</span>
         </div>
@@ -17,24 +18,31 @@ function HomePage() {
           <img
             src='/assets/icon/add-person-icon.svg'
             alt='add-person'
-            width={40}
+            width={35}
           />
           <span>스터디 입장</span>
         </div>
+      </div>
+      <div className='room-list'>
+        <RoomList />
+        <img className='arrow' src='/assets/icon/arrow-icon.svg' alt='arrow' />
       </div>
     </HomePageStyle>
   );
 }
 
 const HomePageStyle = styled.div`
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
 
   .buttons {
-    position: absolute;
-    right: 75px;
-    top: 50px;
+    align-self: flex-end;
     display: flex;
-    padding: 50px 70px;
+    padding: 35px 60px;
+    margin-right: 50px;
+    margin-top: 15px;
     border-radius: 15px;
     background-color: ${({ theme }) => theme.color_bgWhite};
     border: 2px dashed ${({ theme }) => theme.color_borderGray};
@@ -45,15 +53,25 @@ const HomePageStyle = styled.div`
       flex-direction: column;
       align-items: center;
       gap: 20px;
+      cursor: pointer;
 
       span {
         color: ${({ theme }) => theme.color_textGray};
-        font-size: ${({ theme }) => theme.fontSize_lg};
+        font-size: ${({ theme }) => theme.fontSize_md};
       }
 
       .plus {
         padding-top: 5px;
       }
+    }
+  }
+
+  .room-list {
+    margin-top: 20px;
+    width: 100%;
+
+    .arrow {
+      margin-left: 120px;
     }
   }
 `;
