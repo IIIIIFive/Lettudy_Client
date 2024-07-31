@@ -35,7 +35,7 @@ function Login() {
       <LoginStyle>
         <div className='lettudy'>
           <img src={logo} alt='lettudy' />
-          <div className='title'>Lettudy!</div>
+          <span className='title'>Lettudy!</span>
         </div>
         <div className='container'>
           <h1>로그인</h1>

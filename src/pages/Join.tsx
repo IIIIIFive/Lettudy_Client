@@ -39,7 +39,7 @@ function Join() {
       <JoinStyle>
         <div className='lettudy'>
           <img src={logo} alt='lettudy' />
-          <div className='title'>Lettudy!</div>
+          <span className='title'>Lettudy!</span>
         </div>
         <div className='container'>
           <h1>회원가입</h1>
@@ -92,7 +92,7 @@ function Join() {
                         /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
                           value,
                         ) ||
-                        '비밀번호는 최소 8자 이상이어야 하며, 영문자, 숫자, 특수 문자를 포함해야 합니다.',
+                        '비밀번호는 최소 8자 영문자, 숫자, 특수 문자를 포함해야 합니다.',
                     },
                   })}
                 />
@@ -149,7 +149,7 @@ export const JoinStyle = styled.div`
       font-weight: bold;
       font-size: ${({ theme }) => theme.fontSize_xl};
       line-height: 1.6;
-      color: ${({ theme }) => theme.textBlack};
+      color: ${({ theme }) => theme.color_textBlack};
     }
 
     img {
@@ -160,19 +160,18 @@ export const JoinStyle = styled.div`
   .container {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
-    background: ${({ theme }) => theme.bgWhite};
+    background: ${({ theme }) => theme.color_bgWhite};
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px;
     width: 550px;
     height: 535px;
     box-sizing: border-box;
-    padding: 40px;
+    padding: 28px;
 
     h1 {
       font-weight: bold;
-      color: ${({ theme }) => theme.textKey};
+      color: ${({ theme }) => theme.color_textKey};
       font-size: ${({ theme }) => theme.fontSize_lg};
       padding: 10px;
       margin-bottom: 15px;
@@ -186,10 +185,10 @@ export const JoinStyle = styled.div`
       width: 100%;
 
       .error-text {
-        color: ${({ theme }) => theme.textRed};
+        color: ${({ theme }) => theme.color_textRed};
         font-size: ${({ theme }) => theme.fontSize_xxs};
+        margin-top: 2px;
       }
-        
     }
 
     .form-group {
@@ -200,7 +199,7 @@ export const JoinStyle = styled.div`
 
       label {
         margin-bottom: 10px;
-        color: ${({ theme }) => theme.textBlack};
+        color: ${({ theme }) => theme.color_textBlack};
         font-size: ${({ theme }) => theme.fontSize_sm};
       }
 
@@ -228,6 +227,7 @@ export const JoinStyle = styled.div`
     }
 
     .join-button {
-    margin-top: 16px;
+      margin-top: 16px;
     }
-  `;
+  }
+`;
