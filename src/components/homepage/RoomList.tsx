@@ -36,15 +36,10 @@ const RoomListStyle = styled.div`
   padding: 50px 100px;
   overflow-x: hidden;
 
-  ::-webkit-scrollbar {
-    height: 10px; /* 스크롤바 높이 */
-    background-color: transparent; /* 스크롤바 배경을 투명으로 설정 */
-  }
-
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   &::-webkit-scrollbar {
-    display: none; /* WebKit 기반 브라우저 */
+    display: none;
   }
 `;
 

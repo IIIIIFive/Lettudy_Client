@@ -34,7 +34,7 @@ const ButtonStyle = styled.button<{
   justify-content: center;
   margin-top: 20px;
 
-  color: ${({ theme }) => theme.textWhite};
+  color: ${({ theme }) => theme.color_textWhite};
   background-color: #feac3e;
   border-radius: 15px;
   font-weight: 700;

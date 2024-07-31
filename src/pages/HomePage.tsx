@@ -1,11 +1,26 @@
+import HomeModals from '@/components/homepage/HomeModals';
 import RoomList from '@/components/homepage/RoomList';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 function HomePage() {
+  const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+  const [isJoinModalOpen, setJoinModalOpen] = useState(false);
+
+  const openCreateModal = () => setCreateModalOpen(true);
+  const closeCreateModal = () => setCreateModalOpen(false);
+
+  const openJoinModal = () => setJoinModalOpen(true);
+  const closeJoinModal = () => setJoinModalOpen(false);
+
+  const handleCreate = (roomName: string) => {};
+
+  const handleJoin = (code: string) => {};
+
   return (
     <HomePageStyle>
       <div className='buttons'>
-        <div className='icon'>
+        <div className='icon' onClick={openCreateModal}>
           <img
             className='plus'
             src='/assets/icon/plus-icon.svg'
@@ -14,7 +29,7 @@ function HomePage() {
           />
           <span>스터디 생성</span>
         </div>
-        <div className='icon'>
+        <div className='icon' onClick={openJoinModal}>
           <img
             src='/assets/icon/add-person-icon.svg'
             alt='add-person'
@@ -27,6 +42,19 @@ function HomePage() {
         <RoomList />
         <img className='arrow' src='/assets/icon/arrow-icon.svg' alt='arrow' />
       </div>
+      <HomeModals
+        isOpen={isCreateModalOpen}
+        onClose={closeCreateModal}
+        type='create'
+        onConfirm={handleCreate}
+      />
+
+      <HomeModals
+        isOpen={isJoinModalOpen}
+        onClose={closeJoinModal}
+        type='join'
+        onConfirm={handleJoin}
+      />
     </HomePageStyle>
   );
 }
