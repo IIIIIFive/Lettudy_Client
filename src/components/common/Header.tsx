@@ -43,6 +43,7 @@ const HeaderStyle = styled.div`
     display: flex;
     gap: 35px;
     margin-top: 10px;
+    margin-right: 50px;
 
     .icon {
       display: flex;

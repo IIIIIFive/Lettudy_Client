@@ -7,7 +7,7 @@ export const theme = {
   color_textGray: '#909090',
   color_bgWhite: '#FFFFFF',
   color_bgLightGray: '#F5F5F5',
-  color_borderGray: '#EAEAEA',
+  color_borderGray: '#B4B4B4',
 
   fontSize_xxs: '12px',
   fontSize_xs: '14px',
