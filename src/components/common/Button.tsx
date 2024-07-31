@@ -27,12 +27,11 @@ const ButtonStyle = styled.button<{
 }>`
   font-size: ${({ theme, $size }) =>
     $size === 'small' ? theme.fontSize_xs : theme.fontSize_sm};
-  padding: ${({ $size }) => ($size === 'small' ? '4px ' : '8px')};
-  width: ${({ $size }) => ($size === 'small' ? '50% ' : '100%')};
+  padding: 10px;
+  width: ${({ $size }) => ($size === 'small' ? '80px ' : '200px')};
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
 
   color: ${({ theme }) => theme.textWhite};
   background-color: #feac3e;
