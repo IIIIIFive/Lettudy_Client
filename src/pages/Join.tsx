@@ -169,14 +169,14 @@ export const JoinStyle = styled.div`
     align-items: center;
     width: 550px;
     box-sizing: border-box;
-    padding: 48px;
+    padding: 50px;
 
     h1 {
       font-weight: bold;
       color: ${({ theme }) => theme.color_textKey};
       font-size: ${({ theme }) => theme.fontSize_md};
       padding: 10px;
-      margin-bottom: 15px;
+      margin-bottom: 28px;
     }
 
     fieldset {
