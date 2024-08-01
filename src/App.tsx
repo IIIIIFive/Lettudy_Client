@@ -8,8 +8,15 @@ import Login from './pages/Login';
 import Header from './components/common/Header';
 import MainLayout from './components/layout/MainLayout';
 
-
 const router = createBrowserRouter([
+  {
+    path: 'join',
+    element: <Join />,
+  },
+  {
+    path: 'login',
+    element: <Login />,
+  },
   {
     path: '/',
     element: (
@@ -24,14 +31,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
-      },
-      {
-        path: 'join',
-        element: <Join />,
-      },
-      {
-        path: 'login',
-        element: <Login />,
       },
     ],
   },

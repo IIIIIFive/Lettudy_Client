@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../public/logo.png';
 import styled from 'styled-components';
 import Button from '@/components/common/Button';
@@ -37,10 +37,11 @@ function Join() {
   return (
     <AuthBackground>
       <JoinStyle>
-        <div className='lettudy'>
+        <Link to='/' className='lettudy'>
           <img src={logo} alt='lettudy' />
           <span className='title'>Lettudy!</span>
-        </div>
+        </Link>
+
         <div className='container'>
           <h1>회원가입</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -141,8 +142,9 @@ export const JoinStyle = styled.div`
   .lettudy {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 20px;
+    text-decoration: none;
 
     .title {
       overflow-wrap: break-word;
@@ -154,6 +156,7 @@ export const JoinStyle = styled.div`
 
     img {
       width: 35px;
+      margin-bottom: 6px;
     }
   }
 
@@ -165,16 +168,15 @@ export const JoinStyle = styled.div`
     flex-direction: column;
     align-items: center;
     width: 550px;
-    height: 535px;
     box-sizing: border-box;
-    padding: 28px;
+    padding: 50px;
 
     h1 {
       font-weight: bold;
       color: ${({ theme }) => theme.color_textKey};
-      font-size: ${({ theme }) => theme.fontSize_lg};
+      font-size: ${({ theme }) => theme.fontSize_md};
       padding: 10px;
-      margin-bottom: 15px;
+      margin-bottom: 28px;
     }
 
     fieldset {
@@ -187,7 +189,7 @@ export const JoinStyle = styled.div`
       .error-text {
         color: ${({ theme }) => theme.color_textRed};
         font-size: ${({ theme }) => theme.fontSize_xxs};
-        margin-top: 2px;
+        margin-top: 10px;
       }
     }
 
@@ -195,11 +197,11 @@ export const JoinStyle = styled.div`
       width: 400px;
       display: flex;
       flex-direction: column;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
 
       label {
         margin-bottom: 10px;
-        color: ${({ theme }) => theme.color_textBlack};
+        color: ${({ theme }) => theme.color_textKey};
         font-size: ${({ theme }) => theme.fontSize_sm};
       }
 
@@ -208,6 +210,7 @@ export const JoinStyle = styled.div`
         padding: 10px;
         border: 1px solid #ddd;
         border-radius: 8px;
+        outline: none;
       }
 
       .email-form {
