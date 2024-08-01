@@ -1,29 +1,38 @@
 import { GlobalStyle } from './styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { theme } from './styles/theme';
 import HomePage from './pages/HomePage';
 import Join from './pages/Join';
 import Login from './pages/Login';
+import Header from './components/common/Header';
+import MainLayout from './components/layout/MainLayout';
+
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
-  },
-  {
-    path: '/join',
-    element: <Join />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: 'test',
+    element: (
+      <>
+        <Header />
+        <MainLayout>
+          <Outlet />
+        </MainLayout>
+      </>
+    ),
     children: [
-      { index: true, element: <div>test</div> },
-      { path: 'nesting', element: <div>/test/nesting</div> },
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: 'join',
+        element: <Join />,
+      },
+      {
+        path: 'login',
+        element: <Login />,
+      },
     ],
   },
 ]);
