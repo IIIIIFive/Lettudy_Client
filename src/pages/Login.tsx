@@ -94,23 +94,30 @@ export default Login;
 
 export const LoginStyle = styled(JoinStyle)`
   .container {
-    padding: 100px;
-
-    .form-group {
-      margin-top: 6px;
-    }
+    padding: 50px;
 
     .error-container {
       min-height: 20px;
     }
 
     .error-text {
-      margin-top: 8px;
       text-align: center;
+      margin-top: 12px;
+    }
+
+    .login-button {
+      margin-top: 10px;
     }
 
     .join-link {
-      margin-top: 15px;
+      margin-top: 22px;
+      color: ${({ theme }) => theme.color_textKey};
+      font-weight: 600;
+    }
+
+    .join-link a,
+    .join-link a:visited {
+      color: ${({ theme }) => theme.color_textKey};
     }
   }
 `;

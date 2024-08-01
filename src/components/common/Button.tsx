@@ -28,15 +28,18 @@ const ButtonStyle = styled.button<{
   font-size: ${({ theme, $size }) =>
     $size === 'small' ? theme.fontSize_xs : theme.fontSize_sm};
   padding: 10px;
-  width: ${({ $size }) => ($size === 'small' ? '80px ' : '200px')};
+  width: ${({ $size }) => ($size === 'small' ? '80px ' : '160px')};
   display: flex;
   align-items: center;
   justify-content: center;
 
   color: ${({ theme }) => theme.color_textWhite};
   background-color: #feac3e;
-  border-radius: 15px;
+  border-radius: 12px;
   font-weight: ${({ $size }) => ($size === 'small' ? '300' : '700')};
-  box-shadow: ${({ $size }) =>
-    $size === 'medium' ? '0px 3px 0px 0px #3333' : 'none'};
+
+  &:hover {
+    box-shadow: ${({ $size }) =>
+      $size === 'medium' ? '0px 4px 4px 0px rgba(0, 0, 0, 0.25);' : 'none'};
+  }
 `;

@@ -165,14 +165,13 @@ export const JoinStyle = styled.div`
     flex-direction: column;
     align-items: center;
     width: 550px;
-    height: 535px;
     box-sizing: border-box;
-    padding: 28px;
+    padding: 48px;
 
     h1 {
       font-weight: bold;
       color: ${({ theme }) => theme.color_textKey};
-      font-size: ${({ theme }) => theme.fontSize_lg};
+      font-size: ${({ theme }) => theme.fontSize_md};
       padding: 10px;
       margin-bottom: 15px;
     }
@@ -187,7 +186,7 @@ export const JoinStyle = styled.div`
       .error-text {
         color: ${({ theme }) => theme.color_textRed};
         font-size: ${({ theme }) => theme.fontSize_xxs};
-        margin-top: 2px;
+        margin-top: 10px;
       }
     }
 
@@ -195,11 +194,11 @@ export const JoinStyle = styled.div`
       width: 400px;
       display: flex;
       flex-direction: column;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
 
       label {
         margin-bottom: 10px;
-        color: ${({ theme }) => theme.color_textBlack};
+        color: ${({ theme }) => theme.color_textKey};
         font-size: ${({ theme }) => theme.fontSize_sm};
       }
 
@@ -208,6 +207,7 @@ export const JoinStyle = styled.div`
         padding: 10px;
         border: 1px solid #ddd;
         border-radius: 8px;
+        outline: none;
       }
 
       .email-form {
