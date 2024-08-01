@@ -33,10 +33,10 @@ function Login() {
   return (
     <AuthBackground>
       <LoginStyle>
-        <div className='lettudy'>
+        <Link to='/' className='lettudy'>
           <img src={logo} alt='lettudy' />
           <span className='title'>Lettudy!</span>
-        </div>
+        </Link>
         <div className='container'>
           <h1>로그인</h1>
           <form onSubmit={handleSubmit(onSubmit)}>

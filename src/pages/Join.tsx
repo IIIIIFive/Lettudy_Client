@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../public/logo.png';
 import styled from 'styled-components';
 import Button from '@/components/common/Button';
@@ -37,10 +37,11 @@ function Join() {
   return (
     <AuthBackground>
       <JoinStyle>
-        <div className='lettudy'>
+        <Link to='/' className='lettudy'>
           <img src={logo} alt='lettudy' />
           <span className='title'>Lettudy!</span>
-        </div>
+        </Link>
+
         <div className='container'>
           <h1>회원가입</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -141,8 +142,9 @@ export const JoinStyle = styled.div`
   .lettudy {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 20px;
+    text-decoration: none;
 
     .title {
       overflow-wrap: break-word;
@@ -154,6 +156,7 @@ export const JoinStyle = styled.div`
 
     img {
       width: 35px;
+      margin-bottom: 6px;
     }
   }
 
