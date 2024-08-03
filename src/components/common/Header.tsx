@@ -1,8 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 function Header() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const isRoomPage = location.pathname.startsWith('/room');
 
   return (
     <HeaderStyle>
@@ -13,6 +18,12 @@ function Header() {
         onClick={() => navigate('/')}
       />
       <div className='icons'>
+        {isLoggedIn && isRoomPage && (
+          <div className='icon'>
+            <img src='/assets/images/chat.png' alt='chat' width={45} />
+            <span>채팅</span>
+          </div>
+        )}
         <div className='icon'>
           <img
             src='/assets/images/mypage-face.png'
