@@ -34,9 +34,9 @@ const ButtonStyle = styled.button<{
   justify-content: center;
 
   color: ${({ theme }) => theme.color_textWhite};
-  background-color: #feac3e;
+  background-color: ${({ theme }) => theme.color_key};
   border-radius: 12px;
-  font-weight: ${({ $size }) => ($size === 'small' ? '300' : '700')};
+  font-weight: ${({ $size }) => ($size === 'small' ? '500' : '700')};
   transition: box-shadow 0.3s ease-in-out;
 
   &:hover {

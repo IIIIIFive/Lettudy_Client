@@ -32,9 +32,9 @@ function Login() {
   return (
     <AuthBackground>
       <LoginStyle>
-        <img src='/assets/images/logo-withLettudy.png' alt='logo' height={60} />
+        <img src='/assets/images/logo-withLettudy.png' alt='logo' height={55} />
         <div className='container'>
-          <h1>로그인</h1>
+          <h2>로그인</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset>
               <div className='form-group'>
@@ -90,8 +90,7 @@ export default Login;
 
 export const LoginStyle = styled(JoinStyle)`
   .container {
-    margin-top: 30px;
-    padding: 50px;
+    margin-top: 50px;
 
     .error-container {
       min-height: 20px;
@@ -107,9 +106,9 @@ export const LoginStyle = styled(JoinStyle)`
     }
 
     .join-link {
-      margin-top: 22px;
-      color: ${({ theme }) => theme.color_textKey};
-      font-weight: 600;
+      margin-top: 30px;
+      color: ${({ theme }) => theme.color_textBlack};
+      font-size: ${({ theme }) => theme.fontSize_xs};
     }
 
     .join-link a,
