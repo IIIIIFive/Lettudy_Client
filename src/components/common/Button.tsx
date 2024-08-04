@@ -34,12 +34,13 @@ const ButtonStyle = styled.button<{
   justify-content: center;
 
   color: ${({ theme }) => theme.color_textWhite};
-  background-color: #feac3e;
+  background-color: ${({ theme }) => theme.color_key};
   border-radius: 12px;
-  font-weight: ${({ $size }) => ($size === 'small' ? '300' : '700')};
+  font-weight: ${({ $size }) => ($size === 'small' ? '500' : '700')};
+  transition: box-shadow 0.3s ease-in-out;
 
   &:hover {
     box-shadow: ${({ $size }) =>
-      $size === 'medium' ? '0px 4px 4px 0px rgba(0, 0, 0, 0.25);' : 'none'};
+      $size === 'medium' ? '0px 4px 12px rgba(0, 0, 0, 0.2);' : 'none'};
   }
 `;

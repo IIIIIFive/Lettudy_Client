@@ -37,13 +37,10 @@ function Join() {
   return (
     <AuthBackground>
       <JoinStyle>
-        <Link to='/' className='lettudy'>
-          <img src={logo} alt='lettudy' />
-          <span className='title'>Lettudy!</span>
-        </Link>
+        <img src='/assets/images/logo-withLettudy.png' alt='logo' height={55} />
 
         <div className='container'>
-          <h1>회원가입</h1>
+          <h2>회원가입</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset>
               <div className='form-group'>
@@ -73,7 +70,7 @@ function Join() {
                     })}
                   />
                   <Button size='small' onClick={() => alert('중복확인')}>
-                    중복 확인
+                    중복확인
                   </Button>
                 </div>
                 {errors.email && (
@@ -170,14 +167,7 @@ export const JoinStyle = styled.div`
     width: 550px;
     box-sizing: border-box;
     padding: 50px;
-
-    h1 {
-      font-weight: bold;
-      color: ${({ theme }) => theme.color_textKey};
-      font-size: ${({ theme }) => theme.fontSize_md};
-      padding: 10px;
-      margin-bottom: 28px;
-    }
+    margin-top: 30px;
 
     fieldset {
       border: none;
@@ -185,11 +175,12 @@ export const JoinStyle = styled.div`
       flex-direction: column;
       align-items: center;
       width: 100%;
+      margin-top: 40px;
 
       .error-text {
         color: ${({ theme }) => theme.color_textRed};
         font-size: ${({ theme }) => theme.fontSize_xxs};
-        margin-top: 10px;
+        margin-top: 5px;
       }
     }
 
@@ -230,7 +221,7 @@ export const JoinStyle = styled.div`
     }
 
     .join-button {
-      margin-top: 16px;
+      margin-top: 15px;
     }
   }
 `;

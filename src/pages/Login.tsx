@@ -1,7 +1,6 @@
 import React from 'react';
 import { JoinStyle } from './Join';
 import AuthBackground from '@/components/AuthBackground';
-import logo from '../../public/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
@@ -33,12 +32,9 @@ function Login() {
   return (
     <AuthBackground>
       <LoginStyle>
-        <Link to='/' className='lettudy'>
-          <img src={logo} alt='lettudy' />
-          <span className='title'>Lettudy!</span>
-        </Link>
+        <img src='/assets/images/logo-withLettudy.png' alt='logo' height={55} />
         <div className='container'>
-          <h1>로그인</h1>
+          <h2>로그인</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset>
               <div className='form-group'>
@@ -94,7 +90,7 @@ export default Login;
 
 export const LoginStyle = styled(JoinStyle)`
   .container {
-    padding: 50px;
+    margin-top: 50px;
 
     .error-container {
       min-height: 20px;
@@ -110,9 +106,9 @@ export const LoginStyle = styled(JoinStyle)`
     }
 
     .join-link {
-      margin-top: 22px;
-      color: ${({ theme }) => theme.color_textKey};
-      font-weight: 600;
+      margin-top: 30px;
+      color: ${({ theme }) => theme.color_textBlack};
+      font-size: ${({ theme }) => theme.fontSize_xs};
     }
 
     .join-link a,
