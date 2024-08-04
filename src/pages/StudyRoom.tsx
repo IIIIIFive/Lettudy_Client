@@ -1,5 +1,6 @@
 import AttendanceList from '@/components/room/AttendanceList';
-import Notice from '@/components/room/Notice';
+import TopSection from '@/components/room/TopSection';
+
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -7,7 +8,7 @@ function StudyRoom() {
   return (
     <StudyRoomStyle>
       <div className='content'>
-        <Notice />
+        <TopSection />
       </div>
       <AttendanceList />
     </StudyRoomStyle>
@@ -19,7 +20,7 @@ export default StudyRoom;
 const StudyRoomStyle = styled.div`
   width: 100%;
   display: flex;
-  gap: 30px;
+  gap: 75px;
   padding: 40px 0 100px;
 
   .content {
