@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 interface ChatHeaderProps {
@@ -39,5 +38,6 @@ const ChatHeaderStyle = styled.div`
 
   img {
     margin-left: auto;
+    cursor: pointer;
   }
 `;

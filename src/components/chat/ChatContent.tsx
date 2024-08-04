@@ -1,18 +1,28 @@
-import React from 'react';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Chat } from '../../types/chat';
 import ChatItem from './ChatItem';
 
 interface ChatContentProps {
   messages: Chat[];
+  isMessageSent: boolean;
 }
 
-function ChatContent({ messages }: ChatContentProps) {
+function ChatContent({ messages, isMessageSent }: ChatContentProps) {
+  const messageEndRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (isMessageSent) {
+      messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isMessageSent]);
+
   return (
     <ChatContentStyle>
       {messages.map((msg, index) => (
         <ChatItem key={index} message={msg} />
       ))}
+      <div ref={messageEndRef} />
     </ChatContentStyle>
   );
 }
@@ -25,5 +35,8 @@ const ChatContentStyle = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
 `;

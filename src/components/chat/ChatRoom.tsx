@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Chat } from '../../types/chat';
 import ChatHeader from './ChatHeader';
@@ -9,6 +9,7 @@ interface ChatRoomProps {
   visible: boolean;
   onClose: () => void;
 }
+
 function ChatRoom({ visible, onClose }: ChatRoomProps) {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Chat[]>([
@@ -16,17 +17,18 @@ function ChatRoom({ visible, onClose }: ChatRoomProps) {
       userName: '김이름',
       avatar: '/assets/images/fox.png',
       content: '팀원 대화 입니다.',
-      date: '오후 02:10',
+      date: '오후 12:10',
       roomId: '1',
     },
     {
       userName: '박이름',
       avatar: '/assets/images/panda.png',
       content: '팀원 대화~~~~',
-      date: '오후 02:11',
+      date: '오후 12:11',
       roomId: '1',
     },
   ]);
+  const [isMessageSent, setIsMessageSent] = useState(false);
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -36,11 +38,12 @@ function ChatRoom({ visible, onClose }: ChatRoomProps) {
         minute: '2-digit',
       });
 
-      setMessages([
-        ...messages,
+      setMessages((prevMessages) => [
+        ...prevMessages,
         { content: message, userName: 'me', date, roomId: '1' },
       ]);
       setMessage('');
+      setIsMessageSent(true);
     }
   };
 
@@ -54,13 +57,22 @@ function ChatRoom({ visible, onClose }: ChatRoomProps) {
     }
   };
 
+  useEffect(() => {
+    if (isMessageSent) {
+      setIsMessageSent(false);
+    }
+  }, [messages]);
+
   const filteredMessages = messages.filter((msg) => msg.roomId === '1');
 
   return (
     <ChatRoomStyle>
       <div className={`chat-room ${visible ? 'visible' : ''}`}>
         <ChatHeader onClose={onClose} />
-        <ChatContent messages={filteredMessages} />
+        <ChatContent
+          messages={filteredMessages}
+          isMessageSent={isMessageSent}
+        />
         <ChatInput
           message={message}
           handleInputChange={handleInputChange}
