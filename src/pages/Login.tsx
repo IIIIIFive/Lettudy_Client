@@ -1,7 +1,6 @@
 import React from 'react';
 import { JoinStyle } from './Join';
 import AuthBackground from '@/components/AuthBackground';
-import logo from '../../public/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
@@ -33,10 +32,7 @@ function Login() {
   return (
     <AuthBackground>
       <LoginStyle>
-        <Link to='/' className='lettudy'>
-          <img src={logo} alt='lettudy' />
-          <span className='title'>Lettudy!</span>
-        </Link>
+        <img src='/assets/images/logo-withLettudy.png' alt='logo' height={60} />
         <div className='container'>
           <h1>로그인</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -94,6 +90,7 @@ export default Login;
 
 export const LoginStyle = styled(JoinStyle)`
   .container {
+    margin-top: 30px;
     padding: 50px;
 
     .error-container {

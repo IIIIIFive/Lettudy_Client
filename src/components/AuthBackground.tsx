@@ -10,6 +10,7 @@ export default AuthBackground;
 const AuthBackgroundStyle = styled.div`
   background-image: url('/assets/images/auth-background.png');
   background-size: cover;
+  background-repeat: no-repeat;
   background-color: #f5f5f5;
   background-position: center;
   height: 100vh;

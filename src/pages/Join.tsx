@@ -37,10 +37,7 @@ function Join() {
   return (
     <AuthBackground>
       <JoinStyle>
-        <Link to='/' className='lettudy'>
-          <img src={logo} alt='lettudy' />
-          <span className='title'>Lettudy!</span>
-        </Link>
+        <img src='/assets/images/logo-withLettudy.png' alt='logo' height={60} />
 
         <div className='container'>
           <h1>회원가입</h1>
@@ -170,6 +167,7 @@ export const JoinStyle = styled.div`
     width: 550px;
     box-sizing: border-box;
     padding: 50px;
+    margin-top: 30px;
 
     h1 {
       font-weight: bold;
