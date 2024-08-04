@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Header from './components/common/Header';
 import MainLayout from './components/layout/MainLayout';
 import StudyRoom from './pages/StudyRoom';
+import HomepageLayout from './components/layout/HomepageLayout';
 
 const router = createBrowserRouter([
   {
@@ -25,19 +26,25 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <MainLayout>
-          <Outlet />
-        </MainLayout>
+        <Outlet />
       </>
     ),
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: (
+          <HomepageLayout>
+            <HomePage />
+          </HomepageLayout>
+        ),
       },
       {
         path: 'room',
-        element: <StudyRoom />,
+        element: (
+          <MainLayout>
+            <StudyRoom />
+          </MainLayout>
+        ),
       },
     ],
   },

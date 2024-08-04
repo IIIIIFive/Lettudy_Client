@@ -63,14 +63,13 @@ const HomePageStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 20px;
 
   .buttons {
     align-self: flex-end;
     display: flex;
     padding: 35px 60px;
     margin-right: 50px;
-    margin-top: 15px;
+    margin-top: 30px;
     border-radius: 15px;
     background-color: ${({ theme }) => theme.color_bgWhite};
     border: 2px dashed ${({ theme }) => theme.color_borderGray};

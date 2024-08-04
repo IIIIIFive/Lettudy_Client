@@ -64,7 +64,7 @@ const HeaderStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px;
+  padding: 0 100px;
 
   .icons {
     display: flex;

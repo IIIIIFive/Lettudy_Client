@@ -19,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
   ol, ul {
     list-style: none;
   }
-
+     
   button {
     border: none;
     cursor: pointer;
