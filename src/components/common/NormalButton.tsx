@@ -4,11 +4,21 @@ interface NormalButtonProps {
   text: string;
   onClick: () => void;
   disabled?: boolean;
+  size?: 'small' | 'medium';
 }
 
-function NormalButton({ text, onClick, disabled = false }: NormalButtonProps) {
+function NormalButton({
+  text,
+  onClick,
+  disabled = false,
+  size = 'medium',
+}: NormalButtonProps) {
   return (
-    <NormalButtonStyle type='button' onClick={onClick} disabled={disabled}>
+    <NormalButtonStyle
+      type='button'
+      onClick={onClick}
+      disabled={disabled}
+      size={size}>
       {text}
     </NormalButtonStyle>
   );
@@ -16,16 +26,17 @@ function NormalButton({ text, onClick, disabled = false }: NormalButtonProps) {
 
 export default NormalButton;
 
-const NormalButtonStyle = styled.button`
+const NormalButtonStyle = styled.button<{ size: 'small' | 'medium' }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  padding: ${({ size }) => (size === 'small' ? '8px 12px' : '10px 20px')};
   border: none;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.color_key};
   color: ${({ theme }) => theme.color_textWhite};
-  font-size: ${({ theme }) => theme.fontSize_xs};
+  font-size: ${({ theme, size }) =>
+    size === 'small' ? theme.fontSize_xxs : theme.fontSize_xs};
   font-weight: 700;
   cursor: pointer;
   transition: opacity 0.3s;

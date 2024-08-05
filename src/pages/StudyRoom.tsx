@@ -1,7 +1,6 @@
 import AttendanceList from '@/components/room/AttendanceList';
+import StudyCalendar from '@/components/room/StudyCalendar';
 import TopSection from '@/components/room/TopSection';
-
-import React, { useState } from 'react';
 import styled from 'styled-components';
 
 function StudyRoom() {
@@ -9,6 +8,7 @@ function StudyRoom() {
     <StudyRoomStyle>
       <div className='content'>
         <TopSection />
+        <StudyCalendar />
       </div>
       <AttendanceList />
     </StudyRoomStyle>
