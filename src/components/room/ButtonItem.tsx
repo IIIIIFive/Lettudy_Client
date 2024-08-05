@@ -28,12 +28,12 @@ const ButtonItemStyle = styled.div<{ iconBgColor: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 15px;
   gap: 20px;
   background-color: ${({ theme }) => theme.color_bgWhite};
-
-  border-radius: 3px;
+  border-radius: 5px;
   cursor: pointer;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
 
   .icon {
     padding: 12px;

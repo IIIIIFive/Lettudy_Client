@@ -51,7 +51,6 @@ function StudyCalendar() {
       <Calendar
         onChange={onChangeCalendar}
         value={calendarValue}
-        showNeighboringMonth={false}
         next2Label={null}
         prev2Label={null}
         formatDay={(locale, date) =>
@@ -73,18 +72,20 @@ function StudyCalendar() {
 const StudyCalendarStyle = styled.div`
   .react-calendar {
     width: 100%;
+    max-height: 540px;
     background: ${({ theme }) => theme.color_bgWhite};
     border: 0.5px solid ${({ theme }) => theme.color_borderGray};
-    border-radius: 12px;
+    border-radius: 5px;
     font-size: ${({ theme }) => theme.fontSize_reg};
   }
 
   // 상단 내비게이션(년, 월)
   .react-calendar__navigation {
-    background: #ffeed2;
-    height: 60px;
-    border-radius: 12px 12px 0 0;
-    padding: 0 10px;
+    height: 70px;
+    border-radius: 5px 5px 0 0;
+    padding: 0 50px;
+    margin: 0 20px;
+    border-bottom: 1px solid ${({ theme }) => theme.color_borderGray};
 
     span {
       font-size: ${({ theme }) => theme.fontSize_sm};
@@ -106,7 +107,7 @@ const StudyCalendarStyle = styled.div`
 
   // 월 달력 (내비게이션 제외)
   .react-calendar__month-view {
-    padding: 0 30px 10px 30px;
+    padding: 55px 30px;
     abbr {
       // 텍스트
       color: ${({ theme }) => theme.color_textBlack};
@@ -126,6 +127,16 @@ const StudyCalendarStyle = styled.div`
     }
   }
 
+  // 주말
+  .react-calendar__month-view__days__day--weekend abbr {
+    color: ${({ theme }) => theme.color_textRed};
+  }
+
+  // 해당 월이 아닌 날짜
+  .react-calendar__month-view__days__day--neighboringMonth abbr {
+    color: #cccccc;
+  }
+
   // 일
   .react-calendar__tile {
     text-align: center;
@@ -138,7 +149,7 @@ const StudyCalendarStyle = styled.div`
     .event {
       background-color: #d3e5ef;
       color: ${({ theme }) => theme.color_textBlack};
-      padding: 0 6px;
+      padding: 1px 6px;
       border-radius: 4px;
       margin-top: 4px;
       font-size: 10px;

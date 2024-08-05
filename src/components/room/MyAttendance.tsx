@@ -60,7 +60,7 @@ const MyAttendanceStyle = styled.div`
 
   .table-box {
     width: 280px;
-    max-height: 275px;
+    max-height: 350px;
     background-color: ${({ theme }) => theme.color_bgWhite};
     border: 0.3px solid ${({ theme }) => theme.color_borderGray};
     border-radius: 12px;
@@ -104,7 +104,7 @@ const MyAttendanceStyle = styled.div`
     }
 
     .table-body-container {
-      max-height: 220px;
+      max-height: 250px;
       overflow-y: auto;
 
       &::-webkit-scrollbar {

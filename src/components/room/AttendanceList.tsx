@@ -42,8 +42,8 @@ const AttendanceListStyle = styled.div`
   gap: 25px;
   padding: 30px 0;
 
-  position: sticky;
-  position: -webkit-sticky;
+  /* position: sticky;
+  position: -webkit-sticky; */
   top: 0;
   left: 0;
 `;

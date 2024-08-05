@@ -45,7 +45,7 @@ function ButtonList() {
 
 const ButtonListStyle = styled.div`
   display: flex;
-  gap: 25px;
+  gap: 30px;
 `;
 
 export default ButtonList;
