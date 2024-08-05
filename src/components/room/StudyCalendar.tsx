@@ -72,7 +72,7 @@ function StudyCalendar() {
 
 const StudyCalendarStyle = styled.div`
   .react-calendar {
-    width: 60%;
+    width: 100%;
     background: ${({ theme }) => theme.color_bgWhite};
     border: 0.5px solid ${({ theme }) => theme.color_borderGray};
     border-radius: 12px;

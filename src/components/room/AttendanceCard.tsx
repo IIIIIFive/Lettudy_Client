@@ -35,17 +35,18 @@ const AttendanceCardStyle = styled.div`
   .info {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 
     h4 {
       color: ${({ theme }) => theme.color_textBlack};
     }
 
     .attendance {
-      font-size: ${({ theme }) => theme.fontSize_sm};
+      font-size: ${({ theme }) => theme.fontSize_xs};
 
       span {
         font-weight: 700;
+        padding-left: 3px;
       }
     }
   }
