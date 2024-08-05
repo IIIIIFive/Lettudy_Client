@@ -5,8 +5,12 @@ export const theme = {
   color_textWhite: '#FFFFFF',
   color_textRed: '#D80000',
   color_textGray: '#909090',
+  color_textPink: '#FF6161',
+  color_textLightOrange: '#FBE2BF',
   color_bgWhite: '#FFFFFF',
   color_bgLightGray: '#F5F5F5',
+  color_bgLightPink: '#FEDADA',
+  color_bgLightOrange: '#FBE2BF',
   color_borderGray: '#B4B4B4',
 
   fontSize_xxs: '12px',
