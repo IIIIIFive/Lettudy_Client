@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ButtonList from './ButtonList';
 
 function TopSection() {
   return (
@@ -30,6 +31,7 @@ function TopSection() {
           width={30}
         />
       </div>
+      <ButtonList />
     </TopSectionStyle>
   );
 }
@@ -62,6 +64,7 @@ const TopSectionStyle = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
+    margin-bottom: 15px;
     padding: 22px 40px;
     background-color: ${({ theme }) => theme.color_bgWhite};
     border: 0.3px solid ${({ theme }) => theme.color_borderGray};
@@ -80,8 +83,8 @@ const TopSectionStyle = styled.div`
     .edit-icon {
       position: absolute;
       cursor: pointer;
-      right: 25px;
-      top: 25px;
+      right: 20px;
+      top: 20px;
     }
   }
 `;
