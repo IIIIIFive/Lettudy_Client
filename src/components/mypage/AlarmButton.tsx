@@ -23,7 +23,7 @@ const AlarmButtonStyle = styled.button<{ $alarm: boolean }>`
   background-color: ${({ theme, $alarm }) =>
     $alarm ? theme.color_key : theme.color_bgLightOrange};
   color: ${({ theme, $alarm }) =>
-    $alarm ? theme.color_textLightOrange : theme.color_key};
+    $alarm ? theme.color_textLightOrange : theme.color_textOrange};
   font-size: ${({ theme }) => theme.fontSize_xs};
   border: none;
   border-radius: 5px;

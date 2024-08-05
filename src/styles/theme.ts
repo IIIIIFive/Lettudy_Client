@@ -7,6 +7,7 @@ export const theme = {
   color_textGray: '#909090',
   color_textPink: '#FF6161',
   color_textLightOrange: '#FBE2BF',
+  color_textOrange: '#FF9B14',
   color_bgWhite: '#FFFFFF',
   color_bgLightGray: '#F5F5F5',
   color_bgLightPink: '#FEDADA',
