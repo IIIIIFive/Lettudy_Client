@@ -79,6 +79,7 @@ export default StudyRoomList;
 const StyledStudyRoomList = styled.div`
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
 
   .title {
     display: flex;
