@@ -34,6 +34,9 @@ const ButtonItemStyle = styled.div<{ iconBgColor: string }>`
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+  &:hover {
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
+  }
 
   .icon {
     padding: 12px;
