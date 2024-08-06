@@ -12,7 +12,8 @@ export const theme = {
   color_bgLightGray: '#F5F5F5',
   color_bgLightPink: '#FEDADA',
   color_bgLightOrange: '#FBE2BF',
-  color_borderGray: '#B4B4B4',
+  color_bgCalday: '#E8E8E8',
+  color_borderGray: '#DADADA',
 
   fontSize_xxs: '12px',
   fontSize_xs: '14px',

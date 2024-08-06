@@ -25,8 +25,8 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <>
-        <Header />
         <MainLayout>
+          <Header />
           <Outlet />
         </MainLayout>
       </>
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: '/room',
+        path: 'room',
         element: <StudyRoom />,
       },
       {

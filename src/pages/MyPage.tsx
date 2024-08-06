@@ -80,18 +80,18 @@ function MyPage() {
 }
 
 const MyPageStyle = styled.div`
-  padding: 32px;
+  padding-top: 30px;
   .container {
     gap: 40px;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    padding: 30px 48px;
+    padding: 40px 0;
     position: relative;
   }
   .back-icon {
     cursor: pointer;
     position: absolute;
-    left: 50px;
+    left: 20px;
     top: -24px;
   }
 

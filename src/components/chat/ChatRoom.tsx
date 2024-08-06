@@ -15,14 +15,14 @@ function ChatRoom({ visible, onClose }: ChatRoomProps) {
   const [messages, setMessages] = useState<Chat[]>([
     {
       userName: '김이름',
-      avatar: '/assets/images/fox.png',
+      avatar: '/assets/animal/fox.png',
       content: '팀원 대화 입니다.',
       date: '오후 12:10',
       roomId: '1',
     },
     {
       userName: '박이름',
-      avatar: '/assets/images/panda.png',
+      avatar: '/assets/animal/panda.png',
       content: '팀원 대화~~~~',
       date: '오후 12:11',
       roomId: '1',

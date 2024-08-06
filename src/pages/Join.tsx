@@ -1,10 +1,9 @@
 import { useRef } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../public/logo.png';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '@/components/common/Button';
-import AuthBackground from '@/components/AuthBackground';
+import AuthBackground from '@/components/auth/AuthBackground';
 
 export interface JoinProps {
   name: string;

@@ -115,6 +115,7 @@ const StyledStudyRoomList = styled.div`
 
   .study-table {
     width: 100%;
+
     text-align: center;
     border-collapse: collapse;
     table-layout: fixed;
@@ -127,13 +128,13 @@ const StyledStudyRoomList = styled.div`
     }
 
     th {
-      padding: 36px 0;
+      padding: 36px 30px 36px 0;
       font-weight: bold;
       color: ${({ theme }) => theme.color_textKey};
     }
 
     td {
-      padding: 16px 0;
+      padding: 16px 30px 16px 0;
       color: ${({ theme }) => theme.color_textKey};
       font-size: ${({ theme }) => theme.fontSize_sm};
     }

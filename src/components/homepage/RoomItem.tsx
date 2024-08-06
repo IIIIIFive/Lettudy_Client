@@ -1,18 +1,20 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface RoomItemProps {
   roomName: string;
 }
 function RoomItem({ roomName }: RoomItemProps) {
+  const navigate = useNavigate();
   return (
     <RoomItemStyle>
       <div className='room'>
-        <div className='folder'>
+        <div className='folder' onClick={() => navigate('/room')}>
           <img
             className='image'
             src='/assets/images/folder.png'
             alt='folder'
-            width={250}
+            width={180}
           />
         </div>
 

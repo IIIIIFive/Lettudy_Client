@@ -4,11 +4,21 @@ interface NormalButtonProps {
   text: string;
   onClick: () => void;
   disabled?: boolean;
+  size?: 'small' | 'medium' | 'large';
 }
 
-function NormalButton({ text, onClick, disabled = false }: NormalButtonProps) {
+function NormalButton({
+  text,
+  onClick,
+  disabled = false,
+  size = 'medium',
+}: NormalButtonProps) {
   return (
-    <NormalButtonStyle type='button' onClick={onClick} disabled={disabled}>
+    <NormalButtonStyle
+      type='button'
+      onClick={onClick}
+      disabled={disabled}
+      size={size}>
       {text}
     </NormalButtonStyle>
   );
@@ -16,26 +26,46 @@ function NormalButton({ text, onClick, disabled = false }: NormalButtonProps) {
 
 export default NormalButton;
 
-const NormalButtonStyle = styled.button`
+const NormalButtonStyle = styled.button<{ size: 'small' | 'medium' | 'large' }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  padding: ${({ size }) =>
+    size === 'small'
+      ? '8px 12px'
+      : size === 'medium'
+        ? '10px 20px'
+        : '10px 24px'};
   border: none;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.color_key};
   color: ${({ theme }) => theme.color_textWhite};
-  font-size: ${({ theme }) => theme.fontSize_xs};
+  font-size: ${({ theme, size }) =>
+    size === 'small'
+      ? theme.fontSize_xxs
+      : size === 'medium'
+        ? theme.fontSize_xs
+        : theme.fontSize_sm};
   font-weight: 700;
   cursor: pointer;
-  transition: opacity 0.3s;
-
-  &:hover:not(:disabled) {
-    opacity: 0.95;
-  }
+  transition:
+    opacity 0.3s,
+    box-shadow 0.3s;
+  white-space: nowrap;
 
   &:disabled {
-    background-color: #cfd3d8;
+    background-color: ${({ theme }) => theme.color_key}80; // 투명도 80%
     cursor: not-allowed;
+    box-shadow: none;
   }
+
+  ${({ size }) =>
+    size === 'large' &&
+    `
+      box-shadow: none;
+
+      &:hover {
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+      }
+    `}
 `;
