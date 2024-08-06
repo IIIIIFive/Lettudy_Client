@@ -9,6 +9,7 @@ import Header from './components/common/Header';
 import MainLayout from './components/layout/MainLayout';
 import StudyRoom from './pages/StudyRoom';
 import HomepageLayout from './components/layout/HomepageLayout';
+import MyPage from './pages/MyPage';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
             <StudyRoom />
           </MainLayout>
         ),
+      },
+      {
+        path: '/mypage',
+        element: <MyPage />,
       },
     ],
   },
