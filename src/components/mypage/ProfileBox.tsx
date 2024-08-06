@@ -40,6 +40,7 @@ const StyledProfileBox = styled.div`
     border-radius: 50%;
     background: ${({ theme }) => theme.color_bgLightGray};
     margin: 0 auto;
+    padding-bottom: 12px;
     position: relative;
     display: flex;
     justify-content: center;

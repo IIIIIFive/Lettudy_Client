@@ -14,7 +14,7 @@ function RoomItem({ roomName }: RoomItemProps) {
             className='image'
             src='/assets/images/folder.png'
             alt='folder'
-            width={250}
+            width={180}
           />
         </div>
 

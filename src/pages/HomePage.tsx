@@ -67,8 +67,7 @@ const HomePageStyle = styled.div`
   .buttons {
     align-self: flex-end;
     display: flex;
-    padding: 35px 60px;
-    margin-right: 50px;
+    padding: 35px 40px;
     margin-top: 30px;
     border-radius: 15px;
     background-color: ${({ theme }) => theme.color_bgWhite};
@@ -84,7 +83,7 @@ const HomePageStyle = styled.div`
 
       span {
         color: ${({ theme }) => theme.color_textGray};
-        font-size: ${({ theme }) => theme.fontSize_md};
+        font-size: ${({ theme }) => theme.fontSize_reg};
       }
 
       .plus {
@@ -98,7 +97,7 @@ const HomePageStyle = styled.div`
     width: 100%;
 
     .arrow {
-      margin-left: 120px;
+      margin-left: 20px;
     }
   }
 `;

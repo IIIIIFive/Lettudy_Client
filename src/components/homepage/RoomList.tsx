@@ -33,7 +33,7 @@ const RoomListStyle = styled.div`
   gap: 100px;
   overflow-x: auto;
   white-space: nowrap;
-  padding: 50px 100px;
+  padding: 50px 0;
   overflow-x: hidden;
 
   scrollbar-width: none;
