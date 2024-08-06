@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Header from './components/common/Header';
 import MainLayout from './components/layout/MainLayout';
 import StudyRoom from './pages/StudyRoom';
+import MyPage from './pages/MyPage';
 
 const router = createBrowserRouter([
   {
@@ -36,8 +37,12 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: 'room',
+        path: '/room',
         element: <StudyRoom />,
+      },
+      {
+        path: '/mypage',
+        element: <MyPage />,
       },
     ],
   },
