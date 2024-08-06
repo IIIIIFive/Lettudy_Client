@@ -43,7 +43,7 @@ const ButtonItemStyle = styled.div<{ iconBgColor: string }>`
 
   .name {
     color: ${({ theme }) => theme.color_textBlack};
-    font-size: ${({ theme }) => theme.fontSize_sm};
+    font-size: ${({ theme }) => theme.fontSize_reg};
   }
 `;
 

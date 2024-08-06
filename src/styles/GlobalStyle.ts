@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 100vh;
     font-family: 'Noto Sans KR';
     background-color: #F5F5F5;
+    overflow-x: hidden;
   }
 
   * {
