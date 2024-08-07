@@ -99,6 +99,7 @@ const ChatRoomStyle = styled.div`
     display: flex;
     flex-direction: column;
     cursor: default;
+    z-index: 1;
   }
 
   .chat-room.visible {

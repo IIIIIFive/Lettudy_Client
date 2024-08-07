@@ -58,7 +58,7 @@ const ChatItemStyle = styled.div<{ $user: string }>`
   .chat-text {
     background-color: ${({ $user, theme }) =>
       $user === 'me' ? '#efefef' : theme.color_key};
-    padding: 12px;
+    padding: 12px 16px;
     border-radius: 15px;
     word-wrap: break-word;
     word-break: break-word;
