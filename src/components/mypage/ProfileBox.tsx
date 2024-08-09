@@ -30,9 +30,8 @@ const ProfileBoxStyle = styled.div`
   background: ${({ theme }) => theme.color_bgWhite};
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-  padding: 40px 20px; 
+  padding: 32px; 
   height: 100%;
-  min-height: 450px;
 
   .avatar {
     width: 250px;
@@ -46,21 +45,23 @@ const ProfileBoxStyle = styled.div`
     align-items: center;
   }
 
-  .name {
+  .name,
+  .email,
+  .study-count {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 24px; 
+  }
+
+  .name {
+    margin-top: 36px; 
   }
 
   .email {
-    text-align: center;
-    margin-top: 24px;
     font-size: ${({ theme }) => theme.fontSize_lg};
     color: ${({ theme }) => theme.color_textKey};
   }
 
   .study-count {
-    text-align: center;
-    margin-top: 24px;
     font-size: ${({ theme }) => theme.fontSize_xs};
     color: ${({ theme }) => theme.color_textGray};
   }

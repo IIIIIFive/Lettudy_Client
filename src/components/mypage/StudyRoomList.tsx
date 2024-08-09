@@ -87,14 +87,14 @@ const StudyRoomListStyle = styled.div`
     color: ${({ theme }) => theme.color_textKey};
     font-size: ${({ theme }) => theme.fontSize_reg};
     font-weight: bold;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     img {
       margin: 0 10px;
     }
   }
 
   .study-box {
-    background: white;
+    background: ${({ theme }) => theme.color_bgWhite};
     padding: 0;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
@@ -113,25 +113,24 @@ const StudyRoomListStyle = styled.div`
 
   .study-table {
     width: 100%;
-
     text-align: center;
     border-collapse: collapse;
+
     th,
     td {
       border-bottom: 1px solid #e7e7e7;
       box-sizing: border-box;
-      font-size: ${({ theme }) => theme.fontSize_reg};
+      color: ${({ theme }) => theme.color_textKey};
     }
 
     th {
-      padding: 28px 30px 28px 0;
+      padding: 22px 30px 22px 0;
       font-weight: bold;
-      color: ${({ theme }) => theme.color_textKey};
+      font-size: ${({ theme }) => theme.fontSize_reg};
     }
 
     td {
-      padding: 16px 32px 16px 0;
-      color: ${({ theme }) => theme.color_textKey};
+      padding: 12px 30px 12px 0;
       font-size: ${({ theme }) => theme.fontSize_sm};
     }
 
