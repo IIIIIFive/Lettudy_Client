@@ -53,16 +53,17 @@ const ProfileBoxStyle = styled.div`
   }
 
   .name {
+    font-size: ${({ theme }) => theme.fontSize_lg};
     margin-top: 36px; 
   }
 
   .email {
-    font-size: ${({ theme }) => theme.fontSize_lg};
+    font-size: ${({ theme }) => theme.fontSize_md};
     color: ${({ theme }) => theme.color_textKey};
   }
 
   .study-count {
-    font-size: ${({ theme }) => theme.fontSize_xs};
+    font-size: ${({ theme }) => theme.fontSize_xxs};
     color: ${({ theme }) => theme.color_textGray};
   }
 
@@ -74,7 +75,7 @@ const ProfileBoxStyle = styled.div`
     padding: 10px;
     color: ${({ theme }) => theme.color_textKey};
     cursor: pointer;
-    font-size: ${({ theme }) => theme.fontSize_xs};
+    font-size: ${({ theme }) => theme.fontSize_xxs};
 
     img {
       margin: 3px 8px 0 0;
