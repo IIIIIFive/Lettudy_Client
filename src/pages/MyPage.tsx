@@ -80,7 +80,7 @@ function MyPage() {
 }
 
 const MyPageStyle = styled.div`
-  padding-top: 30px;
+  padding-top: 28px;
   .container {
     gap: 40px;
     display: grid;

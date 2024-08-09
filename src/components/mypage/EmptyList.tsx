@@ -35,8 +35,9 @@ const EmptyListStyle = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
   text-align: center;
+  height: 100%;
+  max-height: 463px;
 
   .no-study {
     display: flex;

@@ -25,7 +25,7 @@ function StudyRoomList({
   };
 
   return (
-    <StyledStudyRoomList>
+    <StudyRoomListStyle>
       <div className='title'>
         <img
           src='/assets/images/study-folder.png'
@@ -70,13 +70,13 @@ function StudyRoomList({
           )}
         </div>
       </div>
-    </StyledStudyRoomList>
+    </StudyRoomListStyle>
   );
 }
 
 export default StudyRoomList;
 
-const StyledStudyRoomList = styled.div`
+const StudyRoomListStyle = styled.div`
   display: flex;
   flex-direction: column;
   white-space: nowrap;
@@ -87,26 +87,24 @@ const StyledStudyRoomList = styled.div`
     color: ${({ theme }) => theme.color_textKey};
     font-size: ${({ theme }) => theme.fontSize_reg};
     font-weight: bold;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     img {
       margin: 0 10px;
     }
   }
 
   .study-box {
-    background: white;
+    background: ${({ theme }) => theme.color_bgWhite};
     padding: 0;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
     height: 100%;
-    min-height: 500px;
     flex: 1;
   }
 
   .study-list {
-    max-height: 470px;
+    max-height: 400px;
     overflow-y: auto;
-    -ms-overflow-style: none;
 
     &::-webkit-scrollbar {
       display: none;
@@ -115,27 +113,24 @@ const StyledStudyRoomList = styled.div`
 
   .study-table {
     width: 100%;
-
     text-align: center;
     border-collapse: collapse;
-    table-layout: fixed;
 
     th,
     td {
       border-bottom: 1px solid #e7e7e7;
       box-sizing: border-box;
-      font-size: ${({ theme }) => theme.fontSize_reg};
+      color: ${({ theme }) => theme.color_textKey};
     }
 
     th {
-      padding: 36px 30px 36px 0;
+      padding: 22px 30px 22px 0;
       font-weight: bold;
-      color: ${({ theme }) => theme.color_textKey};
+      font-size: ${({ theme }) => theme.fontSize_reg};
     }
 
     td {
-      padding: 16px 30px 16px 0;
-      color: ${({ theme }) => theme.color_textKey};
+      padding: 12px 30px 12px 0;
       font-size: ${({ theme }) => theme.fontSize_sm};
     }
 
