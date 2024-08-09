@@ -9,7 +9,7 @@ interface ProfileBoxProps {
 
 function ProfileBox({ name, email, studyCount, onClick }: ProfileBoxProps) {
   return (
-    <StyledProfileBox>
+    <ProfileBoxStyle>
       <div className='avatar'>
         <img src='/assets/images/smile-cat.png' alt='smile-cat' width={156} />
       </div>
@@ -20,19 +20,19 @@ function ProfileBox({ name, email, studyCount, onClick }: ProfileBoxProps) {
         <img src='/assets/icon/withdrawal.svg' alt='withdrawal' width={15} />
         <p>탈퇴하기</p>
       </div>
-    </StyledProfileBox>
+    </ProfileBoxStyle>
   );
 }
 
 export default ProfileBox;
 
-const StyledProfileBox = styled.div`
+const ProfileBoxStyle = styled.div`
   background: ${({ theme }) => theme.color_bgWhite};
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-  padding: 60px 20px;
+  padding: 40px 20px; 
   height: 100%;
-  min-height: 500px;
+  min-height: 450px;
 
   .avatar {
     width: 250px;
@@ -41,7 +41,6 @@ const StyledProfileBox = styled.div`
     background: ${({ theme }) => theme.color_bgLightGray};
     margin: 0 auto;
     padding-bottom: 12px;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,19 +48,19 @@ const StyledProfileBox = styled.div`
 
   .name {
     text-align: center;
-    margin-top: 56px;
+    margin-top: 40px;
   }
 
   .email {
     text-align: center;
-    margin-top: 36px;
+    margin-top: 24px;
     font-size: ${({ theme }) => theme.fontSize_lg};
     color: ${({ theme }) => theme.color_textKey};
   }
 
   .study-count {
     text-align: center;
-    margin-top: 36px;
+    margin-top: 24px;
     font-size: ${({ theme }) => theme.fontSize_xs};
     color: ${({ theme }) => theme.color_textGray};
   }
@@ -70,7 +69,7 @@ const StyledProfileBox = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 32px;
     padding: 10px;
     color: ${({ theme }) => theme.color_textKey};
     cursor: pointer;
@@ -79,5 +78,4 @@ const StyledProfileBox = styled.div`
     img {
       margin: 3px 8px 0 0;
     }
-  }
 `;

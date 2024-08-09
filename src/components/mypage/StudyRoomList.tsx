@@ -25,7 +25,7 @@ function StudyRoomList({
   };
 
   return (
-    <StyledStudyRoomList>
+    <StudyRoomListStyle>
       <div className='title'>
         <img
           src='/assets/images/study-folder.png'
@@ -70,13 +70,13 @@ function StudyRoomList({
           )}
         </div>
       </div>
-    </StyledStudyRoomList>
+    </StudyRoomListStyle>
   );
 }
 
 export default StudyRoomList;
 
-const StyledStudyRoomList = styled.div`
+const StudyRoomListStyle = styled.div`
   display: flex;
   flex-direction: column;
   white-space: nowrap;
@@ -99,14 +99,12 @@ const StyledStudyRoomList = styled.div`
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
     height: 100%;
-    min-height: 500px;
     flex: 1;
   }
 
   .study-list {
-    max-height: 470px;
+    max-height: 400px;
     overflow-y: auto;
-    -ms-overflow-style: none;
 
     &::-webkit-scrollbar {
       display: none;
@@ -118,8 +116,6 @@ const StyledStudyRoomList = styled.div`
 
     text-align: center;
     border-collapse: collapse;
-    table-layout: fixed;
-
     th,
     td {
       border-bottom: 1px solid #e7e7e7;
@@ -128,13 +124,13 @@ const StyledStudyRoomList = styled.div`
     }
 
     th {
-      padding: 36px 30px 36px 0;
+      padding: 28px 30px 28px 0;
       font-weight: bold;
       color: ${({ theme }) => theme.color_textKey};
     }
 
     td {
-      padding: 16px 30px 16px 0;
+      padding: 16px 32px 16px 0;
       color: ${({ theme }) => theme.color_textKey};
       font-size: ${({ theme }) => theme.fontSize_sm};
     }
