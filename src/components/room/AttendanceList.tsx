@@ -15,8 +15,6 @@ const DummyData: Member[] = [
   { id: 4, name: '연하영', attendanceRate: 88 },
   { id: 5, name: '강정윤', attendanceRate: 94 },
   { id: 6, name: '박은지', attendanceRate: 81 },
-  { id: 7, name: '송호진', attendanceRate: 79 },
-  { id: 8, name: '연하영', attendanceRate: 97 },
 ];
 
 function AttendanceList() {
