@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import ButtonItem from './ButtonItem';
 import { useState } from 'react';
+import DrawingModal from './DrawingModal';
 
 function ButtonList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,6 +12,10 @@ function ButtonList() {
     } else {
       window.location.href = path;
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -39,6 +44,7 @@ function ButtonList() {
         featName='팀원 뽑기'
         onClick={() => handleButtonClick('modal')}
       />
+      <DrawingModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </ButtonListStyle>
   );
 }
