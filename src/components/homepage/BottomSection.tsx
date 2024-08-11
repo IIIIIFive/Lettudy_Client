@@ -2,10 +2,12 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import HomeModals from './HomeModals';
 import RoomList from './RoomList';
+
 import useModalStore from '@/store/modalStore';
 
 function BottomSection() {
   const { openModal } = useModalStore();
+
 
   const handleCreate = (roomName: string) => {};
 
@@ -14,11 +16,13 @@ function BottomSection() {
     <BottomSectionStyle>
       <div className='content'>
         <div className='buttons'>
+
           <div className='icon' onClick={() => openModal('create')}>
             <img src='/assets/images/square-plus.png' alt='plus' width={100} />
             <h3>스터디 만들기</h3>
           </div>
           <div className='icon' onClick={() => openModal('join')}>
+
             <img
               src='/assets/images/square-arrow.png'
               alt='add-person'
@@ -30,6 +34,7 @@ function BottomSection() {
         <span>제목만 입력하면 간편하게 스터디룸을 만들 수 있어요.</span>
       </div>
       <RoomList />
+
     </BottomSectionStyle>
   );
 }
