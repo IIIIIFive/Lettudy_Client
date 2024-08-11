@@ -30,19 +30,6 @@ function BottomSection() {
         <span>제목만 입력하면 간편하게 스터디룸을 만들 수 있어요.</span>
       </div>
       <RoomList />
-      {/* <HomeModals
-        isOpen={isCreateModalOpen}
-        onClose={closeCreateModal}
-        type='create'
-        onConfirm={handleCreate}
-      />
-
-      <HomeModals
-        isOpen={isJoinModalOpen}
-        onClose={closeJoinModal}
-        type='join'
-        onConfirm={handleJoin}
-      /> */}
     </BottomSectionStyle>
   );
 }

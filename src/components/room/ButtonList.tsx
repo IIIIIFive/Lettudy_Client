@@ -41,7 +41,6 @@ function ButtonList() {
         featName='팀원 뽑기'
         onClick={() => handleButtonClick('modal')}
       />
-      {/* <DrawingModal isOpen={isModalOpen} onClose={handleCloseModal} /> */}
     </ButtonListStyle>
   );
 }

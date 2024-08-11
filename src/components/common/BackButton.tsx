@@ -26,7 +26,7 @@ const BackButtonStyle = styled.div`
   .back-button {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 30px;
     background-color: ${({ theme }) => theme.color_bgLightGray};
   }
 `;

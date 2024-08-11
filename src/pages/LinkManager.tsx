@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import LinkInput from '../components/link/LinkInput';
 import LinkList from '../components/link/LinkList';
+import BackButton from '@/components/common/BackButton';
 
 export interface Link {
   id: number;
@@ -24,10 +25,13 @@ function LinkManager() {
   };
 
   return (
-    <LinkManagerStyle>
-      <LinkInput addLink={addLink} />
-      <LinkList links={links} onClose={removeLink} />
-    </LinkManagerStyle>
+    <>
+      <BackButton text='자료 모음' />
+      <LinkManagerStyle>
+        <LinkInput addLink={addLink} />
+        <LinkList links={links} onClose={removeLink} />
+      </LinkManagerStyle>
+    </>
   );
 }
 
