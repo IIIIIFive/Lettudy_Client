@@ -11,6 +11,7 @@ import StudyRoom from './pages/StudyRoom';
 import MyPage from './pages/MyPage';
 import Link from './pages/LinkManager';
 import LinkManager from './pages/LinkManager';
+import Modals from './components/common/modals/Modals';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <>
+        <Modals />
         <MainLayout>
           <Header />
           <Outlet />
