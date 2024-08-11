@@ -2,7 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import ProfileBox from '../components/mypage/ProfileBox';
 import StudyRoomList from '../components/mypage/StudyRoomList';
-import { useNavigate } from 'react-router-dom';
+
+import BackButton from '@/components/common/BackButton';
 
 interface StudyRoom {
   id: string;
@@ -35,14 +36,9 @@ const user: User = {
 
 function MyPage() {
   const [studyRooms, setStudyRooms] = useState<StudyRoom[]>(user.studyRooms);
-  const navigate = useNavigate();
 
   const handleClick = () => {
     alert('개발중입니다.');
-  };
-
-  const goBack = () => {
-    navigate(-1);
   };
 
   const toggleAlarm = (id: string) => {
@@ -55,14 +51,8 @@ function MyPage() {
 
   return (
     <MyPageStyle>
+      <BackButton text='마이페이지' />
       <div className='container'>
-        <img
-          className='back-icon'
-          src='/assets/icon/back-icon.svg'
-          alt='back'
-          width={30}
-          onClick={goBack}
-        />
         <ProfileBox
           name={user.name}
           email={user.email}
@@ -87,12 +77,6 @@ const MyPageStyle = styled.div`
     grid-template-columns: 1fr 2fr;
     padding: 40px 0;
     position: relative;
-  }
-  .back-icon {
-    cursor: pointer;
-    position: absolute;
-    left: 20px;
-    top: -24px;
   }
 
   @media (max-width: 855px) {
