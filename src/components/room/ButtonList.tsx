@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import ButtonItem from './ButtonItem';
-import { useState } from 'react';
-import DrawingModal from './DrawingModal';
 import useModalStore from '@/store/modalStore';
 
 function ButtonList() {
@@ -19,25 +17,21 @@ function ButtonList() {
     <ButtonListStyle>
       <ButtonItem
         iconSrc='/assets/images/pencil.png'
-        iconBgColor='#D2E6F4'
         featName='회의록 작성'
         onClick={() => handleButtonClick('/create-note')}
       />
       <ButtonItem
-        iconSrc='/assets/images/notepad.png'
-        iconBgColor='#F5E0A0'
+        iconSrc='/assets/images/notebook.png'
         featName='회의록 보기'
         onClick={() => handleButtonClick('/note')}
       />
       <ButtonItem
-        iconSrc='/assets/images/clip.png'
-        iconBgColor='#E4E1F5'
+        iconSrc='/assets/images/box.png'
         featName='자료 모음'
-        onClick={() => handleButtonClick('/links')}
+        onClick={() => handleButtonClick('/room/links')}
       />
       <ButtonItem
-        iconSrc='/assets/images/dice.png'
-        iconBgColor='#F5DADC'
+        iconSrc='/assets/images/category.png'
         featName='팀원 뽑기'
         onClick={() => handleButtonClick('modal')}
       />

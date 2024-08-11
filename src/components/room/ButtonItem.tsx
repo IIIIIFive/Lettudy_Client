@@ -2,28 +2,28 @@ import styled from 'styled-components';
 
 interface ButtonItemProps {
   iconSrc: string;
-  iconBgColor: string;
+
   featName: string;
   onClick: () => void;
 }
 
 function ButtonItem({
   iconSrc,
-  iconBgColor,
+
   featName,
   onClick,
 }: ButtonItemProps) {
   return (
-    <ButtonItemStyle iconBgColor={iconBgColor} onClick={onClick}>
+    <ButtonItemStyle onClick={onClick}>
       <button className='icon'>
-        <img src={iconSrc} alt='icon' width={30} />
+        <img src={iconSrc} alt='icon' width={50} />
       </button>
-      <div className='name'>{featName}</div>
+      <h4>{featName}</h4>
     </ButtonItemStyle>
   );
 }
 
-const ButtonItemStyle = styled.div<{ iconBgColor: string }>`
+const ButtonItemStyle = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -31,16 +31,17 @@ const ButtonItemStyle = styled.div<{ iconBgColor: string }>`
   padding: 15px;
   gap: 20px;
   background-color: ${({ theme }) => theme.color_bgWhite};
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+
   &:hover {
     box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
   }
 
   .icon {
     padding: 12px;
-    background-color: ${({ iconBgColor }) => iconBgColor};
+    background-color: #e3f1fe;
     border-radius: 50%;
   }
 
