@@ -9,8 +9,8 @@ import Header from './components/common/Header';
 import MainLayout from './components/layout/MainLayout';
 import StudyRoom from './pages/StudyRoom';
 import MyPage from './pages/MyPage';
-import Link from './pages/LinkManager';
 import LinkManager from './pages/LinkManager';
+import Modals from './components/common/modals/Modals';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +27,7 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <>
+        <Modals />
         <MainLayout>
           <Header />
           <Outlet />
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: 'room',
+        path: '/room',
         element: <StudyRoom />,
       },
       {
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
         element: <MyPage />,
       },
       {
-        path: 'links',
+        path: '/room/links',
         element: <LinkManager />,
       },
     ],
