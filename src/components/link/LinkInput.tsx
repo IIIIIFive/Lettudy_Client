@@ -35,6 +35,7 @@ function LinkInput({ addLink }: LinkInputProps) {
             value={linkName}
             onChange={(e) => setLinkName(e.target.value)}
             onKeyDown={handleKeyDown}
+            maxLength={30}
           />
         </label>
         <label className='input-label'>
@@ -62,22 +63,23 @@ const LinkInputStyle = styled.div`
   display: flex;
   flex-direction: column;
   height: 45%;
+  min-height: 247px;
+  max-height: 247.5px;
   width: 100%;
 
   .container {
     height: 100%;
-    min-height: 250px;
     background: ${({ theme }) => theme.color_bgWhite};
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-    padding: 42px;
+    padding: 34px 46px;
     display: flex;
     flex-direction: column;
   }
 
   .input-label {
     flex-direction: column;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
 
     h5 {
       margin-bottom: 12px;
@@ -98,7 +100,7 @@ const LinkInputStyle = styled.div`
     justify-content: center;
     cursor: pointer;
     font-size: 16px;
-    margin-top: auto;
+    margin-top: 4px;
 
     img {
       margin-right: 8px;

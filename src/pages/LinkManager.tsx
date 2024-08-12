@@ -25,22 +25,29 @@ function LinkManager() {
   };
 
   return (
-    <>
+    <LinkManagerStyle>
       <BackButton text='자료 모음' />
-      <LinkManagerStyle>
+      <div className='content'>
         <LinkInput addLink={addLink} />
         <LinkList links={links} onClose={removeLink} />
-      </LinkManagerStyle>
-    </>
+      </div>
+    </LinkManagerStyle>
   );
 }
 
 export default LinkManager;
 
 const LinkManagerStyle = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 40px;
-  padding: 42px 0;
-  position: relative;
+  padding-top: 28px;
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    padding: 40px 0;
+    gap: 40px;
+    flex: 1;
+
+    @media (max-width: 730px) {
+      grid-template-columns: 1fr;
+    }
+  }
 `;

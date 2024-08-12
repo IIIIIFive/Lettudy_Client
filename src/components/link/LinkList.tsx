@@ -46,12 +46,13 @@ const LinkListStyle = styled.div`
   width: 100%;
 
   .container {
+    min-height: 550px;
+    max-height: 550px;
     height: 100%;
-    min-height: 600px;
     background: ${({ theme }) => theme.color_bgWhite};
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-    padding: 28px 22px;
+    padding: 30px 18px;
     display: flex;
     flex-direction: column;
   }
@@ -60,11 +61,12 @@ const LinkListStyle = styled.div`
     text-align: center;
   }
 
-  .description {
+  .description,
+  .empty-message p {
     text-align: center;
-    margin: 10px 0 20px;
     color: #7d7d7d;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSize_xs};
+    margin: 10px 0 20px;
   }
 
   .link-container {
@@ -73,7 +75,7 @@ const LinkListStyle = styled.div`
     padding: 20px;
     border-radius: 12px;
     overflow-y: auto;
-    max-height: 456px;
+    max-height: 402px;
     display: flex;
     flex-direction: column;
 
@@ -82,8 +84,7 @@ const LinkListStyle = styled.div`
     }
 
     &::-webkit-scrollbar-track {
-      background: ${({ theme }) => theme.color_bgWhite};
-      margin: 0 0 7px 0;
+      margin: 7px 0 0 0;
     }
 
     &::-webkit-scrollbar-thumb {
@@ -97,6 +98,7 @@ const LinkListStyle = styled.div`
     justify-content: center;
     align-items: center;
     flex: 1;
+
     p {
       color: #7d7d7d;
       font-size: ${({ theme }) => theme.fontSize_xs};
