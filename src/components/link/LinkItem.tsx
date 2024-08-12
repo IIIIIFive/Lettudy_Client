@@ -34,7 +34,7 @@ export default LinkItem;
 const LinkItemStyle = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   padding: 12px;
   background-color: ${({ theme }) => theme.color_bgWhite};
   border: 1px solid #cbcbcb;
@@ -51,6 +51,7 @@ const LinkItemStyle = styled.div`
     color: ${({ theme }) => theme.color_textKey};
     flex: 1;
     cursor: pointer;
+    margin-right: 40px;
   }
 
   img {
