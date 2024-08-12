@@ -17,10 +17,12 @@
     "react-calendar": "^5.0.0",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.2",
+    "react-quill": "^2.0.0",
     "react-router-dom": "^6.25.1",
     "styled-components": "^6.1.12",
     "styled-reset": "^4.5.2",
-    "vite-plugin-favicon": "^1.0.8"
+    "vite-plugin-favicon": "^1.0.8",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
