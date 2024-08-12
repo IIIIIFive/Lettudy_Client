@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import BackButton from '@/components/common/BackButton';
@@ -6,17 +6,27 @@ import RegisterButton from '@/components/note/RegisterButton';
 import TagInput from '@/components/note/TagInput';
 import Toast from '@/components/note/Toast';
 import styled from 'styled-components';
+import useNoteStore from '@/store/noteStore';
 
 interface CreateNoteProps {
   onSubmit?: (data: { title: string; tags: string[]; content: string }) => void;
 }
 
 function CreateNote({ onSubmit }: CreateNoteProps) {
-  const [title, setTitle] = useState<string>('');
-  const [tags, setTags] = useState<string>('');
-  const [tagList, setTagList] = useState<string[]>([]);
-  const [content, setContent] = useState<string>('');
-  const [showToast, setShowToast] = useState<boolean>(false);
+  const {
+    title,
+    tags,
+    tagList,
+    content,
+    showToast,
+    setTitle,
+    setTags,
+    addTag,
+    removeTag,
+    setContent,
+    setShowToast,
+  } = useNoteStore();
+
   const toastRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -33,7 +43,7 @@ function CreateNote({ onSubmit }: CreateNoteProps) {
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [setShowToast]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -42,8 +52,8 @@ function CreateNote({ onSubmit }: CreateNoteProps) {
     }
     setTitle('');
     setTags('');
-    setTagList([]);
     setContent('');
+    setShowToast(false);
   };
 
   const handleTagChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,8 +63,7 @@ function CreateNote({ onSubmit }: CreateNoteProps) {
   const handleTagKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && tags.trim() !== '') {
       event.preventDefault();
-      setTagList([...tagList, tags.trim()]);
-      setTags('');
+      addTag(tags.trim());
     }
   };
 
@@ -67,7 +76,7 @@ function CreateNote({ onSubmit }: CreateNoteProps) {
   };
 
   const handleTagRemove = (index: number) => {
-    setTagList(tagList.filter((_, i) => i !== index));
+    removeTag(index);
   };
 
   const modules = {
@@ -200,4 +209,5 @@ const CreateNoteStyle = styled.div`
     justify-content: flex-end;
   }
 `;
+
 export default CreateNote;
