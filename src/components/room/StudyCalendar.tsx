@@ -11,6 +11,7 @@ interface Event {
   date: Date;
   title: string;
   time: string;
+  alarm: boolean;
 }
 
 function StudyCalendar() {
@@ -32,9 +33,9 @@ function StudyCalendar() {
     setIsModalOpen(false);
   };
 
-  const handleSaveEvent = (title: string, time: string) => {
+  const handleSaveEvent = (title: string, time: string, alarm: boolean) => {
     if (selectedDate && title && time) {
-      setEvents([...events, { date: selectedDate, title, time }]);
+      setEvents([...events, { date: selectedDate, title, time, alarm }]);
       handleModalClose();
     }
   };
