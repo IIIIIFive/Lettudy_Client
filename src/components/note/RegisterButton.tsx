@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 interface RegisterButtonProps {
-  onClick: () => void;
   text: string;
+  onClick: (event: React.FormEvent) => void;
 }
 
 function RegisterButton({ onClick, text }: RegisterButtonProps) {
