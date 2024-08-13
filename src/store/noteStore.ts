@@ -1,5 +1,12 @@
 import { create } from 'zustand';
 
+interface Note {
+  title: string;
+  tags: string[];
+  content: string;
+  date: string;
+}
+
 interface NoteState {
   title: string;
   tags: string;
@@ -7,6 +14,7 @@ interface NoteState {
   content: string;
   showToast: boolean;
   date: string;
+  notes: Note[];
   setTitle: (title: string) => void;
   setTags: (tags: string) => void;
   addTag: (tag: string) => void;
@@ -14,6 +22,8 @@ interface NoteState {
   setContent: (content: string) => void;
   setShowToast: (showToast: boolean) => void;
   setDate: (date: string) => void;
+  addNote: (note: Note) => void;
+  clearTags: () => void;
 }
 
 const useNoteStore = create<NoteState>((set) => ({
@@ -23,6 +33,7 @@ const useNoteStore = create<NoteState>((set) => ({
   content: '',
   showToast: false,
   date: '',
+  notes: [],
   setTitle: (title) => set({ title }),
   setTags: (tags) => set({ tags }),
   addTag: (tag) =>
@@ -37,6 +48,11 @@ const useNoteStore = create<NoteState>((set) => ({
   setContent: (content) => set({ content }),
   setShowToast: (showToast) => set({ showToast }),
   setDate: (date) => set({ date }),
+  addNote: (note) =>
+    set((state) => ({
+      notes: [...state.notes, note],
+    })),
+  clearTags: () => set({ tagList: [] }),
 }));
 
 export default useNoteStore;

@@ -1,15 +1,22 @@
 import BackButton from '@/components/common/BackButton';
 import NoteForm from '@/components/note/NoteForm';
+import useNoteStore from '@/store/noteStore';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 function CreateNote() {
+  const navigate = useNavigate();
+  const { addNote } = useNoteStore();
+
   const handleSubmit = (data: {
     title: string;
     tags: string[];
     content: string;
     date: string;
   }) => {
-    console.log('Note submitted:', data);
+    addNote(data);
+    console.log('새노트:', data);
+    navigate('/note');
   };
 
   return (

@@ -6,6 +6,21 @@ import TagInput from '@/components/note/TagInput';
 import Toast from '@/components/note/Toast';
 import styled from 'styled-components';
 import useNoteStore from '@/store/noteStore';
+import { formatDate } from '@/utils/formatDate';
+
+const modules = {
+  toolbar: {
+    container: [
+      [{ header: [1, 2, 3, false] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['bold', 'italic', 'underline'],
+      [{ color: [] }, { background: [] }],
+      [{ align: [] }],
+      ['image'],
+      ['clean'],
+    ],
+  },
+};
 
 interface NoteFormProps {
   onSubmit: (data: {
@@ -29,15 +44,15 @@ function NoteForm({ onSubmit }: NoteFormProps) {
     removeTag,
     setContent,
     setShowToast,
-    date,
     setDate,
+    clearTags,
   } = useNoteStore();
 
   const toastRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setDate(new Date().toISOString());
+    setDate(formatDate(new Date()));
 
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -55,11 +70,22 @@ function NoteForm({ onSubmit }: NoteFormProps) {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    onSubmit({ title, tags: tagList, content, date });
-    setTitle('');
-    setTags('');
-    addTag(tags.trim());
-    setContent('');
+
+    if (!title.trim()) {
+      alert('제목을 입력하세요.');
+      return;
+    }
+
+    const isConfirmed = window.confirm('제출하시겠습니까?');
+
+    if (isConfirmed) {
+      const currentDate = formatDate(new Date());
+      onSubmit({ title, tags: tagList, content, date: currentDate });
+      setTitle('');
+      setTags('');
+      setContent('');
+      clearTags();
+    }
   };
 
   const handleTagChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,17 +109,6 @@ function NoteForm({ onSubmit }: NoteFormProps) {
 
   const handleTagRemove = (index: number) => {
     removeTag(index);
-  };
-
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, false] }],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      ['bold', 'italic', 'underline'],
-      [{ color: [] }, { background: [] }],
-      [{ align: [] }],
-      ['clean'],
-    ],
   };
 
   return (
@@ -187,7 +202,7 @@ const NoteFormStyle = styled.div`
   }
 
   .ql-editor {
-    min-height: 200px;
+    min-height: 500px;
     strong {
       font-weight: bold;
     }
@@ -207,5 +222,4 @@ const NoteFormStyle = styled.div`
     justify-content: flex-end;
   }
 `;
-
 export default NoteForm;
