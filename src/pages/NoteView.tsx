@@ -86,8 +86,10 @@ const NoteViewStyle = styled.div<{ showAllTags: boolean }>`
     position: relative;
 
     .list {
-      overflow-y: auto;
       padding-right: 15px;
+      position: sticky;
+      top: 24px;
+      align-self: start;
     }
   }
 `;
