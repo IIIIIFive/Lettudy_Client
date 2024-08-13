@@ -12,6 +12,7 @@ import MyPage from './pages/MyPage';
 import LinkManager from './pages/LinkManager';
 import Modals from './components/common/modals/Modals';
 import CreateNote from './pages/CreateNote';
+import NoteView from './pages/NoteView';
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: 'create-note',
         element: <CreateNote />,
+      },
+      {
+        path: 'note',
+        element: <NoteView />,
       },
     ],
   },
