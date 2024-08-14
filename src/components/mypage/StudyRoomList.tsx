@@ -4,9 +4,10 @@ import LeaveRoomButton from './LeaveRoomButton';
 import EmptyList from './EmptyList';
 
 interface StudyRoom {
-  id: string;
-  name: string;
+  roomId: string;
+  title: string;
   alarm: boolean;
+  isOwner: boolean;
 }
 
 interface StudyRoomListProps {
@@ -20,8 +21,13 @@ function StudyRoomList({
   toggleAlarm,
   userName,
 }: StudyRoomListProps) {
-  const handleLeaveRoom = () => {
-    alert('개발중입니다.');
+  const handleLeaveRoom = async (roomId: string) => {
+    try {
+      alert(`방 ${roomId}에서 나가기`);
+    } catch (error) {
+      console.error('Failed to leave room:', error);
+      alert('방 나가기 실패');
+    }
   };
 
   return (
@@ -51,17 +57,21 @@ function StudyRoomList({
             <table className='study-table'>
               <tbody>
                 {studyRooms.map((room) => (
-                  <tr key={room.id}>
-                    <td className='table-cell'>{room.name}</td>
+                  <tr key={room.roomId}>
+                    <td className='table-cell'>{room.title}</td>{' '}
                     <td className='table-cell'>
                       <AlarmButton
                         alarm={room.alarm}
-                        onClick={() => toggleAlarm(room.id)}>
+                        onClick={() => toggleAlarm(room.roomId)}>
+                        {' '}
                         {room.alarm ? '알람 OFF' : '알람 ON'}
                       </AlarmButton>
                     </td>
                     <td className='table-cell'>
-                      <LeaveRoomButton onClick={() => handleLeaveRoom()} />
+                      <LeaveRoomButton
+                        onClick={() => handleLeaveRoom(room.roomId)}
+                      />{' '}
+                      {/* 필드 이름 수정 */}
                     </td>
                   </tr>
                 ))}

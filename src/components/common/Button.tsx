@@ -5,16 +5,19 @@ interface ButtonProps {
   children: React.ReactNode;
   size: 'small' | 'medium';
   onClick: () => void;
+  type?: 'button' | 'submit';
   disabled?: boolean;
 }
 
-function Button({ children, size, onClick, disabled = false }: ButtonProps) {
+function Button({
+  children,
+  size,
+  onClick,
+  type = 'button',
+  disabled = false,
+}: ButtonProps) {
   return (
-    <ButtonStyle
-      type='button'
-      $size={size}
-      onClick={onClick}
-      disabled={disabled}>
+    <ButtonStyle type={type} $size={size} onClick={onClick} disabled={disabled}>
       {children}
     </ButtonStyle>
   );

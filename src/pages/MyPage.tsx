@@ -1,53 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ProfileBox from '../components/mypage/ProfileBox';
 import StudyRoomList from '../components/mypage/StudyRoomList';
-
 import BackButton from '@/components/common/BackButton';
-
-interface StudyRoom {
-  id: string;
-  name: string;
-  alarm: boolean;
-}
-
-interface User {
-  name: string;
-  email: string;
-  studyRooms: StudyRoom[];
-}
-
-const user: User = {
-  name: '김터디',
-  email: 'email123@naver.com',
-  studyRooms: [
-    { id: 'a', name: 'JS 알고리즘', alarm: true },
-    { id: 'b', name: 'React 마스터클래스', alarm: false },
-    { id: 'c', name: 'TypeScript 심화', alarm: false },
-    { id: 'd', name: 'Node.js 기본', alarm: false },
-    { id: 'e', name: 'Redux 스토어 관리', alarm: true },
-    { id: 'f', name: 'GraphQL 입문', alarm: false },
-    { id: 'g', name: '웹 접근성', alarm: true },
-    { id: 'h', name: 'UI/UX 디자인', alarm: true },
-    { id: 'i', name: '모바일 개발', alarm: false },
-    { id: 'j', name: '클라우드 컴퓨팅', alarm: true },
-  ],
-};
+import { useAuth } from '../hooks/useAuth';
+import { useAuthStore } from '../store/authStore';
+import { User } from '@/types/user';
 
 function MyPage() {
-  const [studyRooms, setStudyRooms] = useState<StudyRoom[]>(user.studyRooms);
+  const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const { getMyPage } = useAuth();
+  const { isLoggedIn } = useAuthStore();
 
-  const handleClick = () => {
-    alert('개발중입니다.');
-  };
+  useEffect(() => {
+    if (!isLoggedIn) {
+      return;
+    }
+    const fetchUserData = async () => {
+      try {
+        const userData = await getMyPage();
+        setUser(userData);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to fetch user data:', err);
+        setError('마이페이지 데이터를 가져오는 데 실패했습니다.');
+      }
+    };
 
-  const toggleAlarm = (id: string) => {
-    setStudyRooms((prevStudyRooms) =>
-      prevStudyRooms.map((room) =>
-        room.id === id ? { ...room, alarm: !room.alarm } : room,
-      ),
-    );
-  };
+    fetchUserData();
+  }, [getMyPage, isLoggedIn]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <MyPageStyle>
@@ -56,13 +46,23 @@ function MyPage() {
         <ProfileBox
           name={user.name}
           email={user.email}
-          studyCount={studyRooms.length}
-          onClick={handleClick}
+          studyCount={user.rooms.length}
+          onClick={() => alert('개발중입니다.')}
         />
         <StudyRoomList
           userName={user.name}
-          studyRooms={studyRooms}
-          toggleAlarm={toggleAlarm}
+          studyRooms={user.rooms}
+          toggleAlarm={(id) => {
+            setUser((prevUser) => {
+              if (!prevUser) return null;
+              return {
+                ...prevUser,
+                rooms: prevUser.rooms.map((room) =>
+                  room.roomId === id ? { ...room, alarm: !room.alarm } : room,
+                ),
+              };
+            });
+          }}
         />
       </div>
     </MyPageStyle>

@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from 'zustand';
 
 type ModalType = 'create' | 'join' | 'drawing' | null;
 
