@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import ChatRoom from '../chat/ChatRoom';
+import { useAuth } from '../../hooks/useAuth';
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { userLogout } = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [chatVisible, setChatVisible] = useState(false);
 
@@ -17,6 +19,12 @@ function Header() {
     setChatVisible(false);
   };
 
+  const handleLogout = () => {
+    const confirmed = confirm('정말 로그아웃 하시겠습니까?');
+    if (confirmed) {
+      userLogout();
+    }
+  };
   const isRoomPage = location.pathname.startsWith('/room');
 
   return (
@@ -50,7 +58,12 @@ function Header() {
           <span>마이페이지</span>
         </div>
         <div className='icon'>
-          <img src='/assets/images/logout-face.png' alt='logout' width={40} />
+          <img
+            src='/assets/images/logout-face.png'
+            alt='logout'
+            width={40}
+            onClick={handleLogout}
+          />
           <span>로그아웃</span>
         </div>
       </div>

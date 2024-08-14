@@ -1,9 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '@/components/common/Button';
 import AuthBackground from '@/components/auth/AuthBackground';
+import { useAuth } from '../hooks/useAuth';
 
 export interface JoinProps {
   name: string;
@@ -13,7 +14,9 @@ export interface JoinProps {
 }
 
 function Join() {
+  const { userJoin, verifyEmail } = useAuth();
   const navigate = useNavigate();
+  const [emailChecked, setEmailChecked] = useState(false);
   const {
     register,
     handleSubmit,
@@ -24,9 +27,21 @@ function Join() {
   passwordRef.current = watch('password');
 
   const onSubmit: SubmitHandler<JoinProps> = (data) => {
-    console.log(data);
-    alert('회원가입이 완료되었습니다.');
-    navigate('/login');
+    if (emailChecked) {
+      userJoin(data);
+    } else {
+      alert('이메일 중복 확인을 먼저 해주세요.');
+    }
+  };
+
+  const handleEmailCheck = async () => {
+    const email = watch('email');
+    if (!email) {
+      alert('이메일을 입력하세요.');
+      return;
+    }
+    const isAvailable = await verifyEmail(email);
+    setEmailChecked(isAvailable);
   };
 
   const handleClick = () => {
@@ -68,7 +83,7 @@ function Join() {
                       },
                     })}
                   />
-                  <Button size='small' onClick={() => alert('중복확인')}>
+                  <Button type='button' size='small' onClick={handleEmailCheck}>
                     중복확인
                   </Button>
                 </div>

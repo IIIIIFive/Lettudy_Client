@@ -1,10 +1,10 @@
-import React from 'react';
 import { JoinStyle } from './Join';
 import AuthBackground from '@/components/auth/AuthBackground';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from '@/components/common/Button';
+import { useAuth } from '@/hooks/useAuth';
 
 export interface LoginProps {
   email: string;
@@ -12,6 +12,7 @@ export interface LoginProps {
 }
 
 function Login() {
+  const { userLogin } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -20,9 +21,7 @@ function Login() {
   } = useForm<LoginProps>();
 
   const onSubmit: SubmitHandler<LoginProps> = (data) => {
-    alert('로그인 완료되었습니다.');
-    // 로그인 로직 추가
-    navigate('/');
+    userLogin(data);
   };
 
   const handleClick = () => {

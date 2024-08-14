@@ -1,3 +1,4 @@
+import { useAuth } from '../../hooks/useAuth';
 import styled from 'styled-components';
 
 interface ProfileBoxProps {
@@ -8,6 +9,19 @@ interface ProfileBoxProps {
 }
 
 function ProfileBox({ name, email, studyCount, onClick }: ProfileBoxProps) {
+  const { userQuit } = useAuth();
+
+  const handleClick = async () => {
+    if (confirm('정말로 회원 탈퇴하시겠습니까?')) {
+      try {
+        await userQuit();
+      } catch (err) {
+        console.error('Failed to quit:', err);
+        alert('회원 탈퇴 중 문제가 발생했습니다.');
+      }
+    }
+  };
+
   return (
     <ProfileBoxStyle>
       <div className='avatar'>
@@ -16,7 +30,7 @@ function ProfileBox({ name, email, studyCount, onClick }: ProfileBoxProps) {
       <h1 className='name'>{name}</h1>
       <p className='email'>{email}</p>
       <p className='study-count'>현재 {studyCount}개의 스터디에 속해 있어요!</p>
-      <div className='withdrawal' onClick={onClick}>
+      <div className='withdrawal' onClick={handleClick}>
         <img src='/assets/icon/withdrawal.svg' alt='withdrawal' width={15} />
         <p>탈퇴하기</p>
       </div>
