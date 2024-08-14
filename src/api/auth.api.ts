@@ -1,20 +1,10 @@
+import { User } from '@/types/user';
 import { JoinProps } from '../pages/Join';
 import { LoginProps } from '../pages/Login';
 import { httpClient } from './http';
 
 interface LoginResponse {
   token: string;
-}
-
-interface User {
-  name: string;
-  email: string;
-  rooms: {
-    roomId: string;
-    title: string;
-    alarm: boolean;
-    isOwner: boolean;
-  }[];
 }
 
 export const join = async (data: JoinProps) => {
