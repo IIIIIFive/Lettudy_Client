@@ -35,7 +35,7 @@ const LinkItemStyle = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 12px;
-  padding: 12px;
+  padding: 15px 12px;
   background-color: ${({ theme }) => theme.color_bgWhite};
   border: 1px solid #cbcbcb;
   border-radius: 12px;
@@ -47,7 +47,8 @@ const LinkItemStyle = styled.div`
 
   .link-name {
     text-decoration: none;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fontSize_reg};
+    font-weight: 500;
     color: ${({ theme }) => theme.color_textKey};
     flex: 1;
     cursor: pointer;
