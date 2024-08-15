@@ -116,8 +116,8 @@ const HomeModalsStyle = styled.div`
     }
   }
   .error-message {
-    align-self: flex-start;
-    margin-left: 65px;
+    margin-top: 15px;
+    align-items: center;
     color: ${({ theme }) => theme.color_textRed};
     font-size: ${({ theme }) => theme.fontSize_xs};
   }
