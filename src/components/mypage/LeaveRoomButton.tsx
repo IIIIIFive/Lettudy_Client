@@ -11,13 +11,12 @@ function LeaveRoomButton({ onClick }: LeaveRoomButtonProps) {
 export default LeaveRoomButton;
 
 const LeaveRoomButtonStyle = styled.button`
-    width: 75px;
-    height: 32px;
-    background-color: #FEDADA;
-    color: #FF6161;
-    font-size: ${({ theme }) => theme.fontSize_xs};
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+  width: 80px;
+  height: 32px;
+  background-color: #fedada;
+  color: #ff6161;
+  font-size: ${({ theme }) => theme.fontSize_xs};
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 `;

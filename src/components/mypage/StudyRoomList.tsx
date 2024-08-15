@@ -38,7 +38,7 @@ function StudyRoomList({
           alt='study-icon'
           width={47}
         />
-        <h4>{userName}의 스터디 목록</h4>
+        <h4>{userName}님의 스터디 목록</h4>
       </div>
       <div className='study-box'>
         <table className='study-table'>
@@ -90,6 +90,7 @@ const StudyRoomListStyle = styled.div`
   display: flex;
   flex-direction: column;
   white-space: nowrap;
+  height: 100%;
 
   .title {
     display: flex;
@@ -98,6 +99,7 @@ const StudyRoomListStyle = styled.div`
     font-size: ${({ theme }) => theme.fontSize_reg};
     font-weight: bold;
     margin-bottom: 24px;
+
     img {
       margin: 0 10px;
     }
@@ -108,12 +110,13 @@ const StudyRoomListStyle = styled.div`
     padding: 0;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-    height: 100%;
+
     flex: 1;
+    overflow: hidden;
   }
 
   .study-list {
-    max-height: 400px;
+    max-height: 535px;
     overflow-y: auto;
 
     &::-webkit-scrollbar {
@@ -141,7 +144,7 @@ const StudyRoomListStyle = styled.div`
 
     td {
       padding: 12px 30px 12px 0;
-      font-size: ${({ theme }) => theme.fontSize_sm};
+      font-size: ${({ theme }) => theme.fontSize_reg};
     }
 
     th:nth-child(1),
