@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Modal from '../common/Modal';
 import NormalButton from '../common/NormalButton';
+import { useHome } from '@/hooks/useHome';
 
 interface HomeModalsProps {
   isOpen: boolean;
@@ -13,7 +14,25 @@ interface HomeModalsProps {
 function HomeModals({ isOpen, onClose, type, onConfirm }: HomeModalsProps) {
   const [inputValue, setInputValue] = useState('');
 
-  const handleConfirm = () => {
+  const { createRoom, joinRoomWithCode } = useHome();
+
+  const handleConfirm = async () => {
+    if (type === 'create') {
+      try {
+        const res = await createRoom(inputValue);
+        console.log('스터디 생성 성공:', res);
+      } catch (err) {
+        console.error('스터디 생성 실패:', err);
+      }
+    } else if (type === 'join') {
+      try {
+        const res = await joinRoomWithCode(inputValue);
+        console.log('스터디 입장 성공:', res);
+      } catch (err) {
+        console.error('스터디 입장 실패:', err);
+      }
+    }
+
     onConfirm(inputValue);
     setInputValue('');
     onClose();

@@ -14,6 +14,9 @@ import Modals from './components/common/modals/Modals';
 import CreateNote from './pages/CreateNote';
 import NoteView from './pages/NoteView';
 
+import { queryClient } from './api/queryClient';
+import { QueryClientProvider } from 'react-query';
+
 const router = createBrowserRouter([
   {
     path: 'join',
@@ -42,7 +45,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: '/room',
+        path: '/room/:roomId',
         element: <StudyRoom />,
       },
       {
@@ -67,10 +70,13 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 

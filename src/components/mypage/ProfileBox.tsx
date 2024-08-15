@@ -44,7 +44,7 @@ const ProfileBoxStyle = styled.div`
   background: ${({ theme }) => theme.color_bgWhite};
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-  padding: 32px; 
+  padding: 32px;
   height: 100%;
 
   .avatar {
@@ -63,12 +63,12 @@ const ProfileBoxStyle = styled.div`
   .email,
   .study-count {
     text-align: center;
-    margin-top: 24px; 
+    margin-top: 24px;
   }
 
   .name {
     font-size: ${({ theme }) => theme.fontSize_lg};
-    margin-top: 36px; 
+    margin-top: 36px;
   }
 
   .email {
@@ -94,4 +94,5 @@ const ProfileBoxStyle = styled.div`
     img {
       margin: 3px 8px 0 0;
     }
+  }
 `;
