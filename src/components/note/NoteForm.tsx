@@ -11,7 +11,7 @@ import { formatDate } from '@/utils/formatDate';
 const modules = {
   toolbar: {
     container: [
-      [{ header: [1, 2, 3, false] }],
+      [{ header: [3, 4, 5, false] }],
       [{ list: 'ordered' }, { list: 'bullet' }],
       ['bold', 'italic', 'underline'],
       [{ color: [] }, { background: [] }],

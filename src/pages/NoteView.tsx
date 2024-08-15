@@ -61,11 +61,13 @@ function NoteView() {
             showAllTags={showAllTags}
           />
           <NoteList notes={currentNotes} onNoteClick={handleNoteClick} />
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={setCurrentPage}
-          />
+          <div className='pagination'>
+            <Pagination
+              totalPages={totalPages}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+            />
+          </div>
         </div>
         <div className='note'>
           <NoteDetail note={selectedNote} />
@@ -76,20 +78,29 @@ function NoteView() {
 }
 
 const NoteViewStyle = styled.div<{ showAllTags: boolean }>`
+  max-height: 100vh;
   padding: 24px 0;
 
   .container {
+    display: flex;
+
     gap: 50px;
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
     padding: 40px 0;
     position: relative;
 
     .list {
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       padding-right: 15px;
       position: sticky;
       top: 24px;
       align-self: start;
+
+      .pagination {
+        margin-top: auto;
+      }
     }
   }
 `;
