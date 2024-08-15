@@ -12,28 +12,48 @@ interface HomeModalsProps {
 
 function HomeModals({ isOpen, onClose, type, onConfirm }: HomeModalsProps) {
   const [inputValue, setInputValue] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleConfirm = () => {
+    if (type === 'create' && inputValue.length === 0) {
+      setErrorMessage('제목을 입력해주세요.');
+      return;
+    } else if (type === 'join' && inputValue.length === 0) {
+      setErrorMessage('코드를 입력해주세요.');
+      return;
+    }
+
+    setErrorMessage('');
     onConfirm(inputValue);
     setInputValue('');
     onClose();
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (type === 'create' && value.length <= 10) {
+      setInputValue(value);
+    } else if (type !== 'create') {
+      setInputValue(value);
+    }
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <HomeModalsStyle>
-        <div className='title'>
+        <div className='content'>
           <img src='/assets/images/speaker.png' alt='speaker' width={35} />
+          <h2>{type === 'create' ? '스터디 만들기' : '스터디 입장'}</h2>
           {type === 'create'
-            ? '스터디방 제목을 입력해주세요!'
-            : '스터디방 입장 코드를 입력해주세요!'}
+            ? '스터디룸 제목을 입력해주세요!'
+            : '스터디룸 입장 코드를 입력해주세요!'}
         </div>
         <div className='section'>
           <div className='input'>
             <input
               type='text'
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={handleInputChange}
               placeholder={
                 type === 'create'
                   ? '10자 이내로 입력해주세요'
@@ -45,6 +65,7 @@ function HomeModals({ isOpen, onClose, type, onConfirm }: HomeModalsProps) {
             <NormalButton text='확인' onClick={handleConfirm} />
           </div>
         </div>
+        <div className='error-message'>{errorMessage}</div>
       </HomeModalsStyle>
     </Modal>
   );
@@ -56,15 +77,13 @@ const HomeModalsStyle = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  gap: 40px;
-
-  .title {
+  margin-bottom: 30px;
+  .content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: ${({ theme }) => theme.color_textBlack};
-    font-size: ${({ theme }) => theme.fontSize_md};
-    margin-bottom: 16px;
+    color: ${({ theme }) => theme.color_textGray};
+    margin-bottom: 40px;
     text-align: center;
     gap: 20px;
   }
@@ -73,7 +92,7 @@ const HomeModalsStyle = styled.div`
     display: flex;
 
     .input {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       width: 100%;
       flex: 1;
 
@@ -95,6 +114,12 @@ const HomeModalsStyle = styled.div`
     .button {
       margin-left: 30px;
     }
+  }
+  .error-message {
+    align-self: flex-start;
+    margin-left: 65px;
+    color: ${({ theme }) => theme.color_textRed};
+    font-size: ${({ theme }) => theme.fontSize_xs};
   }
 `;
 
