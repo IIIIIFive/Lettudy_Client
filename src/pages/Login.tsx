@@ -13,7 +13,6 @@ export interface LoginProps {
 
 function Login() {
   const { userLogin } = useAuth();
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -33,7 +32,7 @@ function Login() {
       <LoginStyle>
         <img src='/assets/images/logo-withLettudy.png' alt='logo' height={55} />
         <div className='container'>
-          <h2>로그인</h2>
+          <h1>로그인</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset>
               <div className='form-group'>
@@ -89,8 +88,9 @@ export default Login;
 
 export const LoginStyle = styled(JoinStyle)`
   .container {
-    margin-top: 50px;
-
+    form {
+      margin-top: 40px;
+    }
     .error-container {
       min-height: 20px;
     }
@@ -101,13 +101,13 @@ export const LoginStyle = styled(JoinStyle)`
     }
 
     .login-button {
-      margin-top: 10px;
+      margin-top: 30px;
     }
 
     .join-link {
       margin-top: 30px;
       color: ${({ theme }) => theme.color_textBlack};
-      font-size: ${({ theme }) => theme.fontSize_xs};
+      font-size: ${({ theme }) => theme.fontSize_sm};
     }
 
     .join-link a,

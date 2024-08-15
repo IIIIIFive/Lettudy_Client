@@ -29,16 +29,16 @@ const ButtonStyle = styled.button<{
   $size: 'small' | 'medium';
 }>`
   font-size: ${({ theme, $size }) =>
-    $size === 'small' ? theme.fontSize_xs : theme.fontSize_sm};
-  padding: 10px;
-  width: ${({ $size }) => ($size === 'small' ? '80px ' : '160px')};
+    $size === 'small' ? theme.fontSize_xs : theme.fontSize_reg};
+  padding: 12px;
+  width: ${({ $size }) => ($size === 'small' ? '80px ' : '200px')};
   display: flex;
   align-items: center;
   justify-content: center;
 
   color: ${({ theme }) => theme.color_textWhite};
   background-color: ${({ theme }) => theme.color_key};
-  border-radius: 12px;
+  border-radius: ${({ $size }) => ($size === 'small' ? '8px ' : '12px')};
   font-weight: ${({ $size }) => ($size === 'small' ? '500' : '700')};
   transition: box-shadow 0.3s ease-in-out;
 
