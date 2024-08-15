@@ -78,7 +78,7 @@ const TagInputStyle = styled.div`
     flex: 1;
     border: none;
     outline: none;
-    font-size: ${({ theme }) => theme.fontSize_sm};
+    font-size: ${({ theme }) => theme.fontSize_reg};
     padding: 6px 12px;
     min-width: 120px;
   }
