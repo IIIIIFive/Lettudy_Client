@@ -54,11 +54,11 @@ const router = createBrowserRouter([
         element: <LinkManager />,
       },
       {
-        path: 'create-note',
+        path: '/room/create-note',
         element: <CreateNote />,
       },
       {
-        path: 'note',
+        path: '/room/note',
         element: <NoteView />,
       },
     ],

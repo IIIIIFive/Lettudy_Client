@@ -30,7 +30,7 @@ const ChatItemStyle = styled.div<{ $user: string }>`
   .chat-container {
     display: flex;
     align-items: center;
-    margin: 8px 0;
+    margin: 12px 0;
     width: 100%;
     justify-content: ${({ $user }) =>
       $user === 'me' ? 'flex-end' : 'flex-start'};
@@ -51,7 +51,8 @@ const ChatItemStyle = styled.div<{ $user: string }>`
 
   .user-name {
     margin: 0 0 6px 5px;
-    font-size: ${({ theme }) => theme.fontSize_xs};
+    font-size: ${({ theme }) => theme.fontSize_sm};
+    font-weight: 500;
     color: ${({ theme }) => theme.color_textBlack};
   }
 
@@ -64,7 +65,7 @@ const ChatItemStyle = styled.div<{ $user: string }>`
     word-break: break-word;
     color: ${({ $user, theme }) =>
       $user === 'me' ? theme.color_textBlack : theme.color_textWhite};
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
     text-align: left;
     display: inline-block;
     max-width: 100%;

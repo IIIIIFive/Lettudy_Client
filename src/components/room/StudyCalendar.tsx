@@ -153,7 +153,9 @@ const StudyCalendarStyle = styled.div`
       padding: 1px 6px;
       border-radius: 4px;
       margin-top: 4px;
-      font-size: 10px;
+      font-size: ${({ theme }) => theme.fontSize_xxs};
+      font-weight: 700;
+      white-space: nowrap;
     }
   }
 
