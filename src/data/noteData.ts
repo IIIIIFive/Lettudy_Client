@@ -1,11 +1,4 @@
-export type Note = {
-  id: number;
-  userId: number;
-  title: string;
-  tags: string[];
-  content: string;
-  date: Date;
-};
+import { Note } from '@/store/noteStore';
 
 export const notes: Note[] = [
   {

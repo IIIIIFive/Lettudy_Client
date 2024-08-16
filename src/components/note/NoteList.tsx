@@ -1,5 +1,5 @@
+import { Note } from '@/store/noteStore';
 import styled from 'styled-components';
-import { Note } from '@/data/noteData';
 
 type NoteListProps = {
   notes: Note[];

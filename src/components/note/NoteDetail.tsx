@@ -1,4 +1,4 @@
-import { Note } from '@/data/noteData';
+import { Note } from '@/store/noteStore';
 import styled from 'styled-components';
 import { formatDate } from '@/utils/formatDate';
 
