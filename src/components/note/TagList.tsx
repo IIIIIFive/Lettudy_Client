@@ -5,6 +5,7 @@ type TagListProps = {
   selectedTags: string[];
   onToggle: () => void;
   onTagClick: (tag: string) => void;
+  onReset: () => void;
   showAllTags: boolean;
 };
 
@@ -13,6 +14,7 @@ const TagList = ({
   selectedTags,
   onToggle,
   onTagClick,
+  onReset,
   showAllTags,
 }: TagListProps) => {
   return (
@@ -20,12 +22,23 @@ const TagList = ({
       <div className='tag-header'>
         <img src='/assets/images/hashtag.png' alt='hashtag' width={20} />
         <h4>태그 목록</h4>
-        <img
-          src='/assets/icon/toggle-icon.svg'
-          alt='toggle'
-          className='toggle-icon'
-          onClick={onToggle}
-        />
+        <div className='icons'>
+          <img
+            src='/assets/icon/toggle-icon.svg'
+            alt='toggle'
+            className='toggle-icon'
+            onClick={onToggle}
+          />
+          <div className='reset-tag'>
+            <img
+              src='/assets/icon/tag-reset-icon.svg'
+              alt='reset'
+              className='reset-icon'
+              onClick={onReset}
+              height={12}
+            />
+          </div>
+        </div>
       </div>
       <div
         className={`tag-items-container ${
@@ -63,10 +76,24 @@ const TagListStyle = styled.div<{ showAllTags: boolean }>`
       margin: 0;
     }
 
-    .toggle-icon {
-      cursor: pointer;
-      transform: rotate(${(props) => (props.showAllTags ? '180deg' : '0deg')});
-      transition: transform 0.3s ease;
+    .icons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      img {
+        cursor: pointer;
+      }
+
+      .toggle-icon {
+        transform: rotate(
+          ${(props) => (props.showAllTags ? '0deg' : '180deg')}
+        );
+        transition: transform 0.3s ease;
+      }
+      .reset-tag {
+        margin-left: 10px;
+      }
     }
   }
 

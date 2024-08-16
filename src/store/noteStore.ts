@@ -8,51 +8,38 @@ interface Note {
 }
 
 interface NoteState {
-  title: string;
-  tags: string;
-  tagList: string[];
-  content: string;
-  showToast: boolean;
-  date: string;
   notes: Note[];
-  setTitle: (title: string) => void;
-  setTags: (tags: string) => void;
-  addTag: (tag: string) => void;
-  removeTag: (index: number) => void;
-  setContent: (content: string) => void;
-  setShowToast: (showToast: boolean) => void;
-  setDate: (date: string) => void;
-  addNote: (note: Note) => void;
-  clearTags: () => void;
+  selectedNote: Note | null;
+  selectedTags: string[];
+  showAllTags: boolean;
+  currentPage: number;
+  itemsPerPage: number;
+  setSelectedNote: (note: Note) => void;
+  toggleShowAllTags: () => void;
+  selectTag: (tag: string) => void;
+  resetTags: () => void;
+  setCurrentPage: (page: number) => void;
 }
 
 const useNoteStore = create<NoteState>((set) => ({
-  title: '',
-  tags: '',
-  tagList: [],
-  content: '',
-  showToast: false,
-  date: '',
   notes: [],
-  setTitle: (title) => set({ title }),
-  setTags: (tags) => set({ tags }),
-  addTag: (tag) =>
+  selectedNote: null,
+  selectedTags: [],
+  showAllTags: false,
+  currentPage: 1,
+  itemsPerPage: 5,
+  setSelectedNote: (note) => set({ selectedNote: note }),
+  toggleShowAllTags: () =>
+    set((state) => ({ showAllTags: !state.showAllTags })),
+  selectTag: (tag) =>
     set((state) => ({
-      tagList: [...state.tagList, tag],
-      tags: '',
+      selectedTags: state.selectedTags.includes(tag)
+        ? state.selectedTags.filter((t) => t !== tag)
+        : [...state.selectedTags, tag],
+      currentPage: 1,
     })),
-  removeTag: (index) =>
-    set((state) => ({
-      tagList: state.tagList.filter((_, i) => i !== index),
-    })),
-  setContent: (content) => set({ content }),
-  setShowToast: (showToast) => set({ showToast }),
-  setDate: (date) => set({ date }),
-  addNote: (note) =>
-    set((state) => ({
-      notes: [...state.notes, note],
-    })),
-  clearTags: () => set({ tagList: [] }),
+  resetTags: () => set({ selectedTags: [], currentPage: 1 }),
+  setCurrentPage: (page) => set({ currentPage: page }),
 }));
 
 export default useNoteStore;
