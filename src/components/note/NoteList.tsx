@@ -34,10 +34,9 @@ const NoteList = ({ notes, onNoteClick }: NoteListProps) => {
 export default NoteList;
 
 const NoteListStyle = styled.div`
-  margin-top: 10px;
   .note-item {
     cursor: pointer;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     .note-title-container {
       display: flex;

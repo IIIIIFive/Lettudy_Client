@@ -12,18 +12,15 @@ interface HomeModalsProps {
 
 function HomeModals({ isOpen, onClose, type, onConfirm }: HomeModalsProps) {
   const [inputValue, setInputValue] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const handleConfirm = () => {
-    if (type === 'create' && inputValue.length === 0) {
-      setErrorMessage('제목을 입력해주세요.');
-      return;
-    } else if (type === 'join' && inputValue.length === 0) {
-      setErrorMessage('코드를 입력해주세요.');
+    if (inputValue.length === 0) {
+      setIsError(true);
       return;
     }
 
-    setErrorMessage('');
+    setIsError(false);
     onConfirm(inputValue);
     setInputValue('');
     onClose();
@@ -36,11 +33,12 @@ function HomeModals({ isOpen, onClose, type, onConfirm }: HomeModalsProps) {
     } else if (type !== 'create') {
       setInputValue(value);
     }
+    setIsError(false);
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <HomeModalsStyle>
+      <HomeModalsStyle isError={isError}>
         <div className='content'>
           <img src='/assets/images/speaker.png' alt='speaker' width={35} />
           <h2>{type === 'create' ? '스터디 만들기' : '스터디 입장'}</h2>
@@ -65,19 +63,19 @@ function HomeModals({ isOpen, onClose, type, onConfirm }: HomeModalsProps) {
             <NormalButton text='확인' onClick={handleConfirm} />
           </div>
         </div>
-        <div className='error-message'>{errorMessage}</div>
       </HomeModalsStyle>
     </Modal>
   );
 }
 
-const HomeModalsStyle = styled.div`
+const HomeModalsStyle = styled.div<{ isError: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
   margin-bottom: 30px;
+
   .content {
     display: flex;
     flex-direction: column;
@@ -107,19 +105,14 @@ const HomeModalsStyle = styled.div`
       }
       input::placeholder {
         font-size: ${({ theme }) => theme.fontSize_xs};
-        color: ${({ theme }) => theme.color_textGray};
+        color: ${({ isError, theme }) =>
+          isError ? theme.color_textRed : theme.color_textGray};
       }
     }
 
     .button {
       margin-left: 30px;
     }
-  }
-  .error-message {
-    margin-top: 15px;
-    align-items: center;
-    color: ${({ theme }) => theme.color_textRed};
-    font-size: ${({ theme }) => theme.fontSize_xs};
   }
 `;
 

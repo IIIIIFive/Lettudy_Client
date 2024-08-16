@@ -1,4 +1,4 @@
-import React, { useState, useRef, KeyboardEvent, ChangeEvent } from 'react';
+import { useState, useRef, KeyboardEvent, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import ButtonList from './ButtonList';
 
@@ -10,6 +10,7 @@ function TopSection() {
   ]);
   const contentRef = useRef<HTMLDivElement>(null);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [showCode, setShowCode] = useState<boolean>(false);
 
   const handleEditClick = (): void => {
     setIsEditing(!isEditing);
@@ -49,6 +50,11 @@ function TopSection() {
     newNotices[index] = value;
     setNotices(newNotices);
   };
+
+  const toggleCodeVisibility = () => {
+    setShowCode(!showCode);
+  };
+
   return (
     <TopSectionStyle>
       <div className='title'>
@@ -59,7 +65,9 @@ function TopSection() {
           width={50}
           height={50}
         />
-        <span>입장코드: 123456789</span>
+        <span onClick={toggleCodeVisibility}>
+          입장 코드 {showCode ? '123456' : '• • • • • •'}
+        </span>
       </div>
 
       <div className='content' ref={contentRef}>
@@ -124,10 +132,12 @@ const TopSectionStyle = styled.div`
     span {
       margin-left: auto;
       padding: 6px 10px;
-      font-size: ${({ theme }) => theme.fontSize_reg};
+      font-size: ${({ theme }) => theme.fontSize_sm};
       color: ${({ theme }) => theme.color_textKey};
       border: 1px solid ${({ theme }) => theme.color_borderGray};
       border-radius: 5px;
+      cursor: pointer;
+      user-select: none;
     }
   }
 

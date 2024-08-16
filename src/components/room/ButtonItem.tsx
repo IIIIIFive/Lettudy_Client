@@ -16,7 +16,7 @@ function ButtonItem({
   return (
     <ButtonItemStyle onClick={onClick}>
       <button className='icon'>
-        <img src={iconSrc} alt='icon' width={50} />
+        <img src={iconSrc} alt='icon' width={45} />
       </button>
       <h4>{featName}</h4>
     </ButtonItemStyle>
@@ -28,7 +28,7 @@ const ButtonItemStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px;
+  padding: 12px;
   gap: 20px;
   background-color: ${({ theme }) => theme.color_bgWhite};
   border-radius: 15px;
@@ -40,7 +40,7 @@ const ButtonItemStyle = styled.div`
   }
 
   .icon {
-    padding: 12px;
+    padding: 10px;
     background-color: #e3f1fe;
     border-radius: 50%;
   }

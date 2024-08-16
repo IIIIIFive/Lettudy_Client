@@ -89,7 +89,7 @@ const NoteViewStyle = styled.div<{ showAllTags: boolean }>`
     position: relative;
 
     .list {
-      height: 70vh;
+      height: 67vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;

@@ -46,7 +46,7 @@ const ProfileBoxStyle = styled.div`
   background: ${({ theme }) => theme.color_bgWhite};
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-  padding: 10vh 32px;
+  padding: 7vh 32px;
   height: 100%;
 
   .avatar {
