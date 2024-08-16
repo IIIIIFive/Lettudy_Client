@@ -44,7 +44,12 @@ function StudyCalendar() {
     const event = events.find(
       (event) => event.date.toDateString() === date.toDateString(),
     );
-    return event ? <div className='event'>{event.title}</div> : null;
+    if (event) {
+      const truncatedTitle =
+        event.title.length > 5 ? `${event.title.slice(0, 5)}··` : event.title;
+      return <div className='event'>{truncatedTitle}</div>;
+    }
+    return null;
   };
 
   return (
