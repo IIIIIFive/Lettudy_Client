@@ -88,7 +88,7 @@ function Join() {
                       required: '이메일을 입력하세요.',
                       pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: '이메일 주소를 다시 입력하세요.',
+                        message: '이메일 형식이 올바르지 않습니다.',
                       },
                     })}
                   />
