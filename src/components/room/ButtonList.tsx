@@ -17,13 +17,13 @@ function ButtonList() {
     <ButtonListStyle>
       <ButtonItem
         iconSrc='/assets/images/pencil.png'
-        featName='회의록 작성'
-        onClick={() => handleButtonClick('/create-note')}
+        featName='기록하기'
+        onClick={() => handleButtonClick('/room/create-note')}
       />
       <ButtonItem
         iconSrc='/assets/images/notebook.png'
-        featName='회의록 보기'
-        onClick={() => handleButtonClick('/note')}
+        featName='노트 보기'
+        onClick={() => handleButtonClick('/room/note')}
       />
       <ButtonItem
         iconSrc='/assets/images/box.png'

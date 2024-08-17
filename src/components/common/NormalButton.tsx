@@ -46,7 +46,7 @@ const NormalButtonStyle = styled.button<{ size: 'small' | 'medium' | 'large' }>`
       : size === 'medium'
         ? theme.fontSize_xs
         : theme.fontSize_sm};
-  font-weight: 700;
+  font-weight: 900;
   cursor: pointer;
   transition:
     opacity 0.3s,

@@ -29,7 +29,9 @@ function ProfileBox({ name, email, studyCount, onClick }: ProfileBoxProps) {
       </div>
       <h1 className='name'>{name}</h1>
       <p className='email'>{email}</p>
-      <p className='study-count'>현재 {studyCount}개의 스터디에 속해 있어요!</p>
+      <p className='study-count'>
+        현재 <span>{studyCount}</span>개의 스터디에 속해 있어요!
+      </p>
       <div className='withdrawal' onClick={handleClick}>
         <img src='/assets/icon/withdrawal.svg' alt='withdrawal' width={15} />
         <p>탈퇴하기</p>
@@ -44,7 +46,7 @@ const ProfileBoxStyle = styled.div`
   background: ${({ theme }) => theme.color_bgWhite};
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-  padding: 32px; 
+  padding: 7vh 32px;
   height: 100%;
 
   .avatar {
@@ -63,35 +65,42 @@ const ProfileBoxStyle = styled.div`
   .email,
   .study-count {
     text-align: center;
-    margin-top: 24px; 
+    margin-top: 24px;
   }
 
   .name {
     font-size: ${({ theme }) => theme.fontSize_lg};
-    margin-top: 36px; 
+    margin-top: 36px;
   }
 
   .email {
     font-size: ${({ theme }) => theme.fontSize_md};
     color: ${({ theme }) => theme.color_textKey};
+    margin-bottom: 40px;
   }
 
   .study-count {
-    font-size: ${({ theme }) => theme.fontSize_xxs};
+    font-size: ${({ theme }) => theme.fontSize_xs};
     color: ${({ theme }) => theme.color_textGray};
+
+    span {
+      color: ${({ theme }) => theme.color_textKey};
+      font-weight: 700;
+    }
   }
 
   .withdrawal {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 32px;
+    margin-top: 25px;
     padding: 10px;
     color: ${({ theme }) => theme.color_textKey};
     cursor: pointer;
-    font-size: ${({ theme }) => theme.fontSize_xxs};
+    font-size: ${({ theme }) => theme.fontSize_xs};
 
     img {
-      margin: 3px 8px 0 0;
+      margin-right: 8px;
     }
+  }
 `;

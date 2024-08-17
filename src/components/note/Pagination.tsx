@@ -58,7 +58,7 @@ const PaginationStyle = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-top: 46px;
+  margin-top: 10px;
 
   .page-info {
     display: flex;
