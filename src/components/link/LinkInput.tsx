@@ -28,7 +28,7 @@ function LinkInput({ addLink }: LinkInputProps) {
     <LinkInputStyle>
       <div className='container'>
         <label className='input-label'>
-          <h5>링크 이름</h5>
+          <h4>링크 이름</h4>
           <input
             className='link-name'
             type='text'
@@ -39,7 +39,7 @@ function LinkInput({ addLink }: LinkInputProps) {
           />
         </label>
         <label className='input-label'>
-          <h5>링크 URL</h5>
+          <h4>링크 URL</h4>
           <input
             className='link-url'
             type='text'
@@ -49,8 +49,8 @@ function LinkInput({ addLink }: LinkInputProps) {
           />
         </label>
         <div className='link-add' onClick={handleSubmit}>
-          <img src='/assets/images/plus.png' alt='plus' width={15} />
-          <h5>추가하기</h5>
+          <img src='/assets/images/plus.png' alt='plus' width={25} />
+          <h4>추가하기</h4>
         </div>
       </div>
     </LinkInputStyle>
@@ -68,11 +68,10 @@ const LinkInputStyle = styled.div`
   width: 100%;
 
   .container {
-    height: 100%;
     background: ${({ theme }) => theme.color_bgWhite};
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-    padding: 34px 46px;
+    padding: 50px 46px;
     display: flex;
     flex-direction: column;
   }
@@ -81,7 +80,7 @@ const LinkInputStyle = styled.div`
     flex-direction: column;
     margin-bottom: 18px;
 
-    h5 {
+    h4 {
       margin-bottom: 12px;
     }
 
@@ -100,7 +99,7 @@ const LinkInputStyle = styled.div`
     justify-content: center;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 4px;
+    margin-top: 18px;
 
     img {
       margin-right: 8px;

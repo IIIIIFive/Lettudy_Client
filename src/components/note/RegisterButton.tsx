@@ -17,23 +17,22 @@ function RegisterButton({ onClick, text }: RegisterButtonProps) {
 export default RegisterButton;
 
 const RegisterButtonStyle = styled.button`
-  padding: 12px 24px;
+  padding: 12px 40px;
   background-color: ${({ theme }) => theme.color_key};
   color: ${({ theme }) => theme.color_bgWhite};
-  border: none;
   border-radius: 5px;
-  font-size: ${({ theme }) => theme.fontSize_sm};
+  font-size: ${({ theme }) => theme.fontSize_reg};
   font-weight: bold;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  transition: box-shadow 0.3s ease-in-out;
 
   &:hover {
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
   }
 
   img {
-    margin-left: 3px;
-    top: 2px;
+    margin: 3px 0 0 5px;
   }
 `;

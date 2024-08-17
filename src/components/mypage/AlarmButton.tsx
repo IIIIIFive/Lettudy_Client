@@ -18,7 +18,7 @@ function AlarmButton({ alarm, onClick, children }: AlarmButtonProps) {
 export default AlarmButton;
 
 const AlarmButtonStyle = styled.button<{ $alarm: boolean }>`
-  width: 75px;
+  width: 80px;
   height: 32px;
   background-color: ${({ theme, $alarm }) =>
     $alarm ? theme.color_textLightOrange : theme.color_key};

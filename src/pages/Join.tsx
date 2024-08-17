@@ -54,7 +54,7 @@ function Join() {
         <img src='/assets/images/logo-withLettudy.png' alt='logo' height={55} />
 
         <div className='container'>
-          <h2>회원가입</h2>
+          <h1>회원가입</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset>
               <div className='form-group'>
@@ -145,34 +145,14 @@ function Join() {
 export default Join;
 
 export const JoinStyle = styled.div`
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  .lettudy {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 20px;
-    text-decoration: none;
-
-    .title {
-      overflow-wrap: break-word;
-      font-weight: bold;
-      font-size: ${({ theme }) => theme.fontSize_xl};
-      line-height: 1.6;
-      color: ${({ theme }) => theme.color_textBlack};
-    }
-
-    img {
-      width: 35px;
-      margin-bottom: 6px;
-    }
-  }
-
   .container {
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
     background: ${({ theme }) => theme.color_bgWhite};
     display: flex;
@@ -181,7 +161,7 @@ export const JoinStyle = styled.div`
     width: 550px;
     box-sizing: border-box;
     padding: 50px;
-    margin-top: 30px;
+    margin-top: 70px;
 
     fieldset {
       border: none;
@@ -190,6 +170,7 @@ export const JoinStyle = styled.div`
       align-items: center;
       width: 100%;
       margin-top: 40px;
+      gap: 5px;
 
       .error-text {
         color: ${({ theme }) => theme.color_textRed};
@@ -208,14 +189,16 @@ export const JoinStyle = styled.div`
         margin-bottom: 10px;
         color: ${({ theme }) => theme.color_textKey};
         font-size: ${({ theme }) => theme.fontSize_sm};
+        font-weight: 500;
       }
 
       input {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         border: 1px solid #ddd;
         border-radius: 8px;
         outline: none;
+        font-size: ${({ theme }) => theme.fontSize_sm};
       }
 
       .email-form {
