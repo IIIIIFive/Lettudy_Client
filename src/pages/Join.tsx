@@ -15,6 +15,7 @@ export interface JoinProps {
 function Join() {
   const { userJoin, verifyEmail } = useAuth();
   const [emailChecked, setEmailChecked] = useState<boolean | null>(null);
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
   const {
     register,
     handleSubmit,
@@ -29,7 +30,9 @@ function Join() {
   useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (name === 'email') {
+        const email = value.email;
         setEmailChecked(null);
+        setIsEmailValid(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email ?? ''));
       }
     });
     return () => subscription.unsubscribe();
@@ -46,7 +49,9 @@ function Join() {
   const handleEmailCheck = async () => {
     const email = watch('email');
     if (!email) {
-      alert('이메일을 입력하세요.');
+      return;
+    }
+    if (!isEmailValid) {
       return;
     }
     const isAvailable = await verifyEmail(email);
@@ -92,7 +97,11 @@ function Join() {
                       },
                     })}
                   />
-                  <Button type='button' size='small' onClick={handleEmailCheck}>
+                  <Button
+                    type='button'
+                    size='small'
+                    onClick={handleEmailCheck}
+                    disabled={!isEmailValid}>
                     중복확인
                   </Button>
                 </div>
