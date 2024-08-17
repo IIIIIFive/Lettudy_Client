@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Chat } from '../../types/chat';
+import { Chat } from '../../model/chat.model';
 
 interface ChatItemProps {
   message: Chat;

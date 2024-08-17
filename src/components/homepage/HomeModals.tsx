@@ -14,11 +14,18 @@ interface HomeModalsProps {
 function HomeModals({ isOpen, onClose, type, onConfirm }: HomeModalsProps) {
   const [inputValue, setInputValue] = useState('');
   const [isError, setIsError] = useState(false);
+  const { createRoom, joinRoomWithCode } = useHome();
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (inputValue.length === 0) {
       setIsError(true);
       return;
+    }
+
+    if (type === 'create') {
+      await createRoom(inputValue);
+    } else if (type === 'join') {
+      await joinRoomWithCode(inputValue);
     }
 
     setIsError(false);

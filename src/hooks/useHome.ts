@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 export const useHome = () => {
   const navigate = useNavigate();
 
-  const { data: rooms = [], error } = useQuery(['rooms'], getRooms);
+  const { data, error } = useQuery(['rooms'], getRooms);
+
+  const rooms = data?.rooms || [];
 
   const createRoomMutation = useMutation(createRooms, {
     onSuccess: (data) => {
@@ -16,6 +18,10 @@ export const useHome = () => {
   const joinRoomMutation = useMutation(joinRoom, {
     onSuccess: (data) => {
       navigate(`/room/${data.roomId}`);
+    },
+    onError: (error: any) => {
+      const errorMessage = error?.response?.data?.message;
+      alert(errorMessage);
     },
   });
 

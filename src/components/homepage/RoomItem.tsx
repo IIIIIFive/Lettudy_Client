@@ -41,6 +41,7 @@ const RoomItemStyle = styled.div<{ isPlaceholder: boolean }>`
   border-radius: 15px;
   transition: box-shadow 0.3s ease-in-out;
   opacity: ${({ isPlaceholder }) => (isPlaceholder ? 0.5 : 1)};
+  pointer-events: ${({ isPlaceholder }) => (isPlaceholder ? 'none' : 'auto')};
 
   &:hover {
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);

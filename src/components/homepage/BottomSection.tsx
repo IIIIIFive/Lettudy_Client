@@ -1,28 +1,29 @@
-import { useState } from 'react';
 import styled from 'styled-components';
-import HomeModals from './HomeModals';
 import RoomList from './RoomList';
-
 import useModalStore from '@/store/modalStore';
-
+import { useAuthStore } from '@/store/authStore';
+type ModalType = 'create' | 'join';
 function BottomSection() {
   const { openModal } = useModalStore();
+  const { isLoggedIn } = useAuthStore();
 
+  const handleButtonClick = (modalType: ModalType) => {
+    if (!isLoggedIn) {
+      alert('로그인 후 이용해주세요.');
+      return;
+    }
+    openModal(modalType);
+  };
 
-  const handleCreate = (roomName: string) => {};
-
-  const handleJoin = (code: string) => {};
   return (
     <BottomSectionStyle>
       <div className='content'>
         <div className='buttons'>
-
-          <div className='icon' onClick={() => openModal('create')}>
+          <div className='icon' onClick={() => handleButtonClick('create')}>
             <img src='/assets/images/square-plus.png' alt='plus' width={100} />
             <h3>스터디 만들기</h3>
           </div>
-          <div className='icon' onClick={() => openModal('join')}>
-
+          <div className='icon' onClick={() => handleButtonClick('join')}>
             <img
               src='/assets/images/square-arrow.png'
               alt='add-person'
@@ -34,7 +35,6 @@ function BottomSection() {
         <span>제목만 입력하면 간편하게 스터디룸을 만들 수 있어요.</span>
       </div>
       <RoomList />
-
     </BottomSectionStyle>
   );
 }

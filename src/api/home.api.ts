@@ -1,3 +1,4 @@
+import { RoomsRes } from '@/model/room.model';
 import { httpClient } from './http';
 
 export const createRooms = async (title: string) => {
@@ -6,8 +7,8 @@ export const createRooms = async (title: string) => {
 };
 
 export const getRooms = async () => {
-  const response = await httpClient.get('/rooms');
-  return response.data.rooms; // api 수정 전 임시
+  const response = await httpClient.get<RoomsRes>('/rooms');
+  return response.data;
 };
 
 export const joinRoom = async (roomCode: string) => {
