@@ -1,6 +1,5 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '@/components/common/Button';
 import AuthBackground from '@/components/auth/AuthBackground';
@@ -15,16 +14,26 @@ export interface JoinProps {
 
 function Join() {
   const { userJoin, verifyEmail } = useAuth();
-  const navigate = useNavigate();
-  const [emailChecked, setEmailChecked] = useState(false);
+  const [emailChecked, setEmailChecked] = useState<boolean | null>(null);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<JoinProps>();
+  } = useForm<JoinProps>({
+    mode: 'onChange',
+  });
   const passwordRef = useRef<string | null>(null);
   passwordRef.current = watch('password');
+
+  useEffect(() => {
+    const subscription = watch((value, { name }) => {
+      if (name === 'email') {
+        setEmailChecked(null);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const onSubmit: SubmitHandler<JoinProps> = (data) => {
     if (emailChecked) {
@@ -78,7 +87,7 @@ function Join() {
                     {...register('email', {
                       required: '이메일을 입력하세요.',
                       pattern: {
-                        value: /^\S+@\S+$/i,
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                         message: '이메일 주소를 다시 입력하세요.',
                       },
                     })}
@@ -89,6 +98,12 @@ function Join() {
                 </div>
                 {errors.email && (
                   <p className='error-text'>{errors.email.message}</p>
+                )}
+                {emailChecked === true && (
+                  <p className='success-text'>사용 가능한 이메일입니다.</p>
+                )}
+                {emailChecked === false && !errors.email && (
+                  <p className='error-text'>이미 사용 중인 이메일입니다.</p>
                 )}
               </div>
 
@@ -193,6 +208,12 @@ export const JoinStyle = styled.div`
 
       .error-text {
         color: ${({ theme }) => theme.color_textRed};
+        font-size: ${({ theme }) => theme.fontSize_xxs};
+        margin-top: 5px;
+      }
+
+      .success-text {
+        color: ${({ theme }) => theme.color_keyBlue};
         font-size: ${({ theme }) => theme.fontSize_xxs};
         margin-top: 5px;
       }
