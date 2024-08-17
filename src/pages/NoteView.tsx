@@ -1,4 +1,5 @@
-import { Note, notes } from '@/data/noteData';
+import { notes } from '@/data/noteData';
+import { Note } from '@/store/noteStore';
 import { useState } from 'react';
 import styled from 'styled-components';
 import TagList from '@/components/note/TagList';
@@ -37,6 +38,11 @@ function NoteView() {
     setCurrentPage(1);
   };
 
+  const handleResetTags = () => {
+    setSelectedTags([]);
+    setCurrentPage(1);
+  };
+
   const filteredNotes = selectedTags.length
     ? sortedNotes.filter((note) =>
         selectedTags.some((tag) => note.tags.includes(tag)),
@@ -58,6 +64,7 @@ function NoteView() {
             selectedTags={selectedTags}
             onToggle={handleToggleTags}
             onTagClick={handleTagClick}
+            onReset={handleResetTags}
             showAllTags={showAllTags}
           />
           <NoteList notes={currentNotes} onNoteClick={handleNoteClick} />
@@ -74,6 +81,8 @@ function NoteView() {
     </NoteViewStyle>
   );
 }
+
+export default NoteView;
 
 const NoteViewStyle = styled.div<{ showAllTags: boolean }>`
   padding: 24px 0;
@@ -93,5 +102,3 @@ const NoteViewStyle = styled.div<{ showAllTags: boolean }>`
     }
   }
 `;
-
-export default NoteView;
