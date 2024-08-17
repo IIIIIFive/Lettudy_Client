@@ -13,6 +13,7 @@ import LinkManager from './pages/LinkManager';
 import Modals from './components/common/modals/Modals';
 import CreateNote from './pages/CreateNote';
 import NoteView from './pages/NoteView';
+import ScrollToTop from './components/common/ScrollToTop';
 
 import { queryClient } from './api/queryClient';
 import { QueryClientProvider } from 'react-query';
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <>
+        <ScrollToTop />
         <Modals />
         <MainLayout>
           <Header />
@@ -57,11 +59,11 @@ const router = createBrowserRouter([
         element: <LinkManager />,
       },
       {
-        path: 'create-note',
+        path: '/room/create-note',
         element: <CreateNote />,
       },
       {
-        path: 'note',
+        path: '/room/note',
         element: <NoteView />,
       },
     ],

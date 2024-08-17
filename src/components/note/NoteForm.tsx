@@ -11,7 +11,7 @@ import { formatDate } from '@/utils/formatDate';
 const modules = {
   toolbar: {
     container: [
-      [{ header: [1, 2, 3, false] }],
+      [{ header: [3, 4, 5, false] }],
       [{ list: 'ordered' }, { list: 'bullet' }],
       ['bold', 'italic', 'underline'],
       [{ color: [] }, { background: [] }],
@@ -115,7 +115,7 @@ function NoteForm({ onSubmit }: NoteFormProps) {
     <NoteFormStyle>
       <form className='form' onSubmit={handleSubmit}>
         <div className='form-group'>
-          <h4>제목</h4>
+          <h3>제목</h3>
           <input
             className='input'
             type='text'
@@ -125,7 +125,7 @@ function NoteForm({ onSubmit }: NoteFormProps) {
           />
         </div>
         <div className='form-group'>
-          <h4>태그</h4>
+          <h3>태그</h3>
           <TagInput
             tags={tags}
             tagList={tagList}
@@ -138,7 +138,7 @@ function NoteForm({ onSubmit }: NoteFormProps) {
           {showToast && <Toast ref={toastRef} onClose={handleToastClose} />}
         </div>
         <div className='form-group'>
-          <h4>내용</h4>
+          <h3>내용</h3>
           <ReactQuill
             value={content}
             placeholder='내용을 입력하세요.'
@@ -157,6 +157,7 @@ function NoteForm({ onSubmit }: NoteFormProps) {
 }
 
 const NoteFormStyle = styled.div`
+  margin-bottom: 60px;
   .form {
     display: flex;
     flex-direction: column;
@@ -170,7 +171,7 @@ const NoteFormStyle = styled.div`
     flex-direction: column;
   }
 
-  .form-group h4 {
+  .form-group h3 {
     margin-bottom: 20px;
     margin-left: 12px;
   }
@@ -179,7 +180,7 @@ const NoteFormStyle = styled.div`
     padding: 14px 20px;
     border-radius: 12px;
     border: 1px solid ${({ theme }) => theme.color_borderGray};
-    font-size: ${({ theme }) => theme.fontSize_sm};
+    font-size: ${({ theme }) => theme.fontSize_reg};
     outline: none;
     width: 100%;
   }
@@ -188,6 +189,7 @@ const NoteFormStyle = styled.div`
   .ql-toolbar {
     border: 1px solid ${({ theme }) => theme.color_borderGray};
     background-color: ${({ theme }) => theme.color_bgWhite};
+    font-size: ${({ theme }) => theme.fontSize_sm};
     border-radius: 12px;
   }
 

@@ -1,5 +1,5 @@
+import { Note } from '@/store/noteStore';
 import styled from 'styled-components';
-import { Note } from '@/data/noteData';
 
 type NoteListProps = {
   notes: Note[];
@@ -10,11 +10,10 @@ const NoteList = ({ notes, onNoteClick }: NoteListProps) => {
   return (
     <NoteListStyle>
       {notes.map((note) => (
-        <div
-          key={note.id}
-          className='note-item'
-          onClick={() => onNoteClick(note)}>
-          <div className='note-title-container'>
+        <div key={note.id} className='note-item'>
+          <div
+            className='note-title-container'
+            onClick={() => onNoteClick(note)}>
             <img src='/assets/images/book.png' alt='book' width={20} />
             <h4>{note.title}</h4>
           </div>
@@ -35,13 +34,13 @@ export default NoteList;
 
 const NoteListStyle = styled.div`
   .note-item {
-    cursor: pointer;
     margin-bottom: 20px;
 
     .note-title-container {
       display: flex;
       align-items: center;
       gap: 10px;
+      cursor: pointer;
     }
 
     .note-tags {

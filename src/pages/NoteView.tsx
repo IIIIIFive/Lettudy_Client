@@ -1,4 +1,5 @@
-import { Note, notes } from '@/data/noteData';
+import { notes } from '@/data/noteData';
+import { Note } from '@/store/noteStore';
 import { useState } from 'react';
 import styled from 'styled-components';
 import TagList from '@/components/note/TagList';
@@ -37,6 +38,11 @@ function NoteView() {
     setCurrentPage(1);
   };
 
+  const handleResetTags = () => {
+    setSelectedTags([]);
+    setCurrentPage(1);
+  };
+
   const filteredNotes = selectedTags.length
     ? sortedNotes.filter((note) =>
         selectedTags.some((tag) => note.tags.includes(tag)),
@@ -58,14 +64,17 @@ function NoteView() {
             selectedTags={selectedTags}
             onToggle={handleToggleTags}
             onTagClick={handleTagClick}
+            onReset={handleResetTags}
             showAllTags={showAllTags}
           />
           <NoteList notes={currentNotes} onNoteClick={handleNoteClick} />
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={setCurrentPage}
-          />
+          <div className='pagination'>
+            <Pagination
+              totalPages={totalPages}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+            />
+          </div>
         </div>
         <div className='note'>
           <NoteDetail note={selectedNote} />
@@ -75,23 +84,32 @@ function NoteView() {
   );
 }
 
+export default NoteView;
+
 const NoteViewStyle = styled.div<{ showAllTags: boolean }>`
+  max-height: 100vh;
   padding: 24px 0;
 
   .container {
+    display: flex;
+
     gap: 50px;
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
     padding: 40px 0;
     position: relative;
 
     .list {
+      height: 67vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       padding-right: 15px;
       position: sticky;
       top: 24px;
       align-self: start;
+
+      .pagination {
+        margin-top: auto;
+      }
     }
   }
 `;
-
-export default NoteView;

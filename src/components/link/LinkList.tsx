@@ -46,9 +46,7 @@ const LinkListStyle = styled.div`
   width: 100%;
 
   .container {
-    min-height: 550px;
-    max-height: 550px;
-    height: 100%;
+    height: 70vh;
     background: ${({ theme }) => theme.color_bgWhite};
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
@@ -65,7 +63,7 @@ const LinkListStyle = styled.div`
   .empty-message p {
     text-align: center;
     color: #7d7d7d;
-    font-size: ${({ theme }) => theme.fontSize_xs};
+    font-size: ${({ theme }) => theme.fontSize_sm};
     margin: 10px 0 20px;
   }
 
@@ -75,7 +73,7 @@ const LinkListStyle = styled.div`
     padding: 20px;
     border-radius: 12px;
     overflow-y: auto;
-    max-height: 402px;
+    height: 63vh;
     display: flex;
     flex-direction: column;
 

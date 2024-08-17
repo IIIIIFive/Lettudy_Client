@@ -44,7 +44,12 @@ function StudyCalendar() {
     const event = events.find(
       (event) => event.date.toDateString() === date.toDateString(),
     );
-    return event ? <div className='event'>{event.title}</div> : null;
+    if (event) {
+      const truncatedTitle =
+        event.title.length > 5 ? `${event.title.slice(0, 5)}··` : event.title;
+      return <div className='event'>{truncatedTitle}</div>;
+    }
+    return null;
   };
 
   return (
@@ -153,7 +158,9 @@ const StudyCalendarStyle = styled.div`
       padding: 1px 6px;
       border-radius: 4px;
       margin-top: 4px;
-      font-size: 10px;
+      font-size: ${({ theme }) => theme.fontSize_xxs};
+      font-weight: 700;
+      white-space: nowrap;
     }
   }
 

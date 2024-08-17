@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Button from '../common/Button';
 import NormalButton from '../common/NormalButton';
 
 function Attendance() {

@@ -11,7 +11,7 @@ function LeaveRoomButton({ onClick }: LeaveRoomButtonProps) {
 export default LeaveRoomButton;
 
 const LeaveRoomButtonStyle = styled.button`
-  width: 75px;
+  width: 80px;
   height: 32px;
   background-color: #fedada;
   color: #ff6161;

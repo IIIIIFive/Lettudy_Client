@@ -1,11 +1,13 @@
 import { create } from 'zustand';
 
-interface Note {
+export type Note = {
+  id: number;
+  userId: number;
   title: string;
   tags: string[];
   content: string;
-  date: string;
-}
+  date: Date;
+};
 
 interface NoteState {
   title: string;
@@ -15,6 +17,9 @@ interface NoteState {
   showToast: boolean;
   date: string;
   notes: Note[];
+  currentPage: number;
+  itemsPerPage: number;
+  selectedTags: string[];
   setTitle: (title: string) => void;
   setTags: (tags: string) => void;
   addTag: (tag: string) => void;
@@ -24,6 +29,9 @@ interface NoteState {
   setDate: (date: string) => void;
   addNote: (note: Note) => void;
   clearTags: () => void;
+  setCurrentPage: (page: number) => void;
+  setSelectedTags: (tags: string[]) => void;
+  resetTags: () => void;
 }
 
 const useNoteStore = create<NoteState>((set) => ({
@@ -34,6 +42,10 @@ const useNoteStore = create<NoteState>((set) => ({
   showToast: false,
   date: '',
   notes: [],
+  currentPage: 1,
+  itemsPerPage: 5,
+  selectedTags: [],
+
   setTitle: (title) => set({ title }),
   setTags: (tags) => set({ tags }),
   addTag: (tag) =>
@@ -53,6 +65,9 @@ const useNoteStore = create<NoteState>((set) => ({
       notes: [...state.notes, note],
     })),
   clearTags: () => set({ tagList: [] }),
+  setCurrentPage: (page) => set({ currentPage: page }),
+  setSelectedTags: (tags) => set({ selectedTags: tags, currentPage: 1 }),
+  resetTags: () => set({ selectedTags: [], currentPage: 1 }),
 }));
 
 export default useNoteStore;

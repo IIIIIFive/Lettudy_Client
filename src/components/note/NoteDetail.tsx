@@ -1,4 +1,4 @@
-import { Note } from '@/data/noteData';
+import { Note } from '@/store/noteStore';
 import styled from 'styled-components';
 import { formatDate } from '@/utils/formatDate';
 
@@ -12,7 +12,7 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
   return (
     <NoteDetailStyle>
       <div className='note-header'>
-        <h4 className='note-title'>{note.title}</h4>
+        <h2>{note.title}</h2>
         <div className='note-tags'>
           {note.tags.map((tag, idx) => (
             <span key={idx} className='note-tag'>
@@ -38,12 +38,13 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
 export default NoteDetail;
 
 const NoteDetailStyle = styled.div`
+  width: 700px;
   background-color: ${({ theme }) => theme.color_bgWhite};
   border: 1px solid ${({ theme }) => theme.color_borderGray};
   border-radius: 8px;
   padding: 24px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-  min-height: 550px;
+  min-height: 67vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -52,12 +53,6 @@ const NoteDetailStyle = styled.div`
     padding: 8px;
     display: flex;
     justify-content: space-between;
-
-    .note-title {
-      margin-top: 2px;
-      font-size: ${({ theme }) => theme.fontSize_lg};
-      color: ${({ theme }) => theme.color_textKey};
-    }
 
     .note-tags {
       display: flex;
@@ -90,7 +85,7 @@ const NoteDetailStyle = styled.div`
     .note-action {
       cursor: pointer;
       color: ${({ theme }) => theme.color_textGray};
-      font-size: ${({ theme }) => theme.fontSize_xxs};
+      font-size: ${({ theme }) => theme.fontSize_xs};
 
       &:hover {
         color: ${({ theme }) => theme.color_textKey};
@@ -101,8 +96,9 @@ const NoteDetailStyle = styled.div`
   .note-content {
     padding: 10px;
     margin-bottom: 10px;
-    font-size: ${({ theme }) => theme.fontSize_sm};
+    font-size: ${({ theme }) => theme.fontSize_reg};
     color: ${({ theme }) => theme.color_textBlack};
+    line-height: 1.8;
   }
 
   .note-date {

@@ -71,6 +71,8 @@ function MyPage() {
 
 const MyPageStyle = styled.div`
   padding-top: 28px;
+  max-height: 100vh;
+
   .container {
     gap: 40px;
     display: grid;
