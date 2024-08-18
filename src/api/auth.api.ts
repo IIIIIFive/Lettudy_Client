@@ -1,4 +1,4 @@
-import { User } from '@/types/user';
+import { User } from '@/model/user.model';
 import { JoinProps } from '../pages/Join';
 import { LoginProps } from '../pages/Login';
 import { httpClient } from './http';

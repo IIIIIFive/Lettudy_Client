@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Chat } from '../../types/chat';
+import { Chat } from '../../model/chat.model';
 import ChatItem from './ChatItem';
 
 interface ChatContentProps {

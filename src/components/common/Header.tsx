@@ -3,12 +3,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import ChatRoom from '../chat/ChatRoom';
 import { useAuth } from '../../hooks/useAuth';
+import { useAuthStore } from '@/store/authStore';
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const { userLogout } = useAuth();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { isLoggedIn } = useAuthStore();
   const [chatVisible, setChatVisible] = useState(false);
 
   const handleImageClick = () => {
@@ -20,9 +21,10 @@ function Header() {
   };
 
   const handleLogout = () => {
-    const confirmed = confirm('정말 로그아웃 하시겠습니까?');
+    const confirmed = confirm('로그아웃 하시겠습니까?');
     if (confirmed) {
       userLogout();
+      navigate('/login');
     }
   };
   const isRoomPage = location.pathname.startsWith('/room');
@@ -48,24 +50,38 @@ function Header() {
             <ChatRoom visible={chatVisible} onClose={handleCloseChat} />
           </div>
         )}
-        <div className='icon'>
-          <img
-            src='/assets/images/mypage-face.png'
-            alt='mypage'
-            width={40}
-            onClick={() => navigate('/mypage')}
-          />
-          <span>마이페이지</span>
-        </div>
-        <div className='icon'>
-          <img
-            src='/assets/images/logout-face.png'
-            alt='logout'
-            width={40}
-            onClick={handleLogout}
-          />
-          <span>로그아웃</span>
-        </div>
+        {isLoggedIn ? (
+          <>
+            <div className='icon'>
+              <img
+                src='/assets/images/smile-face.png'
+                alt='mypage'
+                width={40}
+                onClick={() => navigate('/mypage')}
+              />
+              <span>마이페이지</span>
+            </div>
+            <div className='icon'>
+              <img
+                src='/assets/images/logout-face.png'
+                alt='logout'
+                width={40}
+                onClick={handleLogout}
+              />
+              <span>로그아웃</span>
+            </div>
+          </>
+        ) : (
+          <div className='icon'>
+            <img
+              src='/assets/images/smile-face.png'
+              alt='login'
+              width={40}
+              onClick={() => navigate('/login')}
+            />
+            <span>로그인</span>
+          </div>
+        )}
       </div>
     </HeaderStyle>
   );

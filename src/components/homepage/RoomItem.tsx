@@ -3,16 +3,17 @@ import styled from 'styled-components';
 
 interface RoomItemProps {
   roomName: string;
+  roomId?: string;
 }
 
-function RoomItem({ roomName }: RoomItemProps) {
+function RoomItem({ roomName, roomId }: RoomItemProps) {
   const navigate = useNavigate();
   const isPlaceholder = !roomName; // roomName이 빈 문자열이면 placeholder로 간주
 
   return (
     <RoomItemStyle isPlaceholder={isPlaceholder}>
       <div className='room'>
-        <div className='folder' onClick={() => navigate('/room')}>
+        <div className='folder' onClick={() => navigate(`/room/${roomId}`)}>
           <img
             className='image'
             src='/assets/images/folder.png'
@@ -40,6 +41,7 @@ const RoomItemStyle = styled.div<{ isPlaceholder: boolean }>`
   border-radius: 15px;
   transition: box-shadow 0.3s ease-in-out;
   opacity: ${({ isPlaceholder }) => (isPlaceholder ? 0.5 : 1)};
+  pointer-events: ${({ isPlaceholder }) => (isPlaceholder ? 'none' : 'auto')};
 
   &:hover {
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);

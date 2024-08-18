@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Chat } from '../../types/chat';
+import { Chat } from '../../model/chat.model';
 import ChatHeader from './ChatHeader';
 import ChatContent from './ChatContent';
 import ChatInput from './ChatInput';

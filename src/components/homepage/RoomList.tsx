@@ -1,22 +1,24 @@
 import styled from 'styled-components';
 import RoomItem from './RoomItem';
-
-const studyRooms = [
-  'React + TS',
-  'React + TS',
-  'React + TS',
-  'React + TS',
-  'React + TS',
-];
+import { useHome } from '@/hooks/useHome';
 
 function RoomList() {
+  const { rooms } = useHome();
+
   // 최소 6개의 RoomItem을 보장
-  const roomItems = [...studyRooms, ...Array(6 - studyRooms.length).fill('')];
+  const roomItems = [
+    ...rooms,
+    ...Array(Math.max(0, 6 - rooms.length)).fill(null),
+  ];
 
   return (
     <RoomListStyle>
-      {roomItems.map((name, index) => (
-        <RoomItem key={index} roomName={name} />
+      {roomItems.map((room, index) => (
+        <RoomItem
+          key={index}
+          roomName={room ? room.title : ''}
+          roomId={room ? room.roomId : undefined}
+        />
       ))}
     </RoomListStyle>
   );
