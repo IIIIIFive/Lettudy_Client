@@ -9,20 +9,21 @@ import {
   deleteUser as apiDeleteUser,
 } from '../api/auth.api';
 import { JoinProps } from '../pages/Join';
+import { useState } from 'react';
 
 export const useAuth = () => {
   const navigate = useNavigate();
   const { storeLogin, storeLogout } = useAuthStore();
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const userLogin = async (data: LoginProps) => {
     try {
       const res = await login(data);
       storeLogin(res.token);
-      alert('로그인이 완료되었습니다.');
       navigate('/');
     } catch (err) {
       console.error('Login error:', err);
-      alert('로그인에 실패하였습니다.');
+      setLoginError('이메일 및 비밀번호를 다시 입력해주세요.');
     }
   };
 
@@ -39,18 +40,15 @@ export const useAuth = () => {
       navigate('/login');
     } catch (err) {
       console.error('Join error:', err);
-      alert('회원가입에 실패하였습니다.');
     }
   };
 
   const verifyEmail = async (email: string) => {
     try {
-      const res = await checkEmail(email);
-      alert(res.message);
+      await checkEmail(email);
       return true;
     } catch (err) {
       console.error('Email verification error:', err);
-      alert('이미 존재하는 이메일입니다.');
       return false;
     }
   };
@@ -76,5 +74,13 @@ export const useAuth = () => {
     }
   };
 
-  return { userLogin, userJoin, verifyEmail, getMyPage, userLogout, userQuit };
+  return {
+    loginError,
+    userLogin,
+    userJoin,
+    verifyEmail,
+    getMyPage,
+    userLogout,
+    userQuit,
+  };
 };

@@ -1,6 +1,6 @@
 import { JoinStyle } from './Join';
 import AuthBackground from '@/components/auth/AuthBackground';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from '@/components/common/Button';
@@ -12,7 +12,8 @@ export interface LoginProps {
 }
 
 function Login() {
-  const { userLogin } = useAuth();
+  const { userLogin, loginError } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -60,7 +61,7 @@ function Login() {
                   })}
                 />
                 <div className='error-container'>
-                  {(errors.email || errors.password) && (
+                  {(errors.email || errors.password || loginError) && (
                     <p className='error-text'>
                       이메일 및 비밀번호를 다시 입력해주세요.
                     </p>
