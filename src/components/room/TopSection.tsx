@@ -1,8 +1,11 @@
 import { useState, useRef, KeyboardEvent, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import ButtonList from './ButtonList';
+import { useRoom } from '@/hooks/useRoom';
 
 function TopSection() {
+  const { roomData } = useRoom();
+
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [notices, setNotices] = useState<string[]>([
     '매주 화요일, 목요일 20시 코드 리뷰',
@@ -58,7 +61,7 @@ function TopSection() {
   return (
     <TopSectionStyle>
       <div className='title'>
-        <h2>JS 알고리즘 스터디</h2>
+        <h2>{roomData?.title}</h2>
         <img
           src='/assets/images/placard.png'
           alt='placard'
@@ -66,7 +69,7 @@ function TopSection() {
           height={50}
         />
         <span onClick={toggleCodeVisibility}>
-          입장 코드 {showCode ? '123456' : '• • • • • •'}
+          입장 코드 {showCode ? roomData?.code : '• • • • • •'}
         </span>
       </div>
 

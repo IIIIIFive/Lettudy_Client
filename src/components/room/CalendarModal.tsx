@@ -2,46 +2,52 @@ import { useState, useEffect } from 'react';
 import Modal from '../common/Modal';
 import styled from 'styled-components';
 import NormalButton from '../common/NormalButton';
+import { Schedules } from '@/model/room.model';
 
 interface CalendarModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (title: string, time: string, alarmOn: boolean) => void;
+  onSave: (schedule: Schedules) => void;
   selectedDate: Date | null;
+  schedule: Schedules | null;
 }
-
 function CalendarModal({
   isOpen,
   onClose,
   onSave,
   selectedDate,
+  schedule,
 }: CalendarModalProps) {
   const [title, setTitle] = useState('');
   const [time, setTime] = useState('00:00');
-  const [alarmOn, setAlarmOn] = useState(false);
+  const [isAttendance, setIsAttendance] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      setTitle('');
-      setTime('00:00');
-      setAlarmOn(false);
+      if (schedule) {
+        setTitle(schedule.title);
+        setTime(schedule.time);
+        setIsAttendance(schedule.isAttendance);
+      } else {
+        setTitle('');
+        setTime('00:00');
+        setIsAttendance(false);
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, schedule]);
 
   const handleSave = () => {
     if (title && time && selectedDate) {
-      onSave(title, time, alarmOn);
-      setTitle('');
-      setTime('00:00');
-      setAlarmOn(false);
+      const newSchedule: Schedules = {
+        scheduleId: schedule ? schedule.scheduleId : Date.now().toString(),
+        title,
+        date: selectedDate.toISOString().split('T')[0],
+        time,
+        isAttendance,
+      };
+      onSave(newSchedule);
       onClose();
     }
-  };
-
-  const handleDelete = () => {
-    setTitle('');
-    setTime('00:00');
-    setAlarmOn(false);
   };
 
   return (
@@ -49,7 +55,7 @@ function CalendarModal({
       <CalendarModalStyle>
         <div className='title'>
           <img src='/assets/images/calendar.png' alt='calendar' width={35} />
-          <h4>일정 추가</h4>
+          <h4>{schedule ? '일정 수정' : '일정 추가'}</h4>
         </div>
         <div className='label'>
           <div className='label-input'>
@@ -73,14 +79,16 @@ function CalendarModal({
           <div className='checkbox'>
             <input
               type='checkbox'
-              checked={alarmOn}
-              onChange={(e) => setAlarmOn(e.target.checked)}
+              checked={isAttendance}
+              onChange={(e) => setIsAttendance(e.target.checked)}
             />
             <span>알람 ON</span>
           </div>
           <div className='button'>
             <NormalButton text='저장' size='small' onClick={handleSave} />
-            <NormalButton text='삭제' size='small' onClick={handleDelete} />
+            {schedule && (
+              <NormalButton text='삭제' size='small' onClick={() => {}} />
+            )}
           </div>
         </div>
         <div className='notice'>

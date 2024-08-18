@@ -3,29 +3,32 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useCallback, useState } from 'react';
 import CalendarModal from './CalendarModal';
+import { useRoom } from '@/hooks/useRoom';
+import { Schedules } from '@/model/room.model';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-interface Event {
-  date: Date;
-  title: string;
-  time: string;
-  alarm: boolean;
-}
 
 function StudyCalendar() {
   const [calendarValue, setCalendarValue] = useState<Value>(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [events, setEvents] = useState<Event[]>([]);
-
+  const [selectedSchedule, setSelectedSchedule] = useState<Schedules | null>(
+    null,
+  );
+  const { roomData } = useRoom();
+  console.log(roomData);
   const onChangeCalendar = useCallback((value: Value) => {
     setCalendarValue(value);
   }, []);
 
   const handleDateClick = (value: Date) => {
     setSelectedDate(value);
+    const clickedDateString = value.toISOString().split('T')[0];
+    const scheduleForDate = roomData?.schedules.find(
+      (schedule) => schedule.date === clickedDateString,
+    );
+    setSelectedSchedule(scheduleForDate || null);
     setIsModalOpen(true);
   };
 
@@ -33,20 +36,31 @@ function StudyCalendar() {
     setIsModalOpen(false);
   };
 
-  const handleSaveEvent = (title: string, time: string, alarm: boolean) => {
-    if (selectedDate && title && time) {
-      setEvents([...events, { date: selectedDate, title, time, alarm }]);
-      handleModalClose();
+  const handleSaveEvent = (newSchedule: Schedules) => {
+    if (roomData) {
+      let updatedSchedules;
+      if (selectedSchedule) {
+        // 기존 일정 수정
+        updatedSchedules = roomData.schedules.map((schedule) =>
+          schedule.scheduleId === newSchedule.scheduleId
+            ? newSchedule
+            : schedule,
+        );
+      } else {
+        // 새 일정 추가
+      }
     }
+    handleModalClose();
   };
 
   const renderTileContent = ({ date }: { date: Date }) => {
-    const event = events.find(
-      (event) => event.date.toDateString() === date.toDateString(),
-    );
-    if (event) {
+    const dateString = date.toISOString().split('T')[0];
+    const schedule = roomData?.schedules.find((s) => s.date === dateString);
+    if (schedule) {
       const truncatedTitle =
-        event.title.length > 5 ? `${event.title.slice(0, 5)}··` : event.title;
+        schedule.title.length > 5
+          ? `${schedule.title.slice(0, 5)}..`
+          : schedule.title;
       return <div className='event'>{truncatedTitle}</div>;
     }
     return null;
@@ -70,6 +84,7 @@ function StudyCalendar() {
         onClose={handleModalClose}
         onSave={handleSaveEvent}
         selectedDate={selectedDate}
+        schedule={selectedSchedule}
       />
     </StudyCalendarStyle>
   );

@@ -16,7 +16,7 @@ import NoteView from './pages/NoteView';
 import ScrollToTop from './components/common/ScrollToTop';
 
 import { queryClient } from './api/queryClient';
-import { QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 
 const router = createBrowserRouter([
   {

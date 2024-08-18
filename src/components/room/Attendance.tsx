@@ -1,7 +1,19 @@
 import styled from 'styled-components';
 import NormalButton from '../common/NormalButton';
+import { useRoom } from '@/hooks/useRoom';
+import { formatDateTime } from '@/utils/formatDateTime';
 
 function Attendance() {
+  const { roomData } = useRoom();
+
+  const hasAttendanceSchedule =
+    roomData?.nextAttendance.date && roomData?.nextAttendance.time;
+
+  const formattedDateTime = formatDateTime(
+    roomData?.nextAttendance.date || '',
+    roomData?.nextAttendance.time || '',
+  );
+
   return (
     <AttendanceStyle>
       <div className='title'>
@@ -10,11 +22,13 @@ function Attendance() {
       </div>
 
       <div className='attendance-box'>
-        <h5>8월 6일 20시</h5>
+        <h5 className={!hasAttendanceSchedule ? 'no-schedule' : ''}>
+          {formattedDateTime}
+        </h5>
         <NormalButton
           text='출석하기'
           size='large'
-          disabled={false}
+          disabled={!hasAttendanceSchedule}
           onClick={() => {}}
         />
       </div>
@@ -25,7 +39,6 @@ function Attendance() {
 const AttendanceStyle = styled.div`
   display: flex;
   flex-direction: column;
-
   align-items: center;
   gap: 20px;
 
@@ -33,6 +46,7 @@ const AttendanceStyle = styled.div`
     display: flex;
     gap: 10px;
   }
+
   .attendance-box {
     width: 280px;
     display: flex;
@@ -43,6 +57,12 @@ const AttendanceStyle = styled.div`
     border: 0.3px solid ${({ theme }) => theme.color_borderGray};
     border-radius: 12px;
     gap: 25px;
+  }
+
+  .no-schedule {
+    color: ${({ theme }) => theme.color_textGray};
+    font-size: ${({ theme }) => theme.fontSize_xs};
+    font-weight: 400;
   }
 `;
 
