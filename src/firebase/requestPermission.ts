@@ -6,6 +6,7 @@ import {
 } from 'firebase/messaging';
 import app from './initFirebase';
 import { registerServiceWorker } from './registerServiceWorker';
+import { registerFcmToken, deleteFcmToken } from '@/api/fcmToken.api';
 
 const messaging = getMessaging(app);
 
@@ -19,11 +20,13 @@ export async function requestPermission() {
         vapidKey: import.meta.env.VITE_VAPID_KEY,
       });
       if (token) {
+        await registerFcmToken(token);
       } else {
         alert('토큰 생성을 위해 권한을 허용해주세요');
       }
     } else if (permission === 'denied') {
       alert('알림이 차단되었습니다. 알림을 사용하시려면 권한을 허용해주세요');
+      await deleteFcmToken();
     }
   } catch (error) {
     console.error('토큰 가져오는 중에 에러 발생', error);
