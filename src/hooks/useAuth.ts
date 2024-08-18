@@ -22,7 +22,7 @@ export const useAuth = () => {
       const res = await login(data);
       storeLogin(res.token);
       navigate('/');
-      await requestPermission();
+      requestPermission();
     } catch (err) {
       console.error('Login error:', err);
       setLoginError('이메일 및 비밀번호를 다시 입력해주세요.');
