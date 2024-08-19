@@ -5,10 +5,10 @@ interface ProfileBoxProps {
   name: string;
   email: string;
   studyCount: number;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
-function ProfileBox({ name, email, studyCount, onClick }: ProfileBoxProps) {
+function ProfileBox({ name, email, studyCount }: ProfileBoxProps) {
   const { userQuit } = useAuth();
 
   const handleClick = async () => {

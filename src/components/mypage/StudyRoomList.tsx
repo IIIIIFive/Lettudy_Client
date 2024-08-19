@@ -2,33 +2,21 @@ import styled from 'styled-components';
 import AlarmButton from './AlarmButton';
 import LeaveRoomButton from './LeaveRoomButton';
 import EmptyList from './EmptyList';
-
-interface StudyRoom {
-  roomId: string;
-  title: string;
-  alarm: boolean;
-  isOwner: boolean;
-}
+import { useStudyRooms } from '@/hooks/useStudyRoom';
+import { StudyRoom } from '@/model/user.model';
 
 interface StudyRoomListProps {
   studyRooms: StudyRoom[];
-  toggleAlarm: (id: string) => void;
   userName: string;
+  toggleAlarm: (id: string) => void;
 }
 
 function StudyRoomList({
-  studyRooms,
-  toggleAlarm,
+  studyRooms: initialStudyRooms,
   userName,
 }: StudyRoomListProps) {
-  const handleLeaveRoom = async (roomId: string) => {
-    try {
-      alert(`방 ${roomId}에서 나가기`);
-    } catch (error) {
-      console.error('Failed to leave room:', error);
-      alert('방 나가기 실패');
-    }
-  };
+  const { studyRooms, toggleAlarm, handleLeaveRoom } =
+    useStudyRooms(initialStudyRooms);
 
   return (
     <StudyRoomListStyle>
@@ -69,9 +57,8 @@ function StudyRoomList({
                     </td>
                     <td className='table-cell'>
                       <LeaveRoomButton
-                        onClick={() => handleLeaveRoom(room.roomId)}
+                        onClick={() => handleLeaveRoom(room.roomId, room.title)}
                       />{' '}
-                      {/* 필드 이름 수정 */}
                     </td>
                   </tr>
                 ))}
