@@ -7,7 +7,7 @@ export function formatDateTime(date: string, time: string): string {
   }
 
   const formattedDate = moment(date).format('MM월 DD일');
-  const formattedTime = moment(time, 'HH:mm:ss').format('HH시');
+  const formattedTime = moment(time, 'HH:mm:ss').format('HH : mm');
 
   return `${formattedDate} ${formattedTime}`;
 }

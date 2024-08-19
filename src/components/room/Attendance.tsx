@@ -14,6 +14,13 @@ function Attendance() {
     roomData?.nextAttendance.time || '',
   );
 
+  // 출석 시간 계산
+  const attendanceDateTime = new Date(
+    `${roomData?.nextAttendance.date}T${roomData?.nextAttendance.time}`,
+  );
+  const now = new Date();
+  const isAttendanceTime = now.getTime() >= attendanceDateTime.getTime();
+
   return (
     <AttendanceStyle>
       <div className='title'>
@@ -28,7 +35,7 @@ function Attendance() {
         <NormalButton
           text='출석하기'
           size='large'
-          disabled={!hasAttendanceSchedule}
+          disabled={!hasAttendanceSchedule || !isAttendanceTime}
           onClick={() => {}}
         />
       </div>
@@ -52,7 +59,7 @@ const AttendanceStyle = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 25px 80px;
+    padding: 25px 70px;
     background-color: ${({ theme }) => theme.color_bgWhite};
     border: 0.3px solid ${({ theme }) => theme.color_borderGray};
     border-radius: 12px;

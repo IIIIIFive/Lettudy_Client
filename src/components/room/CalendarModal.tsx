@@ -2,25 +2,29 @@ import { useState, useEffect } from 'react';
 import Modal from '../common/Modal';
 import styled from 'styled-components';
 import NormalButton from '../common/NormalButton';
-import { Schedules } from '@/model/room.model';
+import { RoomDataRes, Schedules } from '@/model/room.model';
+import { useSchedule } from '@/hooks/useSchedule';
+import moment from 'moment';
 
 interface CalendarModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (schedule: Schedules) => void;
   selectedDate: Date | null;
   schedule: Schedules | null;
+  roomData: RoomDataRes;
 }
+
 function CalendarModal({
   isOpen,
   onClose,
-  onSave,
   selectedDate,
   schedule,
+  roomData,
 }: CalendarModalProps) {
   const [title, setTitle] = useState('');
   const [time, setTime] = useState('00:00');
   const [isAttendance, setIsAttendance] = useState(false);
+  const { addSchedule, removeSchedule } = useSchedule(roomData.roomId);
 
   useEffect(() => {
     if (isOpen) {
@@ -36,16 +40,26 @@ function CalendarModal({
     }
   }, [isOpen, schedule]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (title && time && selectedDate) {
-      const newSchedule: Schedules = {
-        scheduleId: schedule ? schedule.scheduleId : Date.now().toString(),
+      const newSchedule: Omit<Schedules, 'scheduleId'> = {
         title,
-        date: selectedDate.toISOString().split('T')[0],
+        date: moment(selectedDate).format('YYYY-MM-DD'),
         time,
         isAttendance,
       };
-      onSave(newSchedule);
+
+      if (schedule) {
+        await removeSchedule(schedule.scheduleId);
+      }
+      await addSchedule(newSchedule);
+      onClose();
+    }
+  };
+
+  const handleDelete = async () => {
+    if (schedule && schedule.scheduleId) {
+      await removeSchedule(schedule.scheduleId);
       onClose();
     }
   };
@@ -87,7 +101,7 @@ function CalendarModal({
           <div className='button'>
             <NormalButton text='저장' size='small' onClick={handleSave} />
             {schedule && (
-              <NormalButton text='삭제' size='small' onClick={() => {}} />
+              <NormalButton text='삭제' size='small' onClick={handleDelete} />
             )}
           </div>
         </div>
@@ -173,7 +187,7 @@ const CalendarModalStyle = styled.div`
     font-size: ${({ theme }) => theme.fontSize_xxs};
     color: ${({ theme }) => theme.color_textGray};
     text-align: left;
-    margin-bottom: 15px;
+    margin: 10px 0 15px 0;
   }
 `;
 

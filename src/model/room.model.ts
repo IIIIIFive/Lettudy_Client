@@ -45,3 +45,11 @@ export interface Schedules {
   time: string;
   isAttendance: boolean;
 }
+
+export interface ScheduleReq {
+  roomId: string;
+  title: string;
+  date: string;
+  time: string;
+  isAttendance: boolean;
+}

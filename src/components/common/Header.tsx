@@ -28,6 +28,7 @@ function Header() {
     }
   };
   const isRoomPage = location.pathname.startsWith('/room');
+  console.log(isLoggedIn);
 
   return (
     <HeaderStyle>
