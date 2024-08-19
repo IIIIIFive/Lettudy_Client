@@ -5,8 +5,7 @@ import { useRoom } from '@/hooks/useRoom';
 import Notice from './Notice';
 
 function TopSection() {
-  const { roomData } = useRoom();
-
+  const { roomData, updateNotice } = useRoom();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [notices, setNotices] = useState<string[]>(roomData?.notice || []);
   const [showCode, setShowCode] = useState<boolean>(false);
@@ -18,6 +17,9 @@ function TopSection() {
   }, [roomData?.notice]);
 
   const handleEditClick = (): void => {
+    if (isEditing) {
+      updateNotice(notices);
+    }
     setIsEditing(!isEditing);
   };
 

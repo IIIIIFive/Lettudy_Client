@@ -24,3 +24,10 @@ export const attendance = async (roomId: string, attendanceId: string) => {
   });
   return response.data;
 };
+
+export const updateNoticeAPI = async (
+  roomId: string,
+  notice: string[],
+): Promise<void> => {
+  await httpClient.put(`/rooms/${roomId}/notice`, { notice });
+};
