@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import AlarmButton from './AlarmButton';
 import LeaveRoomButton from './LeaveRoomButton';
 import EmptyList from './EmptyList';
-import { useStudyRooms } from '@/hooks/useStudyRoom';
+import { useMyPage } from '@/hooks/useMyPage';
 import { StudyRoom } from '@/model/user.model';
 
 interface StudyRoomListProps {
@@ -16,7 +16,7 @@ function StudyRoomList({
   userName,
 }: StudyRoomListProps) {
   const { studyRooms, toggleAlarm, handleLeaveRoom } =
-    useStudyRooms(initialStudyRooms);
+    useMyPage(initialStudyRooms);
 
   return (
     <StudyRoomListStyle>

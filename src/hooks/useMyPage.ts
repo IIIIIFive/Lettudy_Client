@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { updateAlarm, leaveRoom } from '../api/myPage.api';
 import { StudyRoom } from '@/model/user.model';
 
-export const useStudyRooms = (initialRooms: StudyRoom[]) => {
+export const useMyPage = (initialRooms: StudyRoom[]) => {
   const [studyRooms, setStudyRooms] = useState<StudyRoom[]>(initialRooms);
 
   const isNotificationEnabled = () => {
