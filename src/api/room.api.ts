@@ -17,3 +17,10 @@ export const deleteSchedule = async (roomId: string, scheduleId: string) => {
   );
   return response.data;
 };
+
+export const attendance = async (roomId: string, attendanceId: string) => {
+  const response = await httpClient.put(`/attendances/${roomId}`, {
+    attendanceId,
+  });
+  return response.data;
+};

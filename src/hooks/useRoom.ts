@@ -20,9 +20,9 @@ export const useRoom = () => {
       roomId: '',
       title: '',
       code: '',
-      notice: '',
+      notice: [],
       members: [],
-      nextAttendance: { date: '', time: '' },
+      nextAttendance: { attendanceId: '', date: '', time: '' },
       attendanceRecord: [],
       schedules: [],
     },
@@ -33,7 +33,7 @@ export const useRoom = () => {
         nextAttendance:
           data.nextAttendance.date && data.nextAttendance.time
             ? data.nextAttendance
-            : { date: '', time: '' },
+            : { attendanceId: '', date: '', time: '' },
       }
     : undefined;
   return { roomData };

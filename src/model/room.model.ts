@@ -14,7 +14,7 @@ export interface RoomDataRes extends CommonRes {
   roomId: string;
   title: string;
   code: string;
-  notice: string;
+  notice: string[];
   members: Members[];
   nextAttendance: NextAttendance;
   attendanceRecord: AttendanceRecord[];
@@ -28,6 +28,7 @@ export interface Members {
 }
 
 export interface NextAttendance {
+  attendanceId: string;
   date: string;
   time: string;
 }

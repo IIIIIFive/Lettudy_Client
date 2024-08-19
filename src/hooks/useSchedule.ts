@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Schedules } from '@/model/room.model';
-import { createSchedule, deleteSchedule } from '@/api/room.api';
+import { attendance, createSchedule, deleteSchedule } from '@/api/room.api';
 import { useQueryClient } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 
 export const useSchedule = (roomId: string) => {
   const [schedules, setSchedules] = useState<Schedules[]>([]);
@@ -30,6 +31,15 @@ export const useSchedule = (roomId: string) => {
       console.error('일정 삭제 오류가 발생했습니다.');
     }
   };
-
-  return { schedules, addSchedule, removeSchedule };
+  const addAttendance = async (attendanceId: string) => {
+    try {
+      const response = await attendance(roomId, attendanceId);
+      queryClient.invalidateQueries({ queryKey: ['roomData', roomId] });
+      return response;
+    } catch (error) {
+      console.error('출석 추가 오류가 발생했습니다.');
+      throw error;
+    }
+  };
+  return { schedules, addSchedule, removeSchedule, addAttendance };
 };

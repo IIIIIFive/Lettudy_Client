@@ -2,9 +2,13 @@ import styled from 'styled-components';
 import NormalButton from '../common/NormalButton';
 import { useRoom } from '@/hooks/useRoom';
 import { formatDateTime } from '@/utils/formatDateTime';
+import { useSchedule } from '@/hooks/useSchedule';
+import { useState } from 'react';
 
 function Attendance() {
   const { roomData } = useRoom();
+  const { addAttendance } = useSchedule(roomData?.roomId || '');
+  const [isAttendanceCompleted, setIsAttendanceCompleted] = useState(false);
 
   const hasAttendanceSchedule =
     roomData?.nextAttendance.date && roomData?.nextAttendance.time;
@@ -21,6 +25,18 @@ function Attendance() {
   const now = new Date();
   const isAttendanceTime = now.getTime() >= attendanceDateTime.getTime();
 
+  const handleAttendance = () => {
+    if (roomData?.nextAttendance.attendanceId) {
+      addAttendance(roomData.nextAttendance.attendanceId)
+        .then(() => {
+          setIsAttendanceCompleted(true);
+        })
+        .catch(() => {
+          alert('다시 시도해주세요.');
+        });
+    }
+  };
+
   return (
     <AttendanceStyle>
       <div className='title'>
@@ -33,10 +49,12 @@ function Attendance() {
           {formattedDateTime}
         </h5>
         <NormalButton
-          text='출석하기'
+          text={isAttendanceCompleted ? '출석완료' : '출석하기'}
           size='large'
-          disabled={!hasAttendanceSchedule || !isAttendanceTime}
-          onClick={() => {}}
+          disabled={
+            !hasAttendanceSchedule || !isAttendanceTime || isAttendanceCompleted
+          }
+          onClick={handleAttendance}
         />
       </div>
     </AttendanceStyle>
