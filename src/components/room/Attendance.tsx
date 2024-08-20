@@ -30,6 +30,7 @@ function Attendance() {
       addAttendance(roomData.nextAttendance.attendanceId)
         .then(() => {
           setIsAttendanceCompleted(true);
+          alert('출석 완료되었습니다.');
         })
         .catch(() => {
           alert('다시 시도해주세요.');

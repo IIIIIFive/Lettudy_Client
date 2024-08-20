@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Schedules } from '@/model/room.model';
 import { attendance, createSchedule, deleteSchedule } from '@/api/room.api';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const useSchedule = (roomId: string) => {
   const [schedules, setSchedules] = useState<Schedules[]>([]);
@@ -37,7 +36,7 @@ export const useSchedule = (roomId: string) => {
       queryClient.invalidateQueries({ queryKey: ['roomData', roomId] });
       return response;
     } catch (error) {
-      console.error('출석 추가 오류가 발생했습니다.');
+      console.error('출석하기 오류가 발생했습니다.');
       throw error;
     }
   };

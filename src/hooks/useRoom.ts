@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getRoomData, updateNoticeAPI } from '@/api/room.api';
+import { getRoomData, updateNotices } from '@/api/room.api';
 import { RoomDataRes } from '@/model/room.model';
 
 export const useRoom = () => {
@@ -42,7 +42,7 @@ export const useRoom = () => {
     Error,
     { roomId: string; notice: string[] }
   >({
-    mutationFn: ({ roomId, notice }) => updateNoticeAPI(roomId, notice), // 이름 변경된 함수 사용
+    mutationFn: ({ roomId, notice }) => updateNotices(roomId, notice),
   });
 
   const updateNotice = (notice: string[]) => {

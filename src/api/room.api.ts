@@ -25,7 +25,7 @@ export const attendance = async (roomId: string, attendanceId: string) => {
   return response.data;
 };
 
-export const updateNoticeAPI = async (
+export const updateNotices = async (
   roomId: string,
   notice: string[],
 ): Promise<void> => {
