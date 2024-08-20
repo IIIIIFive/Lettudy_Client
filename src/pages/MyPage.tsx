@@ -5,7 +5,7 @@ import StudyRoomList from '../components/mypage/StudyRoomList';
 import BackButton from '@/components/common/BackButton';
 import { useAuth } from '../hooks/useAuth';
 import { useAuthStore } from '../store/authStore';
-import { User } from '@/types/user';
+import { User } from '@/model/user.model';
 
 function MyPage() {
   const [user, setUser] = useState<User | null>(null);

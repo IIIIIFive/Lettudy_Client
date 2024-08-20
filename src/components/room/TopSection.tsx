@@ -30,13 +30,14 @@ function TopSection() {
   return (
     <TopSectionStyle>
       <div className='title'>
-        <h2>{roomData?.title}</h2>
         <img
           src='/assets/images/placard.png'
           alt='placard'
           width={50}
           height={50}
         />
+        <h2>{roomData?.title}</h2>
+
         <span onClick={toggleCodeVisibility}>
           입장 코드
           <p>{showCode ? roomData?.code : '• • • • • •'}</p>
@@ -88,6 +89,7 @@ const TopSectionStyle = styled.div`
     margin: 5px 5px 10px 5px;
 
     h2 {
+      margin-left: 5px;
       color: ${({ theme }) => theme.color_textBlack};
     }
 
