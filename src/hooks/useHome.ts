@@ -1,21 +1,26 @@
 import { createRooms, getRooms, joinRoom } from '@/api/home.api';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 export const useHome = () => {
   const navigate = useNavigate();
 
-  const { data, error } = useQuery(['rooms'], getRooms);
+  const { data, error } = useQuery({
+    queryKey: ['rooms'],
+    queryFn: getRooms,
+  });
 
   const rooms = data?.rooms || [];
 
-  const createRoomMutation = useMutation(createRooms, {
+  const createRoomMutation = useMutation({
+    mutationFn: createRooms,
     onSuccess: (data) => {
       navigate(`/room/${data.roomId}`);
     },
   });
 
-  const joinRoomMutation = useMutation(joinRoom, {
+  const joinRoomMutation = useMutation({
+    mutationFn: joinRoom,
     onSuccess: (data) => {
       navigate(`/room/${data.roomId}`);
     },

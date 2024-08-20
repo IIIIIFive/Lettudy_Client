@@ -8,12 +8,14 @@ interface RoomItemProps {
 
 function RoomItem({ roomName, roomId }: RoomItemProps) {
   const navigate = useNavigate();
-  const isPlaceholder = !roomName; // roomName이 빈 문자열이면 placeholder로 간주
+  const isPlaceholder = !roomName;
 
   return (
-    <RoomItemStyle isPlaceholder={isPlaceholder}>
+    <RoomItemStyle
+      isPlaceholder={isPlaceholder}
+      onClick={() => navigate(`/room/${roomId}`)}>
       <div className='room'>
-        <div className='folder' onClick={() => navigate(`/room/${roomId}`)}>
+        <div className='folder'>
           <img
             className='image'
             src='/assets/images/folder.png'

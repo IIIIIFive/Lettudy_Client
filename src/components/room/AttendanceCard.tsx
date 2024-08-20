@@ -1,3 +1,5 @@
+import { useAuth } from '@/hooks/useAuth';
+
 import styled from 'styled-components';
 
 type AttendanceCardProps = {
@@ -7,8 +9,12 @@ type AttendanceCardProps = {
 };
 
 function AttendanceCard({ name, attendanceRate, icon }: AttendanceCardProps) {
+  const { userName } = useAuth();
+
+  const isCurrentUser = name === userName;
+
   return (
-    <AttendanceCardStyle>
+    <AttendanceCardStyle isCurrentUser={isCurrentUser}>
       <img src={icon} alt='animal icon' width={75} />
       <div className='info'>
         <h4>{name}</h4>
@@ -21,7 +27,7 @@ function AttendanceCard({ name, attendanceRate, icon }: AttendanceCardProps) {
   );
 }
 
-const AttendanceCardStyle = styled.div`
+const AttendanceCardStyle = styled.div<{ isCurrentUser: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,6 +37,8 @@ const AttendanceCardStyle = styled.div`
   border-radius: 12px;
   gap: 15px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  border: ${({ isCurrentUser, theme }) =>
+    isCurrentUser ? `3px solid ${theme.color_textLightOrange}` : 'none'};
 
   .info {
     display: flex;

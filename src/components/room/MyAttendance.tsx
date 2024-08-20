@@ -1,42 +1,31 @@
+import { useRoom } from '@/hooks/useRoom';
 import styled from 'styled-components';
-
-interface MyAttendanceProps {
-  id: number;
-  date: string;
-  attendance: boolean;
-}
-
-const DummyData: MyAttendanceProps[] = [
-  { id: 1, date: '8월 6일 20시', attendance: true },
-  { id: 2, date: '7월 26일 20시', attendance: true },
-  { id: 3, date: '7월 22일 20시', attendance: false },
-  { id: 4, date: '7월 18일 20시', attendance: true },
-  { id: 5, date: '7월 16일 20시', attendance: false },
-  { id: 6, date: '7월 5일 20시', attendance: true },
-  { id: 7, date: '7월 2일 20시', attendance: true },
-];
+import EmptyAttendance from './EmptyAttendance';
 
 function MyAttendance() {
+  const { roomData } = useRoom();
+  const myAttendance = roomData?.attendanceRecord || [];
+
   return (
     <MyAttendanceStyle>
       <h4>나의 출석 기록</h4>
       <div className='table-box'>
-        <table>
-          <thead>
-            <tr>
-              <th>날짜</th>
-              <th>출석여부</th>
-            </tr>
-          </thead>
-        </table>
-        <div className='table-body-container'>
+        {myAttendance.length === 0 ? (
+          <EmptyAttendance />
+        ) : (
           <table>
-            <tbody>
-              {DummyData.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.date}</td>
+            <thead>
+              <tr>
+                <th>날짜</th>
+                <th>출석여부</th>
+              </tr>
+            </thead>
+            <tbody className='table-body-container'>
+              {myAttendance.map((attendance, idx) => (
+                <tr key={idx}>
+                  <td>{attendance.date}</td>
                   <td>
-                    {item.attendance ? (
+                    {attendance.status ? (
                       <img src='/assets/icon/check-icon.svg' alt='check' />
                     ) : (
                       <img src='/assets/icon/x-icon.svg' alt='x' />
@@ -46,7 +35,7 @@ function MyAttendance() {
               ))}
             </tbody>
           </table>
-        </div>
+        )}
       </div>
     </MyAttendanceStyle>
   );
@@ -60,7 +49,8 @@ const MyAttendanceStyle = styled.div`
 
   .table-box {
     width: 280px;
-    max-height: 350px;
+
+    height: 300px;
     background-color: ${({ theme }) => theme.color_bgWhite};
     border: 0.3px solid ${({ theme }) => theme.color_borderGray};
     border-radius: 12px;

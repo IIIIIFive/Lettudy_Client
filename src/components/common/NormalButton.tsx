@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface NormalButtonProps {
   text: string;
@@ -26,7 +26,10 @@ function NormalButton({
 
 export default NormalButton;
 
-const NormalButtonStyle = styled.button<{ size: 'small' | 'medium' | 'large' }>`
+const NormalButtonStyle = styled.button<{
+  size: 'small' | 'medium' | 'large';
+  disabled: boolean;
+}>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -54,16 +57,16 @@ const NormalButtonStyle = styled.button<{ size: 'small' | 'medium' | 'large' }>`
   white-space: nowrap;
 
   &:disabled {
-    background-color: ${({ theme }) => theme.color_key}80; // 투명도 80%
+    background-color: ${({ theme }) => theme.color_key}80;
     cursor: not-allowed;
     box-shadow: none;
   }
 
-  ${({ size }) =>
+  ${({ size, disabled }) =>
     size === 'large' &&
-    `
+    !disabled &&
+    css`
       box-shadow: none;
-
       &:hover {
         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
       }

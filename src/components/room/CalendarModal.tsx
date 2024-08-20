@@ -2,46 +2,66 @@ import { useState, useEffect } from 'react';
 import Modal from '../common/Modal';
 import styled from 'styled-components';
 import NormalButton from '../common/NormalButton';
+import { RoomDataRes, Schedules } from '@/model/room.model';
+import { useSchedule } from '@/hooks/useSchedule';
+import moment from 'moment';
 
 interface CalendarModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (title: string, time: string, alarmOn: boolean) => void;
   selectedDate: Date | null;
+  schedule: Schedules | null;
+  roomData: RoomDataRes;
 }
 
 function CalendarModal({
   isOpen,
   onClose,
-  onSave,
   selectedDate,
+  schedule,
+  roomData,
 }: CalendarModalProps) {
   const [title, setTitle] = useState('');
   const [time, setTime] = useState('00:00');
-  const [alarmOn, setAlarmOn] = useState(false);
+  const [isAttendance, setIsAttendance] = useState(false);
+  const { addSchedule, removeSchedule } = useSchedule(roomData.roomId);
 
   useEffect(() => {
     if (isOpen) {
-      setTitle('');
-      setTime('00:00');
-      setAlarmOn(false);
+      if (schedule) {
+        setTitle(schedule.title);
+        setTime(schedule.time);
+        setIsAttendance(schedule.isAttendance);
+      } else {
+        setTitle('');
+        setTime('00:00');
+        setIsAttendance(false);
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, schedule]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (title && time && selectedDate) {
-      onSave(title, time, alarmOn);
-      setTitle('');
-      setTime('00:00');
-      setAlarmOn(false);
+      const newSchedule: Omit<Schedules, 'scheduleId'> = {
+        title,
+        date: moment(selectedDate).format('YYYY-MM-DD'),
+        time,
+        isAttendance,
+      };
+
+      if (schedule) {
+        await removeSchedule(schedule.scheduleId);
+      }
+      await addSchedule(newSchedule);
       onClose();
     }
   };
 
-  const handleDelete = () => {
-    setTitle('');
-    setTime('00:00');
-    setAlarmOn(false);
+  const handleDelete = async () => {
+    if (schedule && schedule.scheduleId) {
+      await removeSchedule(schedule.scheduleId);
+      onClose();
+    }
   };
 
   return (
@@ -49,7 +69,7 @@ function CalendarModal({
       <CalendarModalStyle>
         <div className='title'>
           <img src='/assets/images/calendar.png' alt='calendar' width={35} />
-          <h4>일정 추가</h4>
+          <h4>{schedule ? '일정 수정' : '일정 추가'}</h4>
         </div>
         <div className='label'>
           <div className='label-input'>
@@ -73,14 +93,16 @@ function CalendarModal({
           <div className='checkbox'>
             <input
               type='checkbox'
-              checked={alarmOn}
-              onChange={(e) => setAlarmOn(e.target.checked)}
+              checked={isAttendance}
+              onChange={(e) => setIsAttendance(e.target.checked)}
             />
             <span>알람 ON</span>
           </div>
           <div className='button'>
             <NormalButton text='저장' size='small' onClick={handleSave} />
-            <NormalButton text='삭제' size='small' onClick={handleDelete} />
+            {schedule && (
+              <NormalButton text='삭제' size='small' onClick={handleDelete} />
+            )}
           </div>
         </div>
         <div className='notice'>
@@ -165,7 +187,7 @@ const CalendarModalStyle = styled.div`
     font-size: ${({ theme }) => theme.fontSize_xxs};
     color: ${({ theme }) => theme.color_textGray};
     text-align: left;
-    margin-bottom: 15px;
+    margin: 10px 0 15px 0;
   }
 `;
 

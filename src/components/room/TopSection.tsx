@@ -1,54 +1,26 @@
-import { useState, useRef, KeyboardEvent, ChangeEvent } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ButtonList from './ButtonList';
+import { useRoom } from '@/hooks/useRoom';
+import Notice from './Notice';
 
 function TopSection() {
+  const { roomData, updateNotice } = useRoom();
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [notices, setNotices] = useState<string[]>([
-    '매주 화요일, 목요일 20시 코드 리뷰',
-    '스터디 진행 당일 18시까지 문제 풀이 완료하기!🔥',
-  ]);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [notices, setNotices] = useState<string[]>(roomData?.notice || []);
   const [showCode, setShowCode] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (roomData?.notice) {
+      setNotices(roomData.notice);
+    }
+  }, [roomData?.notice]);
+
   const handleEditClick = (): void => {
+    if (isEditing) {
+      updateNotice(notices);
+    }
     setIsEditing(!isEditing);
-    if (!isEditing) {
-      setTimeout(() => contentRef.current?.focus(), 0);
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent, index: number): void => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      const newNotices = [...notices, ''];
-      setNotices(newNotices);
-      setTimeout(() => {
-        if (inputRefs.current[index + 1]) {
-          inputRefs.current[index + 1]?.focus();
-        }
-      }, 0);
-    } else if (
-      e.key === 'Backspace' &&
-      notices.length > 1 &&
-      notices[index] === ''
-    ) {
-      e.preventDefault();
-      const newNotices = notices.filter((_, i) => i !== index);
-      setNotices(newNotices);
-      setTimeout(() => {
-        if (inputRefs.current[index - 1]) {
-          inputRefs.current[index - 1]?.focus();
-        }
-      }, 0);
-    }
-  };
-
-  const handleChange = (index: number, value: string): void => {
-    const newNotices = [...notices];
-    newNotices[index] = value;
-    setNotices(newNotices);
   };
 
   const toggleCodeVisibility = () => {
@@ -58,43 +30,34 @@ function TopSection() {
   return (
     <TopSectionStyle>
       <div className='title'>
-        <h2>JS 알고리즘 스터디</h2>
         <img
           src='/assets/images/placard.png'
           alt='placard'
           width={50}
           height={50}
         />
+        <h2>{roomData?.title}</h2>
+
         <span onClick={toggleCodeVisibility}>
-          입장 코드 {showCode ? '123456' : '• • • • • •'}
+          입장 코드
+          <p>{showCode ? roomData?.code : '• • • • • •'}</p>
         </span>
       </div>
 
-      <div className='content' ref={contentRef}>
+      <div className='content'>
         <div className='notice-box'>
-          {notices.map((notice, index) => (
-            <div key={index} className='notice'>
-              <img src='/assets/icon/dot-icon.svg' alt='dot' />
-              {isEditing ? (
-                <input
-                  ref={(el) => (inputRefs.current[index] = el)}
-                  value={notice}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleChange(index, e.target.value)
-                  }
-                  onKeyDown={(e: KeyboardEvent<HTMLInputElement>) =>
-                    handleKeyDown(e, index)
-                  }
-                  className='notice-input'
-                  autoFocus={index === notices.length - 1}
-                  maxLength={40}
-                />
-              ) : (
-                <span>
-                  {notice || '공지 사항 또는 스터디 내의 규칙을 입력해주세요!'}
-                </span>
-              )}
-            </div>
+          {(notices.length === 0
+            ? ['공지 사항 또는 스터디 내의 규칙을 입력해주세요!']
+            : notices
+          ).map((notice, index) => (
+            <Notice
+              key={index}
+              notice={notice}
+              index={index}
+              isEditing={isEditing}
+              notices={notices}
+              setNotices={setNotices}
+            />
           ))}
         </div>
 
@@ -126,10 +89,12 @@ const TopSectionStyle = styled.div`
     margin: 5px 5px 10px 5px;
 
     h2 {
+      margin-left: 5px;
       color: ${({ theme }) => theme.color_textBlack};
     }
 
     span {
+      display: flex;
       margin-left: auto;
       padding: 6px 10px;
       font-size: ${({ theme }) => theme.fontSize_sm};
@@ -138,6 +103,11 @@ const TopSectionStyle = styled.div`
       border-radius: 5px;
       cursor: pointer;
       user-select: none;
+
+      p {
+        margin-left: 5px;
+        font-weight: 600;
+      }
     }
   }
 
@@ -155,30 +125,6 @@ const TopSectionStyle = styled.div`
       display: flex;
       flex-direction: column;
       gap: 15px;
-    }
-
-    .notice {
-      display: flex;
-      align-items: center;
-      color: ${({ theme }) => theme.color_textBlack};
-      font-size: ${({ theme }) => theme.fontSize_reg};
-      margin-right: 40px;
-
-      img {
-        margin-right: 7px;
-      }
-
-      .notice-input {
-        font-family: 'Noto Sans KR';
-        flex: 1;
-        width: 100%;
-        border: none;
-        outline: none;
-        background: none;
-
-        font-size: ${({ theme }) => theme.fontSize_reg};
-        color: ${({ theme }) => theme.color_textBlack};
-      }
     }
 
     .edit-icon {

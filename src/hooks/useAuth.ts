@@ -9,13 +9,23 @@ import {
   deleteUser as apiDeleteUser,
 } from '../api/auth.api';
 import { JoinProps } from '../pages/Join';
-import { useState } from 'react';
 import { requestPermission } from '@/firebase/requestPermission';
+import { useEffect, useState } from 'react';
 
 export const useAuth = () => {
   const navigate = useNavigate();
   const { storeLogin, storeLogout } = useAuthStore();
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetchMyPage();
+      setUserName(res.name);
+    };
+
+    fetchUser();
+  }, []);
 
   const userLogin = async (data: LoginProps) => {
     try {
@@ -82,5 +92,6 @@ export const useAuth = () => {
     getMyPage,
     userLogout,
     userQuit,
+    userName,
   };
 };
