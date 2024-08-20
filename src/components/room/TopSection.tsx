@@ -38,7 +38,8 @@ function TopSection() {
           height={50}
         />
         <span onClick={toggleCodeVisibility}>
-          입장 코드 {showCode ? roomData?.code : '• • • • • •'}
+          입장 코드
+          <p>{showCode ? roomData?.code : '• • • • • •'}</p>
         </span>
       </div>
 
@@ -91,6 +92,7 @@ const TopSectionStyle = styled.div`
     }
 
     span {
+      display: flex;
       margin-left: auto;
       padding: 6px 10px;
       font-size: ${({ theme }) => theme.fontSize_sm};
@@ -99,6 +101,11 @@ const TopSectionStyle = styled.div`
       border-radius: 5px;
       cursor: pointer;
       user-select: none;
+
+      p {
+        margin-left: 5px;
+        font-weight: 600;
+      }
     }
   }
 

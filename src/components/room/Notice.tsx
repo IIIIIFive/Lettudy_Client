@@ -9,13 +9,13 @@ interface NoticeProps {
   setNotices: (notices: string[]) => void;
 }
 
-const Notice = ({
+function Notice({
   notice,
   index,
   isEditing,
   notices,
   setNotices,
-}: NoticeProps) => {
+}: NoticeProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
@@ -57,7 +57,7 @@ const Notice = ({
       )}
     </NoticeStyle>
   );
-};
+}
 
 const NoticeStyle = styled.div`
   display: flex;
