@@ -1,9 +1,9 @@
+import { Links } from '@/model/link.model';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from '@/pages/LinkManager';
 
 interface LinkInputProps {
-  addLink: (link: Omit<Link, 'id'>) => void;
+  addLink: (link: Omit<Links, 'id'>) => void;
 }
 
 function LinkInput({ addLink }: LinkInputProps) {
@@ -12,12 +12,11 @@ function LinkInput({ addLink }: LinkInputProps) {
 
   const handleSubmit = () => {
     if (linkName && url) {
-      addLink({ linkName, url });
+      addLink({ title: linkName, link: url });
       setLinkName('');
       setUrl('');
     }
   };
-
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       handleSubmit();
@@ -90,6 +89,7 @@ const LinkInputStyle = styled.div`
       border-radius: 8px;
       outline: none;
       width: 100%;
+      font-size: ${({ theme }) => theme.fontSize_sm};
     }
   }
 

@@ -25,9 +25,6 @@ export const attendance = async (roomId: string, attendanceId: string) => {
   return response.data;
 };
 
-export const updateNotices = async (
-  roomId: string,
-  notice: string[],
-): Promise<void> => {
+export const updateNotices = async (roomId: string, notice: string[]) => {
   await httpClient.put(`/rooms/${roomId}/notice`, { notice });
 };

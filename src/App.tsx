@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         element: <MyPage />,
       },
       {
-        path: '/room/links',
+        path: '/room/:roomId/links',
         element: <LinkManager />,
       },
       {
