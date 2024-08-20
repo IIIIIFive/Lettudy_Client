@@ -1,35 +1,18 @@
-import { useState } from 'react';
 import styled from 'styled-components';
-import LinkInput from '../components/link/LinkInput';
-import LinkList from '../components/link/LinkList';
+import LinkInput from '@/components/link/LinkInput';
+import LinkList from '@/components/link/LinkList';
 import BackButton from '@/components/common/BackButton';
-
-export interface Link {
-  id: number;
-  linkName: string;
-  url: string;
-}
+import { useLink } from '@/hooks/useLinks';
 
 function LinkManager() {
-  const [links, setLinks] = useState<Link[]>([]);
-  const [nextId, setNextId] = useState(1);
-
-  const addLink = (link: Omit<Link, 'id'>) => {
-    const newLink = { ...link, id: nextId };
-    setLinks([...links, newLink]);
-    setNextId(nextId + 1);
-  };
-
-  const removeLink = (id: number) => {
-    setLinks(links.filter((link) => link.id !== id));
-  };
+  const { addLink, removeLink, links } = useLink();
 
   return (
     <LinkManagerStyle>
       <BackButton text='자료 모음' />
       <div className='content'>
         <LinkInput addLink={addLink} />
-        <LinkList links={links} onClose={removeLink} />
+        <LinkList links={links} onDelete={removeLink} />
       </div>
     </LinkManagerStyle>
   );

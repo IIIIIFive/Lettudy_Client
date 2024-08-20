@@ -3,10 +3,10 @@ import styled from 'styled-components';
 interface LinkItemProps {
   url: string;
   linkName: string;
-  onClose: () => void;
+  onDelete: () => void;
 }
 
-function LinkItem({ url, linkName, onClose }: LinkItemProps) {
+function LinkItem({ url, linkName, onDelete }: LinkItemProps) {
   const onLinkClick = () => {
     const fullUrl = url.startsWith('http') ? url : `http://${url}`;
     window.open(fullUrl, '_blank', 'noopener,noreferrer');
@@ -23,7 +23,7 @@ function LinkItem({ url, linkName, onClose }: LinkItemProps) {
         src='/assets/icon/close-icon.svg'
         alt='close'
         width={9}
-        onClick={onClose}
+        onClick={onDelete}
       />
     </LinkItemStyle>
   );

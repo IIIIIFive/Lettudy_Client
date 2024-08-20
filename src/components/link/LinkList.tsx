@@ -1,15 +1,14 @@
 import LinkItem from './LinkItem';
 import styled from 'styled-components';
-import { Link } from '@/pages/LinkManager';
+
+import { Links } from '@/model/link.model';
 
 interface LinkListProps {
-  links: Link[];
-  onClose: (id: number) => void;
+  links: Links[];
+  onDelete: (id: string) => void;
 }
 
-function LinkList({ links, onClose }: LinkListProps) {
-  const reversedLinks = [...links].reverse();
-
+function LinkList({ links, onDelete }: LinkListProps) {
   return (
     <LinkListStyle>
       <div className='container'>
@@ -18,17 +17,17 @@ function LinkList({ links, onClose }: LinkListProps) {
         </div>
         <p className='description'>링크들을 한 곳에 모아 편하게 관리하세요!</p>
         <div className='link-container'>
-          {reversedLinks.length === 0 ? (
+          {links.length === 0 ? (
             <div className='empty-message'>
               <p>아직 링크함이 비어있어요!</p>
             </div>
           ) : (
-            reversedLinks.map((link) => (
+            links.map((link) => (
               <LinkItem
                 key={link.id}
-                url={link.url}
-                linkName={link.linkName}
-                onClose={() => onClose(link.id)}
+                url={link.link}
+                linkName={link.title}
+                onDelete={() => onDelete(link.id)}
               />
             ))
           )}

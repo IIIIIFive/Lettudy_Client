@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import ButtonItem from './ButtonItem';
 import useModalStore from '@/store/modalStore';
+import { useParams } from 'react-router-dom';
 
 function ButtonList() {
   const { openModal } = useModalStore();
+  const { roomId } = useParams<{ roomId: string }>();
 
   const handleButtonClick = (path: string) => {
     if (path === 'modal') {
@@ -28,7 +30,7 @@ function ButtonList() {
       <ButtonItem
         iconSrc='/assets/images/box.png'
         featName='자료 모음'
-        onClick={() => handleButtonClick('/room/links')}
+        onClick={() => handleButtonClick(`/room/${roomId}/links`)}
       />
       <ButtonItem
         iconSrc='/assets/images/category.png'
