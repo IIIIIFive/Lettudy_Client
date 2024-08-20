@@ -14,7 +14,7 @@ const useModalStore = create<ModalStore>((set) => ({
   isOpen: false,
   selectedDate: null,
   events: [],
-  openModal: (type, date) => set({ modalType: type, isOpen: true }),
+  openModal: (type) => set({ modalType: type, isOpen: true }),
   closeModal: () => set({ modalType: null, isOpen: false }),
 }));
 

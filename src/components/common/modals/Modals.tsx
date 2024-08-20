@@ -14,7 +14,7 @@ function Modals() {
           isOpen={isOpen}
           onClose={closeModal}
           type='create'
-          onConfirm={(roomName) => {
+          onConfirm={() => {
             closeModal();
           }}
         />
@@ -25,7 +25,7 @@ function Modals() {
           isOpen={isOpen}
           onClose={closeModal}
           type='join'
-          onConfirm={(code) => {
+          onConfirm={() => {
             closeModal();
           }}
         />
