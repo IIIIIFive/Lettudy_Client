@@ -9,6 +9,7 @@ import {
   deleteUser as apiDeleteUser,
 } from '../api/auth.api';
 import { JoinProps } from '../pages/Join';
+import { requestPermission } from '@/firebase/requestPermission';
 import { useEffect, useState } from 'react';
 
 export const useAuth = () => {
@@ -31,6 +32,7 @@ export const useAuth = () => {
       const res = await login(data);
       storeLogin(res.token);
       navigate('/');
+      requestPermission();
     } catch (err) {
       console.error('Login error:', err);
       setLoginError('이메일 및 비밀번호를 다시 입력해주세요.');
@@ -68,7 +70,6 @@ export const useAuth = () => {
       return await fetchMyPage();
     } catch (err) {
       console.error('Get MyPage error:', err);
-      throw err;
     }
   };
 
@@ -80,7 +81,6 @@ export const useAuth = () => {
       navigate('/login');
     } catch (err) {
       console.error('Quit error:', err);
-      alert('회원 탈퇴에 실패하였습니다.');
     }
   };
 

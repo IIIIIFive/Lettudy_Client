@@ -6,25 +6,25 @@ import BackButton from '@/components/common/BackButton';
 import { useAuth } from '../hooks/useAuth';
 import { useAuthStore } from '../store/authStore';
 import { User } from '@/model/user.model';
+import { useNavigate } from 'react-router-dom';
 
 function MyPage() {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { getMyPage } = useAuth();
   const { isLoggedIn } = useAuthStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoggedIn) {
-      return;
+      return navigate('/login');
     }
     const fetchUserData = async () => {
-      try {
-        const userData = await getMyPage();
+      const userData = await getMyPage();
+      if (userData) {
         setUser(userData);
-        setError(null);
-      } catch (err) {
-        console.error('Failed to fetch user data:', err);
-        setError('마이페이지 데이터를 가져오는 데 실패했습니다.');
+      } else {
+        return navigate('/login');
       }
     };
 
@@ -36,7 +36,7 @@ function MyPage() {
   }
 
   if (!user) {
-    return <div>Loading...</div>;
+    return;
   }
 
   return (
@@ -47,7 +47,6 @@ function MyPage() {
           name={user.name}
           email={user.email}
           studyCount={user.rooms.length}
-          onClick={() => alert('개발중입니다.')}
         />
         <StudyRoomList
           userName={user.name}
@@ -69,6 +68,8 @@ function MyPage() {
   );
 }
 
+export default MyPage;
+
 const MyPageStyle = styled.div`
   padding-top: 28px;
   max-height: 100vh;
@@ -87,5 +88,3 @@ const MyPageStyle = styled.div`
     }
   }
 `;
-
-export default MyPage;
