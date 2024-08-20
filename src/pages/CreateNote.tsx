@@ -1,6 +1,6 @@
 import BackButton from '@/components/common/BackButton';
 import NoteForm from '@/components/note/NoteForm';
-import useNoteStore from '@/store/noteStore';
+import useNoteStore, { Note } from '@/store/noteStore';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -14,8 +14,16 @@ function CreateNote() {
     content: string;
     date: string;
   }) => {
-    addNote(data);
-    console.log('새노트:', data);
+    const newNote: Note = {
+      id: Date.now(),
+      userId: 1,
+      title: data.title,
+      tags: data.tags,
+      content: data.content,
+      date: new Date(data.date),
+    };
+    addNote(newNote);
+    console.log('새 노트:', newNote);
     navigate('/note');
   };
 
