@@ -10,7 +10,8 @@ import {
 } from '../api/auth.api';
 import { JoinProps } from '../pages/Join';
 import { requestPermission } from '@/firebase/requestPermission';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { User } from '@/model/user.model';
 
 export const useAuth = () => {
   const navigate = useNavigate();
@@ -18,23 +19,20 @@ export const useAuth = () => {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await fetchMyPage();
-      setUserName(res.name);
-    };
-
-    fetchUser();
-  }, []);
+  const fetchUserName = async () => {
+    const userData: User = await fetchMyPage();
+    setUserName(userData.name);
+  };
 
   const userLogin = async (data: LoginProps) => {
     try {
       const res = await login(data);
       storeLogin(res.token);
+      await fetchUserName();
       navigate('/');
       requestPermission();
     } catch (err) {
-      console.error('Login error:', err);
+      console.error('로그인 오류가 발생했습니다.', err);
       setLoginError('이메일 및 비밀번호를 다시 입력해주세요.');
     }
   };
@@ -51,7 +49,7 @@ export const useAuth = () => {
       alert('회원가입이 완료되었습니다.');
       navigate('/login');
     } catch (err) {
-      console.error('Join error:', err);
+      console.error('회원가입 오류가 발생했습니다.', err);
     }
   };
 
@@ -60,16 +58,8 @@ export const useAuth = () => {
       await checkEmail(email);
       return true;
     } catch (err) {
-      console.error('Email verification error:', err);
+      console.error('이메일 확인 오류가 발생했습니다.');
       return false;
-    }
-  };
-
-  const getMyPage = async () => {
-    try {
-      return await fetchMyPage();
-    } catch (err) {
-      console.error('Get MyPage error:', err);
     }
   };
 
@@ -80,7 +70,7 @@ export const useAuth = () => {
       alert('회원 탈퇴가 완료되었습니다.');
       navigate('/login');
     } catch (err) {
-      console.error('Quit error:', err);
+      console.error('회원 탈퇴 오류가 발생했습니다.');
     }
   };
 
@@ -89,7 +79,6 @@ export const useAuth = () => {
     userLogin,
     userJoin,
     verifyEmail,
-    getMyPage,
     userLogout,
     userQuit,
     userName,
