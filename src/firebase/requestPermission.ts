@@ -25,7 +25,9 @@ export async function requestPermission() {
         alert('토큰 생성을 위해 권한을 허용해주세요');
       }
     } else if (permission === 'denied') {
-      alert('알림이 차단되었습니다. 알림을 사용하시려면 권한을 허용해주세요');
+      alert(
+        '알림이 차단되었습니다. 알림을 사용하시려면 권한을 허용해주세요.\n\n브라우저 설정 > 개인정보보안 탭에서 허용 가능합니다.',
+      );
       await deleteFcmToken();
     }
   } catch (error) {

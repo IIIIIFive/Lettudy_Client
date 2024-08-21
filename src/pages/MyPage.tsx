@@ -1,40 +1,11 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ProfileBox from '../components/mypage/ProfileBox';
 import StudyRoomList from '../components/mypage/StudyRoomList';
 import BackButton from '@/components/common/BackButton';
-import { useAuth } from '../hooks/useAuth';
-import { useAuthStore } from '../store/authStore';
-import { User } from '@/model/user.model';
-import { useNavigate } from 'react-router-dom';
+import { useUserData } from '../hooks/useUserData';
 
 function MyPage() {
-  const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const { getMyPage } = useAuth();
-  const { isLoggedIn } = useAuthStore();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      return navigate('/login');
-    }
-    const fetchUserData = async () => {
-      const userData = await getMyPage();
-      if (userData) {
-        setUser(userData);
-      } else {
-        setError('유저 데이터를 불러오는데 실패했습니다.');
-        return navigate('/login');
-      }
-    };
-
-    fetchUserData();
-  }, [getMyPage, isLoggedIn]);
-
-  if (error) {
-    return <div>{error}</div>;
-  }
+  const { user, setUser } = useUserData();
 
   if (!user) {
     return;
