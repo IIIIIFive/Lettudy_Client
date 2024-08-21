@@ -5,21 +5,30 @@ import {
   join,
   login,
   checkEmail,
+  getMyPage as fetchMyPage,
   deleteUser as apiDeleteUser,
 } from '../api/auth.api';
 import { JoinProps } from '../pages/Join';
 import { requestPermission } from '@/firebase/requestPermission';
 import { useState } from 'react';
+import { User } from '@/model/user.model';
 
 export const useAuth = () => {
   const navigate = useNavigate();
   const { storeLogin, storeLogout } = useAuthStore();
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
+
+  const fetchUserName = async () => {
+    const userData: User = await fetchMyPage();
+    setUserName(userData.name);
+  };
 
   const userLogin = async (data: LoginProps) => {
     try {
       const res = await login(data);
       storeLogin(res.token);
+      await fetchUserName();
       navigate('/');
       requestPermission();
     } catch (err) {
@@ -72,5 +81,6 @@ export const useAuth = () => {
     verifyEmail,
     userLogout,
     userQuit,
+    userName,
   };
 };
