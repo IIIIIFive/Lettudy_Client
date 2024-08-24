@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Modal from '../common/Modal';
 import NormalButton from '../common/NormalButton';
+import { useRoom } from '@/hooks/useRoom';
 
 interface DrawingModalProps {
   isOpen: boolean;
@@ -9,12 +10,21 @@ interface DrawingModalProps {
 }
 
 function DrawingModal({ isOpen, onClose }: DrawingModalProps) {
-  const names = ['강정윤', '박은지', '송호진', '연하영']; // 더미데이터
-
   const [selectedName, setSelectedName] = useState<string | null>(null);
   const [isSpinning, setIsSpinning] = useState(false);
+  const { roomData } = useRoom();
+  const [names, setNames] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (roomData?.members) {
+      const memberNames = roomData.members.map((member) => member.name);
+      setNames(memberNames);
+    }
+  }, [roomData]);
 
   const handleSpin = () => {
+    if (names.length === 0) return;
+
     setIsSpinning(true);
     let count = 0;
     const interval = setInterval(() => {
