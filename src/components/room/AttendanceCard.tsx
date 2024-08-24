@@ -1,5 +1,4 @@
-import { useAuth } from '@/hooks/useAuth';
-
+import { useUserData } from '@/hooks/useUserData';
 import styled from 'styled-components';
 
 type AttendanceCardProps = {
@@ -9,9 +8,9 @@ type AttendanceCardProps = {
 };
 
 function AttendanceCard({ name, attendanceRate, icon }: AttendanceCardProps) {
-  const { userName } = useAuth();
+  const { user } = useUserData();
 
-  const isCurrentUser = name === userName;
+  const isCurrentUser = name === user?.name;
 
   return (
     <AttendanceCardStyle isCurrentUser={isCurrentUser}>

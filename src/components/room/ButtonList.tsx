@@ -20,12 +20,12 @@ function ButtonList() {
       <ButtonItem
         iconSrc='/assets/images/pencil.png'
         featName='기록하기'
-        onClick={() => handleButtonClick('/room/create-note')}
+        onClick={() => handleButtonClick(`/room/${roomId}/create-note`)}
       />
       <ButtonItem
         iconSrc='/assets/images/notebook.png'
         featName='노트 보기'
-        onClick={() => handleButtonClick('/room/note')}
+        onClick={() => handleButtonClick(`/room/${roomId}/note`)}
       />
       <ButtonItem
         iconSrc='/assets/images/box.png'

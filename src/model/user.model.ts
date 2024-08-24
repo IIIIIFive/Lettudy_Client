@@ -6,6 +6,7 @@ export interface StudyRoom {
 }
 
 export interface User {
+  id: string;
   name: string;
   email: string;
   rooms: StudyRoom[];

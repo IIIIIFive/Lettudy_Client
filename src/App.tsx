@@ -59,11 +59,11 @@ const router = createBrowserRouter([
         element: <LinkManager />,
       },
       {
-        path: '/room/create-note',
+        path: '/room/:roomId/create-note',
         element: <CreateNote />,
       },
       {
-        path: '/room/note',
+        path: '/room/:roomId/note',
         element: <NoteView />,
       },
     ],

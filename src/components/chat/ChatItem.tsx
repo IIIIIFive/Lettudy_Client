@@ -1,23 +1,35 @@
 import styled from 'styled-components';
-import { Chat } from '../../model/chat.model';
+import { Chats } from '@/model/chat.model';
+import { animalIcon } from '@/constants/animals';
+import { formatChatDate } from '@/utils/formatChatDate';
+import { useUserData } from '@/hooks/useUserData';
 
 interface ChatItemProps {
-  message: Chat;
+  message: Chats;
+  isSender?: boolean;
 }
 
-function ChatItem({ message }: ChatItemProps) {
+function ChatItem({ message, isSender = false }: ChatItemProps) {
+  const { user } = useUserData();
+
+  const isUserMessage = message.sender === user?.name;
+  const showAvatar = !isUserMessage && message.profileNum;
+  const showUserName = !isUserMessage;
+
   return (
-    <ChatItemStyle $user={message.userName}>
+    <ChatItemStyle $isUserMessage={isUserMessage} $isSender={isSender}>
       <div className='chat-container'>
-        {message.userName !== 'me' && message.avatar && (
-          <img src={message.avatar} alt={message.userName} className='avatar' />
+        {showAvatar && (
+          <img
+            src={animalIcon[message.profileNum]}
+            alt={message.sender}
+            className='avatar'
+          />
         )}
         <div className='chat-box'>
-          {message.userName !== 'me' && (
-            <div className='user-name'>{message.userName}</div>
-          )}
+          {showUserName && <div className='user-name'>{message.sender}</div>}
           <p className='chat-text'>{message.content}</p>
-          {message.date && <div className='date'>{message.date}</div>}
+          <div className='date'>{formatChatDate(message.createdAt)}</div>
         </div>
       </div>
     </ChatItemStyle>
@@ -26,15 +38,19 @@ function ChatItem({ message }: ChatItemProps) {
 
 export default ChatItem;
 
-const ChatItemStyle = styled.div<{ $user: string }>`
+const ChatItemStyle = styled.div<{
+  $isUserMessage: boolean;
+  $isSender: boolean;
+}>`
   .chat-container {
     display: flex;
     align-items: center;
     margin: 12px 0;
     width: 100%;
-    justify-content: ${({ $user }) =>
-      $user === 'me' ? 'flex-end' : 'flex-start'};
-    text-align: ${({ $user }) => ($user === 'me' ? 'right' : 'left')};
+    justify-content: ${({ $isUserMessage }) =>
+      $isUserMessage ? 'flex-end' : 'flex-start'};
+    text-align: ${({ $isUserMessage }) => ($isUserMessage ? 'right' : 'left')};
+    opacity: ${({ $isSender }) => ($isSender ? 0.5 : 1)};
   }
 
   .avatar {
@@ -42,6 +58,7 @@ const ChatItemStyle = styled.div<{ $user: string }>`
     height: 42px;
     border-radius: 50%;
     margin: 0 8px;
+    order: ${({ $isUserMessage }) => ($isUserMessage ? 1 : 0)};
   }
 
   .chat-box {
@@ -57,24 +74,26 @@ const ChatItemStyle = styled.div<{ $user: string }>`
   }
 
   .chat-text {
-    background-color: ${({ $user, theme }) =>
-      $user === 'me' ? '#efefef' : theme.color_key};
+    background-color: ${({ $isUserMessage, theme }) =>
+      $isUserMessage ? '#efefef' : theme.color_key};
     padding: 12px 16px;
     border-radius: 15px;
     word-wrap: break-word;
     word-break: break-word;
-    color: ${({ $user, theme }) =>
-      $user === 'me' ? theme.color_textBlack : theme.color_textWhite};
+    color: ${({ $isUserMessage, theme }) =>
+      $isUserMessage ? theme.color_textBlack : theme.color_textWhite};
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
     text-align: left;
     display: inline-block;
     max-width: 100%;
     min-width: 30px;
+    line-height: 120%;
   }
 
   .date {
     font-size: ${({ theme }) => theme.fontSize_xxs};
     color: #777777;
     margin: 6px 8px 0 6px;
+    text-align: ${({ $isUserMessage }) => ($isUserMessage ? 'right' : 'left')};
   }
 `;
