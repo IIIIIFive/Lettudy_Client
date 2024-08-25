@@ -26,7 +26,7 @@ export async function requestPermission() {
       }
     } else if (permission === 'denied') {
       alert(
-        '알림이 차단되었습니다. 알림을 사용하시려면 권한을 허용해주세요.\n\n브라우저 설정 > 개인정보보안 탭에서 허용 가능합니다.',
+        '알림이 차단되었습니다. 알림을 사용하시려면 권한을 허용 후, 다시 로그인해 주세요. \n\n브라우저 설정 > 개인정보보안 탭에서 허용 가능합니다.',
       );
       await deleteFcmToken();
     }
