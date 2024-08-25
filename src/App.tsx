@@ -68,7 +68,7 @@ const router = createBrowserRouter([
         element: <NoteView />,
       },
       {
-        path: '/room/:roomId/notes/:noteId',
+        path: '/room/:roomId/edit-note/:noteId',
         element: <EditNote />,
       },
     ],

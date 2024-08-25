@@ -68,15 +68,23 @@ export const deleteNote = async ({ roomId, noteId }: DeleteNoteReq) => {
   }
 };
 
-export const createPreSignedUrl = async (
-  roomId: string,
-  fileName: string,
-): Promise<PreSignedUrlRes> => {
+export const getPreSignedUrl = async (roomId: string, fileName: string) => {
   try {
     const response = await httpClient.post(`/notes/${roomId}/presigned`, {
-      roomId,
       fileName,
     });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const uploadImageToS3 = async (preSignedUrl: string, file: File) => {
+  try {
+    const headers = {
+      'Content-Type': file.type,
+    };
+    const response = await httpClient.put(preSignedUrl, file, { headers });
     return response.data;
   } catch (error) {
     throw error;
