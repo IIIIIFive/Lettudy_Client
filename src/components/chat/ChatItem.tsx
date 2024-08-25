@@ -6,20 +6,17 @@ import { useUserData } from '@/hooks/useUserData';
 
 interface ChatItemProps {
   message: Chats;
-  isSender?: boolean;
 }
 
-function ChatItem({ message, isSender = false }: ChatItemProps) {
+function ChatItem({ message }: ChatItemProps) {
   const { user } = useUserData();
 
   const isUserMessage = message.sender === user?.name;
-  const showAvatar = !isUserMessage && message.profileNum;
-  const showUserName = !isUserMessage;
 
   return (
-    <ChatItemStyle $isUserMessage={isUserMessage} $isSender={isSender}>
+    <ChatItemStyle $isUserMessage={isUserMessage}>
       <div className='chat-container'>
-        {showAvatar && (
+        {!isUserMessage && message.profileNum && (
           <img
             src={animalIcon[message.profileNum]}
             alt={message.sender}
@@ -27,7 +24,7 @@ function ChatItem({ message, isSender = false }: ChatItemProps) {
           />
         )}
         <div className='chat-box'>
-          {showUserName && <div className='user-name'>{message.sender}</div>}
+          {!isUserMessage && <div className='user-name'>{message.sender}</div>}
           <p className='chat-text'>{message.content}</p>
           <div className='date'>{formatChatDate(message.createdAt)}</div>
         </div>
@@ -40,7 +37,6 @@ export default ChatItem;
 
 const ChatItemStyle = styled.div<{
   $isUserMessage: boolean;
-  $isSender: boolean;
 }>`
   .chat-container {
     display: flex;
@@ -50,7 +46,6 @@ const ChatItemStyle = styled.div<{
     justify-content: ${({ $isUserMessage }) =>
       $isUserMessage ? 'flex-end' : 'flex-start'};
     text-align: ${({ $isUserMessage }) => ($isUserMessage ? 'right' : 'left')};
-    opacity: ${({ $isSender }) => ($isSender ? 0.5 : 1)};
   }
 
   .avatar {
