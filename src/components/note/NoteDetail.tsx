@@ -166,33 +166,36 @@ const NoteDetailStyle = styled.div`
     font-size: ${({ theme }) => theme.fontSize_sm};
     color: ${({ theme }) => theme.color_textBlack};
     line-height: 1.8;
-  }
-  .note-content strong {
-    font-weight: bold;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+
+    strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+      padding-top: 20px;
+    }
+
+    ol {
+      list-style-type: decimal;
+      padding-left: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      pointer-events: none;
+    }
   }
 
-  .note-content em {
-    font-style: italic;
-  }
-
-  .note-content ul {
-    list-style-type: disc;
-    padding-left: 20px;
-  }
-
-  .note-content ol {
-    list-style-type: decimal;
-    padding-left: 20px;
-  }
-
-  .note-content li {
-    margin-bottom: 8px;
-  }
-  .note-content img {
-    max-width: 100%;
-    height: auto;
-    pointer-events: none;
-  }
   .note-date {
     text-align: right;
     font-size: ${({ theme }) => theme.fontSize_xxs};
