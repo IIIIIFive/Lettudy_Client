@@ -60,6 +60,7 @@ function NoteForm({ onSubmit, initialData }: NoteFormProps) {
     clearTags,
   } = useNoteStore();
 
+  const quillRef = useRef<ReactQuill>(null);
   const toastRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -115,7 +116,11 @@ function NoteForm({ onSubmit, initialData }: NoteFormProps) {
   };
 
   const handleTagKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && tags.trim() !== '') {
+    if (
+      event.key === 'Enter' &&
+      event.nativeEvent.isComposing == false &&
+      tags.trim() !== ''
+    ) {
       event.preventDefault();
       addTag(tags.trim());
     }
@@ -162,6 +167,7 @@ function NoteForm({ onSubmit, initialData }: NoteFormProps) {
         <div className='form-group'>
           <h3>내용</h3>
           <ReactQuill
+            ref={quillRef}
             value={content}
             placeholder='내용을 입력하세요.'
             onChange={setContent}
