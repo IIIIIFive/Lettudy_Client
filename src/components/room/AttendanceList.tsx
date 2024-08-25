@@ -28,9 +28,6 @@ const AttendanceListStyle = styled.div`
   flex-direction: column;
   gap: 25px;
   padding: 30px 0;
-
-  /* position: sticky;
-  position: -webkit-sticky; */
   top: 0;
   left: 0;
 `;

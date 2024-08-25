@@ -4,11 +4,13 @@ import { useRoom } from '@/hooks/useRoom';
 import { formatDateTime } from '@/utils/formatDateTime';
 import { useSchedule } from '@/hooks/useSchedule';
 import { useState } from 'react';
+import useModalStore from '@/store/modalStore';
 
 function Attendance() {
   const { roomData } = useRoom();
   const { addAttendance } = useSchedule(roomData?.roomId || '');
   const [isAttendanceCompleted, setIsAttendanceCompleted] = useState(false);
+  const { openModal } = useModalStore();
 
   const hasAttendanceSchedule =
     roomData?.nextAttendance.date && roomData?.nextAttendance.time;
@@ -18,7 +20,6 @@ function Attendance() {
     roomData?.nextAttendance.time || '',
   );
 
-  // 출석 시간 계산
   const attendanceDateTime = new Date(
     `${roomData?.nextAttendance.date}T${roomData?.nextAttendance.time}`,
   );
@@ -42,7 +43,11 @@ function Attendance() {
     <AttendanceStyle>
       <div className='title'>
         <h4>출석하기</h4>
-        <img src='/assets/icon/info-icon.svg' alt='info' />
+        <img
+          src='/assets/icon/info-icon.svg'
+          alt='info'
+          onClick={() => openModal('info')}
+        />
       </div>
 
       <div className='attendance-box'>
@@ -71,6 +76,10 @@ const AttendanceStyle = styled.div`
   .title {
     display: flex;
     gap: 10px;
+
+    img {
+      cursor: pointer;
+    }
   }
 
   .attendance-box {

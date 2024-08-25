@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type ModalType = 'create' | 'join' | 'drawing' | null;
+type ModalType = 'create' | 'join' | 'drawing' | 'info' | null;
 
 interface ModalStore {
   modalType: ModalType;
