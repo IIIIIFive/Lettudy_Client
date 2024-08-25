@@ -54,7 +54,6 @@ function ChatRoom({ visible, onClose }: ChatRoomProps) {
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       handleSendMessage();
-      event.nativeEvent.isComposing === false;
     }
   };
 

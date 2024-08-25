@@ -1,4 +1,4 @@
-import { useRef, KeyboardEvent, ChangeEvent } from 'react';
+import { useRef, KeyboardEvent, ChangeEvent, useEffect } from 'react';
 import styled from 'styled-components';
 
 interface NoticeProps {
@@ -18,26 +18,40 @@ function Notice({
 }: NoticeProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
+  const focusInputAt = (idx: number) => {
+    (
+      document.querySelectorAll('.notice-input')[idx] as HTMLInputElement
+    )?.focus();
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const newNotices = [...notices];
     if (e.key === 'Enter') {
       e.preventDefault();
-      const newNotices = [...notices, ''];
+      newNotices.splice(index + 1, 0, '');
       setNotices(newNotices);
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 0);
-    } else if (e.key === 'Backspace' && notices.length > 1 && notice === '') {
+      focusInputAt(index + 1);
+    } else if (e.key === 'Backspace' && !notice && notices.length > 1) {
       e.preventDefault();
-      const newNotices = notices.filter((_, i) => i !== index);
-      setNotices(newNotices);
+      setNotices(newNotices.filter((_, i) => i !== index));
+      focusInputAt(Math.max(index - 1, 0));
     }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const newNotices = [...notices];
-    newNotices[index] = e.target.value;
-    setNotices(newNotices);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNotices(notices.map((n, i) => (i === index ? e.target.value : n)));
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!inputRef.current?.contains(event.target as Node)) {
+        setNotices(notices.filter((n) => n.trim()));
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [notices, setNotices]);
 
   return (
     <NoticeStyle>
@@ -71,13 +85,11 @@ const NoticeStyle = styled.div`
   }
 
   .notice-input {
-    font-family: 'Noto Sans KR';
     flex: 1;
     width: 100%;
     border: none;
     outline: none;
     background: none;
-
     font-size: ${({ theme }) => theme.fontSize_reg};
     color: ${({ theme }) => theme.color_textBlack};
   }
