@@ -29,7 +29,7 @@ const ButtonStyle = styled.button<{
   $size: 'small' | 'medium';
 }>`
   font-size: ${({ theme, $size }) =>
-    $size === 'small' ? theme.fontSize_xs : theme.fontSize_reg};
+    $size === 'small' ? theme.fontSize_xs : theme.fontSize_sm};
   padding: 12px;
   width: ${({ $size }) => ($size === 'small' ? '80px ' : '200px')};
   display: flex;
