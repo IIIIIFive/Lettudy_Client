@@ -1,11 +1,16 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 function BackButton({ text }: { text: string }) {
   const navigate = useNavigate();
+  const { roomId } = useParams<{ roomId: string }>();
 
   const handleBack = () => {
-    navigate(-1);
+    if (text === '노트보기' && roomId) {
+      navigate(`/room/${roomId}`);
+    } else {
+      navigate(-1);
+    }
   };
   return (
     <BackButtonStyle>
