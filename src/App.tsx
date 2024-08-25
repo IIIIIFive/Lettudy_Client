@@ -17,6 +17,7 @@ import ScrollToTop from './components/common/ScrollToTop';
 
 import { queryClient } from './api/queryClient';
 import { QueryClientProvider } from '@tanstack/react-query';
+import EditNote from './pages/EditNote';
 
 const router = createBrowserRouter([
   {
@@ -59,12 +60,16 @@ const router = createBrowserRouter([
         element: <LinkManager />,
       },
       {
-        path: '/room/create-note',
+        path: '/room/:roomId/create-note',
         element: <CreateNote />,
       },
       {
-        path: '/room/note',
+        path: '/room/:roomId/notes',
         element: <NoteView />,
+      },
+      {
+        path: '/room/:roomId/notes/:noteId',
+        element: <EditNote />,
       },
     ],
   },

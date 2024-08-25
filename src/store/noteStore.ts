@@ -1,13 +1,5 @@
+import { Note } from '@/model/note.model';
 import { create } from 'zustand';
-
-export type Note = {
-  id: number;
-  userId: number;
-  title: string;
-  tags: string[];
-  content: string;
-  date: Date;
-};
 
 interface NoteState {
   title: string;

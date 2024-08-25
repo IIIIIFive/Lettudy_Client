@@ -1,31 +1,41 @@
+import { useParams, useNavigate } from 'react-router-dom';
 import BackButton from '@/components/common/BackButton';
 import NoteForm from '@/components/note/NoteForm';
-import useNoteStore, { Note } from '@/store/noteStore';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { createNote } from '@/api/note.api';
 
 function CreateNote() {
+  const { roomId } = useParams<{ roomId: string }>();
   const navigate = useNavigate();
-  const { addNote } = useNoteStore();
 
-  const handleSubmit = (data: {
+  const handleSubmit = async (data: {
     title: string;
     tags: string[];
     content: string;
     date: string;
   }) => {
-    const newNote: Note = {
-      id: Date.now(),
-      userId: 1,
-      title: data.title,
-      tags: data.tags,
-      content: data.content,
-      date: new Date(data.date),
-    };
-    addNote(newNote);
-    console.log('새 노트:', newNote);
-    navigate('/note');
+    if (!roomId) {
+      return;
+    }
+
+    try {
+      const newNote = {
+        title: data.title,
+        content: data.content,
+        tags: data.tags,
+        images: [],
+      };
+
+      await createNote(roomId, newNote);
+      navigate(`/room/${roomId}/notes`);
+    } catch (error) {
+      console.error('노트 등록 오류가 발생했습니다:');
+    }
   };
+
+  if (!roomId) {
+    return <div></div>;
+  }
 
   return (
     <CreateNoteStyle>
