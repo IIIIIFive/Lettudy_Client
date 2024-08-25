@@ -31,7 +31,13 @@ function Login() {
   return (
     <AuthBackground>
       <LoginStyle>
-        <img src='/assets/images/logo-withLettudy.png' alt='logo' height={55} />
+        <Link to='/'>
+          <img
+            src='/assets/images/logo-withLettudy.png'
+            alt='logo'
+            height={55}
+          />
+        </Link>
         <div className='container'>
           <h1>로그인</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -70,7 +76,7 @@ function Login() {
               </div>
 
               <div className='login-button'>
-                <Button size='medium' onClick={handleClick}>
+                <Button type='submit' size='medium' onClick={handleClick}>
                   로그인
                 </Button>
               </div>
