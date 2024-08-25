@@ -4,6 +4,7 @@ import LeaveRoomButton from './LeaveRoomButton';
 import EmptyList from './EmptyList';
 import { useMyPage } from '@/hooks/useMyPage';
 import { StudyRoom } from '@/model/user.model';
+import { useNavigate } from 'react-router-dom';
 
 interface StudyRoomListProps {
   studyRooms: StudyRoom[];
@@ -17,6 +18,12 @@ function StudyRoomList({
 }: StudyRoomListProps) {
   const { studyRooms, toggleAlarm, handleLeaveRoom } =
     useMyPage(initialStudyRooms);
+
+  const navigate = useNavigate();
+
+  const handleRoomClick = (roomId: string) => {
+    navigate(`/room/${roomId}`);
+  };
 
   return (
     <StudyRoomListStyle>
@@ -46,7 +53,13 @@ function StudyRoomList({
               <tbody>
                 {studyRooms.map((room) => (
                   <tr key={room.roomId}>
-                    <td className='table-cell'>{room.title}</td>{' '}
+                    <td className='table-cell'>
+                      <span
+                        className='room-title'
+                        onClick={() => handleRoomClick(room.roomId)}>
+                        {room.title}
+                      </span>
+                    </td>{' '}
                     <td className='table-cell'>
                       <AlarmButton
                         alarm={room.alarm}
@@ -116,6 +129,9 @@ const StudyRoomListStyle = styled.div`
     text-align: center;
     border-collapse: collapse;
 
+    .room-title {
+      cursor: pointer;
+    }
     th,
     td {
       border-bottom: 1px solid #e7e7e7;
