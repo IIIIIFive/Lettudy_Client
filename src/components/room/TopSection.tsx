@@ -56,19 +56,17 @@ function TopSection() {
           ))}
         </div>
 
-        {!allNoticesEmpty && (
-          <img
-            className='edit-icon'
-            src={
-              isEditing
-                ? '/assets/icon/edit-check-icon.svg'
-                : '/assets/icon/edit-icon.svg'
-            }
-            alt={isEditing ? 'check' : 'edit'}
-            width={30}
-            onClick={handleEditClick}
-          />
-        )}
+        <img
+          className='edit-icon'
+          src={
+            isEditing
+              ? '/assets/icon/edit-check-icon.svg'
+              : '/assets/icon/edit-icon.svg'
+          }
+          alt={isEditing ? 'check' : 'edit'}
+          width={30}
+          onClick={handleEditClick}
+        />
       </div>
       <ButtonList />
     </TopSectionStyle>
