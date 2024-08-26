@@ -11,7 +11,7 @@ function Header() {
   const { userLogout } = useAuth();
   const { isLoggedIn } = useAuthStore();
   const [chatVisible, setChatVisible] = useState(false);
-
+  console.log(isLoggedIn);
   const handleImageClick = () => {
     setChatVisible(true);
   };

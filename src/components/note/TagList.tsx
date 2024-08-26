@@ -76,6 +76,7 @@ const TagListStyle = styled.div<{ showAllTags: boolean }>`
 
     h4 {
       margin: 0;
+      color: ${({ theme }) => theme.color_textBlack};
     }
 
     .icons {
