@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import RoomList from './RoomList';
 import useModalStore from '@/store/modalStore';
 import { useAuthStore } from '@/store/authStore';
+
 type ModalType = 'create' | 'join';
+
 function BottomSection() {
   const { openModal } = useModalStore();
   const { isLoggedIn } = useAuthStore();

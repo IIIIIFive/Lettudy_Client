@@ -64,9 +64,9 @@ const PaginationStyle = styled.div`
     display: flex;
     align-items: center;
     background-color: ${({ theme }) => theme.color_textLightOrange};
-    padding: 8px 20px;
+    padding: 8px 15px;
     border-radius: 20px;
-    font-size: ${({ theme }) => theme.fontSize_sm};
+    font-size: ${({ theme }) => theme.fontSize_xxs};
     font-weight: bold;
     margin-right: 16px;
 

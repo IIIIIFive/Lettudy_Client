@@ -45,7 +45,7 @@ const LinkListStyle = styled.div`
   width: 100%;
 
   .container {
-    height: 70vh;
+    height: 65vh;
     background: ${({ theme }) => theme.color_bgWhite};
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);

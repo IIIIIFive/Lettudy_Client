@@ -6,26 +6,22 @@ import Notice from './Notice';
 
 function TopSection() {
   const { roomData, updateNotice } = useRoom();
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [notices, setNotices] = useState<string[]>(roomData?.notice || []);
-  const [showCode, setShowCode] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [notices, setNotices] = useState<string[]>([]);
+  const [showCode, setShowCode] = useState(false);
 
-  useEffect(() => {
-    if (roomData?.notice) {
-      setNotices(roomData.notice);
-    }
-  }, [roomData?.notice]);
-
-  const handleEditClick = (): void => {
-    if (isEditing) {
-      updateNotice(notices);
-    }
+  const handleEditClick = () => {
+    const filteredNotices = notices.filter((n) => n.trim() !== '');
+    if (isEditing) updateNotice(filteredNotices);
     setIsEditing(!isEditing);
   };
 
-  const toggleCodeVisibility = () => {
-    setShowCode(!showCode);
-  };
+  useEffect(() => {
+    if (roomData?.notice) setNotices(roomData.notice);
+  }, [roomData?.notice]);
+
+  const toggleCodeVisibility = () => setShowCode(!showCode);
+  const allNoticesEmpty = notices.every((n) => n.trim() === '');
 
   return (
     <TopSectionStyle>
@@ -37,7 +33,6 @@ function TopSection() {
           height={50}
         />
         <h2>{roomData?.title}</h2>
-
         <span onClick={toggleCodeVisibility}>
           입장 코드
           <p>{showCode ? roomData?.code : '• • • • • •'}</p>
@@ -46,7 +41,7 @@ function TopSection() {
 
       <div className='content'>
         <div className='notice-box'>
-          {(notices.length === 0
+          {(notices.length === 0 && !isEditing
             ? ['공지 사항 또는 스터디 내의 규칙을 입력해주세요!']
             : notices
           ).map((notice, index) => (
@@ -61,17 +56,19 @@ function TopSection() {
           ))}
         </div>
 
-        <img
-          className='edit-icon'
-          src={
-            isEditing
-              ? '/assets/icon/edit-check-icon.svg'
-              : '/assets/icon/edit-icon.svg'
-          }
-          alt={isEditing ? 'check' : 'edit'}
-          width={30}
-          onClick={handleEditClick}
-        />
+        {!allNoticesEmpty && (
+          <img
+            className='edit-icon'
+            src={
+              isEditing
+                ? '/assets/icon/edit-check-icon.svg'
+                : '/assets/icon/edit-icon.svg'
+            }
+            alt={isEditing ? 'check' : 'edit'}
+            width={30}
+            onClick={handleEditClick}
+          />
+        )}
       </div>
       <ButtonList />
     </TopSectionStyle>
@@ -95,6 +92,8 @@ const TopSectionStyle = styled.div`
 
     span {
       display: flex;
+      flex-direction: column;
+      align-items: center;
       margin-left: auto;
       padding: 6px 10px;
       font-size: ${({ theme }) => theme.fontSize_sm};
@@ -102,10 +101,9 @@ const TopSectionStyle = styled.div`
       border: 1px solid ${({ theme }) => theme.color_borderGray};
       border-radius: 5px;
       cursor: pointer;
-      user-select: none;
 
       p {
-        margin-left: 5px;
+        margin-top: 7px;
         font-weight: 600;
       }
     }
