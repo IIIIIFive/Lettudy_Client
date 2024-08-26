@@ -1,13 +1,16 @@
 import { createRooms, getRooms, joinRoom } from '@/api/home.api';
+import { useAuthStore } from '@/store/authStore';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 export const useHome = () => {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthStore();
 
   const { data, error } = useQuery({
     queryKey: ['rooms'],
     queryFn: getRooms,
+    enabled: isLoggedIn,
   });
 
   const rooms = data?.rooms || [];
