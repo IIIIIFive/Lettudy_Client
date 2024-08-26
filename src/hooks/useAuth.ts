@@ -26,7 +26,6 @@ export const useAuth = () => {
         const token = localStorage.getItem('token');
         if (token) {
           try {
-            await fetchMyPage();
           } catch (error) {
             storeLogout();
             navigate('/login');

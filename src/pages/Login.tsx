@@ -1,6 +1,6 @@
 import { JoinStyle } from './Join';
 import AuthBackground from '@/components/auth/AuthBackground';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from '@/components/common/Button';
