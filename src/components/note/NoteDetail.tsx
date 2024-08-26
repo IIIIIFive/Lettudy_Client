@@ -55,36 +55,42 @@ const NoteDetail = ({ note, onDelete }: NoteDetailProps) => {
     }
   };
 
-  if (!note) return <NoteDetailStyle className='empty-note'></NoteDetailStyle>;
-
   return (
     <NoteDetailStyle>
-      <div className='note-header'>
-        <h2>{note.title}</h2>
-        <div className='note-tags'>
-          {note.tags.map((tag, idx) => (
-            <span key={idx} className='note-tag'>
-              {tag}
+      {note ? (
+        <>
+          <div className='note-header'>
+            <h2>{note.title}</h2>
+            <div className='note-tags'>
+              {note.tags.map((tag, idx) => (
+                <span key={idx} className='note-tag'>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+          <hr />
+          <div className='note-actions'>
+            <span className='note-action' onClick={handleEdit}>
+              수정
             </span>
-          ))}
+            <span className='note-action' onClick={handleDelete}>
+              삭제
+            </span>
+          </div>
+          <div
+            className='note-content'
+            dangerouslySetInnerHTML={{ __html: content || note.content }}
+          />
+          <div className='note-date'>
+            작성일: {formatDate(new Date(note.createdAt))}
+          </div>
+        </>
+      ) : (
+        <div className='empty-note'>
+          <img src='/assets/images/crycat.png' alt='crying cat' width={250} />
         </div>
-      </div>
-      <hr />
-      <div className='note-actions'>
-        <span className='note-action' onClick={handleEdit}>
-          수정
-        </span>
-        <span className='note-action' onClick={handleDelete}>
-          삭제
-        </span>
-      </div>
-      <div
-        className='note-content'
-        dangerouslySetInnerHTML={{ __html: content || note.content }}
-      />
-      <div className='note-date'>
-        작성일: {formatDate(new Date(note.createdAt))}
-      </div>
+      )}
     </NoteDetailStyle>
   );
 };
@@ -102,6 +108,7 @@ const NoteDetailStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 
   .note-header {
     padding: 8px;
@@ -146,6 +153,7 @@ const NoteDetailStyle = styled.div`
       }
     }
   }
+
   .ql-align-center {
     text-align: center;
   }
@@ -199,5 +207,11 @@ const NoteDetailStyle = styled.div`
     font-size: ${({ theme }) => theme.fontSize_xxs};
     color: ${({ theme }) => theme.color_textGray};
     margin-top: auto;
+  }
+
+  .empty-note {
+    position: absolute;
+    bottom: 50px;
+    right: 80px;
   }
 `;

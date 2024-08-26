@@ -1,5 +1,6 @@
 import { Note } from '@/model/note.model';
 import styled from 'styled-components';
+import NoteEmpty from './NoteEmpty';
 
 type NoteListProps = {
   notes: Note[];
@@ -13,23 +14,27 @@ const NoteList = ({ notes, onNoteClick }: NoteListProps) => {
         <img src='/assets/images/dot.png' alt='dot' width={20} />
         <h4>노트목록</h4>
       </div>
-      {notes.map((note) => (
-        <div key={note.noteId} className='note-item'>
-          <div
-            className='note-title-container'
-            onClick={() => onNoteClick(note)}>
-            <img src='/assets/images/book.png' alt='book' width={20} />
-            <h5>{note.title}</h5>
+      {notes.length === 0 ? (
+        <NoteEmpty />
+      ) : (
+        notes.map((note) => (
+          <div key={note.noteId} className='note-item'>
+            <div
+              className='note-title-container'
+              onClick={() => onNoteClick(note)}>
+              <img src='/assets/images/book.png' alt='book' width={20} />
+              <h5>{note.title}</h5>
+            </div>
+            <div className='note-tags'>
+              {note.tags.map((tag, idx) => (
+                <span key={idx} className='note-tag'>
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className='note-tags'>
-            {note.tags.map((tag, idx) => (
-              <span key={idx} className='note-tag'>
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      ))}
+        ))
+      )}
     </NoteListStyle>
   );
 };
