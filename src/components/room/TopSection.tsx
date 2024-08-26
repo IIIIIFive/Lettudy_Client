@@ -21,7 +21,6 @@ function TopSection() {
   }, [roomData?.notice]);
 
   const toggleCodeVisibility = () => setShowCode(!showCode);
-  const allNoticesEmpty = notices.every((n) => n.trim() === '');
 
   return (
     <TopSectionStyle>

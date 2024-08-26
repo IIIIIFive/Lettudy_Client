@@ -96,6 +96,10 @@ const HeaderStyle = styled.div`
   justify-content: space-between;
   margin: 0 auto;
 
+  img {
+    cursor: pointer;
+  }
+
   .icons {
     display: flex;
     gap: 35px;
