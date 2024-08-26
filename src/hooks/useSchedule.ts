@@ -13,8 +13,10 @@ export const useSchedule = (roomId: string) => {
       setSchedules((prevSchedules) => [...prevSchedules, response]);
 
       queryClient.invalidateQueries({ queryKey: ['roomData', roomId] });
-    } catch (error) {
-      console.error('일정 생성 오류가 발생했습니다.');
+    } catch (error: any) {
+      console.error('일정 생성 오류가 발생했습니다:', error);
+      const errorMessage = error?.response?.data?.message;
+      alert(errorMessage);
     }
   };
 
@@ -26,21 +28,26 @@ export const useSchedule = (roomId: string) => {
       );
 
       queryClient.invalidateQueries({ queryKey: ['roomData', roomId] });
-    } catch (error) {
-      console.error('일정 삭제 오류가 발생했습니다.');
+    } catch (error: any) {
+      console.error('일정 삭제 오류가 발생했습니다:', error);
+      const errorMessage = error?.response?.data?.message;
+      alert(errorMessage);
     }
   };
+
   const addAttendance = async (attendanceId: string) => {
     try {
       const response = await attendance(roomId, attendanceId);
       queryClient.invalidateQueries({ queryKey: ['roomData', roomId] });
       return response;
-    } catch (error) {
-      console.error('출석하기 오류가 발생했습니다.');
+    } catch (error: any) {
+      console.error('출석하기 오류가 발생했습니다:', error);
+      const errorMessage = error?.response?.data?.message;
+      alert(errorMessage);
+
       throw error;
     }
   };
-  ``;
 
   return { schedules, addSchedule, removeSchedule, addAttendance };
 };

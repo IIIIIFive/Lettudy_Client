@@ -11,10 +11,11 @@ function AttendanceInfoModal({ isOpen, onClose }: AttendanceInfoModalProps) {
     <Modal isOpen={isOpen} onClose={onClose}>
       <AttendanceInfoModalStyle>
         <img src='/assets/images/alarm.png' alt='alarm' width={35} />
-        출석 일정을 잊지 않도록, <br />
-        출석 시간 10분 전 web 알람이 울립니다.
+        출석 시간에 버튼이 활성화되고 20분간 유지됩니다.
         <br />
-        <p>(일정 추가 시 "알람 ON"을 선택하면 출석으로 간주됩니다. )</p>
+        <p>
+          ( 출석 일정을 잊지 않도록, 출석 시간 10분 전 web 알람이 울립니다.)
+        </p>
         <hr />
         <p> 알람이 울리지 않는 경우, 다음 사항을 확인해 주세요:</p>
         <span> 설정 &gt; 개인정보 보호 및 보안 &gt; 알람 권한 허용</span>

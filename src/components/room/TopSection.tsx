@@ -35,7 +35,7 @@ function TopSection() {
     setIsToastVisible(true);
     setTimeout(() => {
       setIsToastVisible(false);
-      setTimeout(() => setShowCode(false), 200); // "복사되었습니다!" 메시지 표시 후 코드 숨기기
+      setTimeout(() => setShowCode(false), 200);
     }, 2000);
   };
 

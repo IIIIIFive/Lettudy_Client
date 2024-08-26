@@ -30,7 +30,7 @@ function CalendarModal({
     if (isOpen) {
       if (schedule) {
         setTitle(schedule.title);
-        setTime(schedule.time);
+        setTime(schedule.time.substring(0, 5));
         setIsAttendance(schedule.isAttendance);
       } else {
         setTitle('');
@@ -41,26 +41,42 @@ function CalendarModal({
   }, [isOpen, schedule]);
 
   const handleSave = async () => {
-    if (title && time && selectedDate) {
-      const newSchedule: Omit<Schedules, 'scheduleId'> = {
-        title,
-        date: moment(selectedDate).format('YYYY-MM-DD'),
-        time,
-        isAttendance,
-      };
+    try {
+      if (title && time && selectedDate) {
+        const newSchedule: Omit<Schedules, 'scheduleId'> = {
+          title,
+          date: moment(selectedDate).format('YYYY-MM-DD'),
+          time,
+          isAttendance,
+        };
 
-      if (schedule) {
-        await removeSchedule(schedule.scheduleId);
+        if (schedule) {
+          await removeSchedule(schedule.scheduleId);
+        }
+        await addSchedule(newSchedule);
+        onClose();
+      } else {
+        alert('제목, 시간, 날짜를 모두 입력해야 합니다.');
       }
-      await addSchedule(newSchedule);
-      onClose();
+    } catch (error: any) {
+      alert(
+        `일정 저장 중 오류가 발생했습니다: ${error.message || '알 수 없는 오류입니다.'}`,
+      );
     }
   };
 
   const handleDelete = async () => {
-    if (schedule && schedule.scheduleId) {
-      await removeSchedule(schedule.scheduleId);
-      onClose();
+    try {
+      if (schedule && schedule.scheduleId) {
+        await removeSchedule(schedule.scheduleId);
+        onClose();
+      } else {
+        alert('삭제할 일정을 선택해야 합니다.');
+      }
+    } catch (error: any) {
+      alert(
+        `일정 삭제 중 오류가 발생했습니다: ${error.message || '알 수 없는 오류입니다.'}`,
+      );
     }
   };
 
@@ -96,7 +112,7 @@ function CalendarModal({
               checked={isAttendance}
               onChange={(e) => setIsAttendance(e.target.checked)}
             />
-            <span>알람 ON</span>
+            <span>출석 생성</span>
           </div>
           <div className='button'>
             <NormalButton text='저장' size='small' onClick={handleSave} />
@@ -106,7 +122,7 @@ function CalendarModal({
           </div>
         </div>
         <div className='notice'>
-          알람 ON 선택시 출석부가 생성되며, 10분 전 웹 알람이 울립니다.
+          출석 생성 선택 시 출석부가 생성되며, 10분 전 웹 알람이 울립니다.
         </div>
       </CalendarModalStyle>
     </Modal>
