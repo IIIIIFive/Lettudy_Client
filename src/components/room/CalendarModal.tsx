@@ -41,42 +41,23 @@ function CalendarModal({
   }, [isOpen, schedule]);
 
   const handleSave = async () => {
-    try {
-      if (title && time && selectedDate) {
-        const newSchedule: Omit<Schedules, 'scheduleId'> = {
-          title,
-          date: moment(selectedDate).format('YYYY-MM-DD'),
-          time,
-          isAttendance,
-        };
+    if (title && time && selectedDate) {
+      const newSchedule: Omit<Schedules, 'scheduleId'> = {
+        title,
+        date: moment(selectedDate).format('YYYY-MM-DD'),
+        time,
+        isAttendance,
+      };
 
-        if (schedule) {
-          await removeSchedule(schedule.scheduleId);
-        }
-        await addSchedule(newSchedule);
-        onClose();
-      } else {
-        alert('제목, 시간, 날짜를 모두 입력해야 합니다.');
-      }
-    } catch (error: any) {
-      alert(
-        `일정 저장 중 오류가 발생했습니다: ${error.message || '알 수 없는 오류입니다.'}`,
-      );
+      await addSchedule(newSchedule);
+      onClose();
     }
   };
 
   const handleDelete = async () => {
-    try {
-      if (schedule && schedule.scheduleId) {
-        await removeSchedule(schedule.scheduleId);
-        onClose();
-      } else {
-        alert('삭제할 일정을 선택해야 합니다.');
-      }
-    } catch (error: any) {
-      alert(
-        `일정 삭제 중 오류가 발생했습니다: ${error.message || '알 수 없는 오류입니다.'}`,
-      );
+    if (schedule && schedule.scheduleId) {
+      await removeSchedule(schedule.scheduleId);
+      onClose();
     }
   };
 
@@ -85,7 +66,7 @@ function CalendarModal({
       <CalendarModalStyle>
         <div className='title'>
           <img src='/assets/images/calendar.png' alt='calendar' width={35} />
-          <h4>{schedule ? '일정 수정' : '일정 추가'}</h4>
+          <h4>{schedule ? '일정 삭제' : '일정 추가'}</h4>
         </div>
         <div className='label'>
           <div className='label-input'>
@@ -94,6 +75,7 @@ function CalendarModal({
               type='text'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              disabled={!!schedule}
             />
           </div>
           <div className='label-input'>
@@ -102,6 +84,7 @@ function CalendarModal({
               type='time'
               value={time}
               onChange={(e) => setTime(e.target.value)}
+              disabled={!!schedule}
             />
           </div>
         </div>
@@ -111,13 +94,19 @@ function CalendarModal({
               type='checkbox'
               checked={isAttendance}
               onChange={(e) => setIsAttendance(e.target.checked)}
+              disabled={!!schedule}
             />
             <span>출석 생성</span>
           </div>
           <div className='button'>
-            <NormalButton text='저장' size='small' onClick={handleSave} />
-            {schedule && (
-              <NormalButton text='삭제' size='small' onClick={handleDelete} />
+            {schedule ? (
+              <div className='button'>
+                <NormalButton text='삭제' size='small' onClick={handleDelete} />
+              </div>
+            ) : (
+              <div className='button'>
+                <NormalButton text='저장' size='small' onClick={handleSave} />
+              </div>
             )}
           </div>
         </div>
