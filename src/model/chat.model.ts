@@ -1,7 +1,14 @@
-export interface Chat {
-  userName: string;
-  avatar?: string;
+import { CommonRes } from './common.model';
+
+export interface ChatRes extends CommonRes {
+  chatId: string;
+  chats: Chats[];
+}
+
+export interface Chats {
+  chatItemId: string;
+  sender: string;
   content: string;
-  date?: string;
-  roomId: string;
+  createdAt: string;
+  profileNum: number;
 }

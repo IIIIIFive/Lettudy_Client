@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Chat } from '../../model/chat.model';
+import { useParams } from 'react-router-dom';
 import ChatHeader from './ChatHeader';
 import ChatContent from './ChatContent';
 import ChatInput from './ChatInput';
+import { useChat } from '@/hooks/useChat';
+import { createSocket } from './socket';
+import { useUserData } from '@/hooks/useUserData';
 
 interface ChatRoomProps {
   visible: boolean;
@@ -11,39 +14,36 @@ interface ChatRoomProps {
 }
 
 function ChatRoom({ visible, onClose }: ChatRoomProps) {
+  const { user } = useUserData();
+  const { roomId } = useParams<{ roomId: string }>();
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<Chat[]>([
-    {
-      userName: '김이름',
-      avatar: '/assets/animal/fox.png',
-      content: '팀원 대화 입니다.',
-      date: '오후 12:10',
-      roomId: '1',
-    },
-    {
-      userName: '박이름',
-      avatar: '/assets/animal/panda.png',
-      content: '팀원 대화~~~~',
-      date: '오후 12:11',
-      roomId: '1',
-    },
-  ]);
-  const [isMessageSent, setIsMessageSent] = useState(false);
+  const [isMessageSent] = useState(false);
+  const [socket, setSocket] = useState<any>(null);
 
-  const handleSendMessage = () => {
-    if (message.trim()) {
-      const now = new Date();
-      const date = now.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
+  const { data: chatData, refetch } = useChat(roomId || '');
+
+  useEffect(() => {
+    if (roomId) {
+      const newSocket = createSocket(roomId);
+      setSocket(newSocket);
+
+      newSocket.on('chat', () => {
+        refetch();
       });
 
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { content: message, userName: 'me', date, roomId: '1' },
-      ]);
+      return () => {
+        newSocket.disconnect();
+      };
+    }
+  }, [roomId]);
+
+  const handleSendMessage = () => {
+    if (message.trim() && socket) {
+      socket.emit('chat', {
+        userId: user?.id,
+        content: message,
+      });
       setMessage('');
-      setIsMessageSent(true);
     }
   };
 
@@ -52,25 +52,17 @@ function ChatRoom({ visible, onClose }: ChatRoomProps) {
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && event.nativeEvent.isComposing === false) {
       handleSendMessage();
     }
   };
-
-  useEffect(() => {
-    if (isMessageSent) {
-      setIsMessageSent(false);
-    }
-  }, [messages]);
-
-  const filteredMessages = messages.filter((msg) => msg.roomId === '1');
 
   return (
     <ChatRoomStyle>
       <div className={`chat-room ${visible ? 'visible' : ''}`}>
         <ChatHeader onClose={onClose} />
         <ChatContent
-          messages={filteredMessages}
+          messages={chatData?.chats || []}
           isMessageSent={isMessageSent}
         />
         <ChatInput
@@ -85,7 +77,6 @@ function ChatRoom({ visible, onClose }: ChatRoomProps) {
 }
 
 export default ChatRoom;
-
 const ChatRoomStyle = styled.div`
   .chat-room {
     position: fixed;

@@ -1,4 +1,5 @@
 import HomeModals from '@/components/homepage/HomeModals';
+import AttendanceInfoModal from '@/components/room/AttendanceInfoModal';
 import DrawingModal from '@/components/room/DrawingModal';
 import useModalStore from '@/store/modalStore';
 
@@ -32,6 +33,8 @@ function Modals() {
       );
     case 'drawing':
       return <DrawingModal isOpen={isOpen} onClose={closeModal} />;
+    case 'info':
+      return <AttendanceInfoModal isOpen={isOpen} onClose={closeModal} />;
     default:
       return null;
   }

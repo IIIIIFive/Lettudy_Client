@@ -6,8 +6,8 @@ import {
   join,
   login,
   checkEmail,
-  getMyPage as fetchMyPage,
   deleteUser as apiDeleteUser,
+  getMyPage as fetchMyPage,
 } from '../api/auth.api';
 import { JoinProps } from '../pages/Join';
 import { requestPermission } from '@/firebase/requestPermission';
@@ -26,6 +26,7 @@ export const useAuth = () => {
         const token = localStorage.getItem('token');
         if (token) {
           try {
+            await fetchMyPage();
           } catch (error) {
             storeLogout();
             navigate('/login');

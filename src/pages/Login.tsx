@@ -1,6 +1,6 @@
 import { JoinStyle } from './Join';
 import AuthBackground from '@/components/auth/AuthBackground';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from '@/components/common/Button';
@@ -13,6 +13,7 @@ export interface LoginProps {
 
 function Login() {
   const { userLogin, loginError } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -39,7 +40,7 @@ function Login() {
           />
         </Link>
         <div className='container'>
-          <h1>로그인</h1>
+          <h2>로그인</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset>
               <div className='form-group'>
@@ -81,7 +82,8 @@ function Login() {
                 </Button>
               </div>
               <div className='join-link'>
-                <Link to='/join'>회원가입</Link>
+                아직 계정이 없으신가요?
+                <span onClick={() => navigate('/join')}>가입하기</span>
               </div>
             </fieldset>
           </form>
@@ -96,7 +98,7 @@ export default Login;
 export const LoginStyle = styled(JoinStyle)`
   .container {
     form {
-      margin-top: 40px;
+      margin-top: 20px;
     }
     .error-container {
       min-height: 20px;
@@ -108,18 +110,19 @@ export const LoginStyle = styled(JoinStyle)`
     }
 
     .login-button {
-      margin-top: 30px;
+      margin-top: 10px;
     }
 
     .join-link {
-      margin-top: 30px;
-      color: ${({ theme }) => theme.color_textBlack};
-      font-size: ${({ theme }) => theme.fontSize_sm};
-    }
+      margin-top: 10px;
+      color: ${({ theme }) => theme.color_textGray};
+      font-size: ${({ theme }) => theme.fontSize_xs};
 
-    .join-link a,
-    .join-link a:visited {
-      color: ${({ theme }) => theme.color_textKey};
+      span {
+        margin-left: 5px;
+        color: ${({ theme }) => theme.color_key};
+        cursor: pointer;
+      }
     }
   }
 `;

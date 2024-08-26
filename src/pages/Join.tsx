@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Button from '@/components/common/Button';
 import AuthBackground from '@/components/auth/AuthBackground';
 import { useAuth } from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 export interface JoinProps {
   name: string;
@@ -13,6 +14,7 @@ export interface JoinProps {
 }
 
 function Join() {
+  const navigate = useNavigate();
   const { userJoin, verifyEmail } = useAuth();
   const [emailChecked, setEmailChecked] = useState<boolean | null>(null);
   const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
@@ -68,23 +70,36 @@ function Join() {
         <img src='/assets/images/logo-withLettudy.png' alt='logo' height={55} />
 
         <div className='container'>
-          <h1>회원가입</h1>
+          <h2>회원가입</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset>
               <div className='form-group'>
-                <label htmlFor='name'>이름</label>
+                <div className='head'>
+                  <label htmlFor='name'>이름</label>
+                  {errors.name && (
+                    <p className='error-text'>{errors.name.message}</p>
+                  )}
+                </div>
                 <input
                   id='name'
                   type='text'
                   {...register('name', { required: '이름을 입력하세요.' })}
                 />
-                {errors.name && (
-                  <p className='error-text'>{errors.name.message}</p>
-                )}
               </div>
 
               <div className='form-group'>
-                <label htmlFor='email'>이메일</label>
+                <div className='head'>
+                  <label htmlFor='email'>이메일</label>
+                  {errors.email && (
+                    <p className='error-text'>{errors.email.message}</p>
+                  )}
+                  {emailChecked === true && (
+                    <p className='success-text'>사용 가능한 이메일입니다.</p>
+                  )}
+                  {emailChecked === false && !errors.email && (
+                    <p className='error-text'>이미 사용 중인 이메일입니다.</p>
+                  )}
+                </div>
                 <div className='email-form'>
                   <input
                     id='email'
@@ -105,19 +120,15 @@ function Join() {
                     중복확인
                   </Button>
                 </div>
-                {errors.email && (
-                  <p className='error-text'>{errors.email.message}</p>
-                )}
-                {emailChecked === true && (
-                  <p className='success-text'>사용 가능한 이메일입니다.</p>
-                )}
-                {emailChecked === false && !errors.email && (
-                  <p className='error-text'>이미 사용 중인 이메일입니다.</p>
-                )}
               </div>
 
               <div className='form-group'>
-                <label htmlFor='password'>비밀번호</label>
+                <div className='head'>
+                  <label htmlFor='password'>비밀번호</label>
+                  {errors.password && (
+                    <p className='error-text'>{errors.password.message}</p>
+                  )}
+                </div>
                 <input
                   id='password'
                   type='password'
@@ -128,17 +139,19 @@ function Join() {
                         /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
                           value,
                         ) ||
-                        '비밀번호는 최소 8자 영문자, 숫자, 특수 문자를 포함해야 합니다.',
+                        '8자 이상ㅁ 영문자, 숫자, 특수 문자를 포함해야 합니다.',
                     },
                   })}
                 />
-                {errors.password && (
-                  <p className='error-text'>{errors.password.message}</p>
-                )}
               </div>
 
               <div className='form-group'>
-                <label htmlFor='passwordCheck'>비밀번호 확인</label>
+                <div className='head'>
+                  <label htmlFor='passwordCheck'>비밀번호 확인</label>
+                  {errors.passwordCheck && (
+                    <p className='error-text'>{errors.passwordCheck.message}</p>
+                  )}
+                </div>
                 <input
                   id='passwordCheck'
                   type='password'
@@ -149,14 +162,16 @@ function Join() {
                       '비밀번호가 일치하지 않습니다.',
                   })}
                 />
-                {errors.passwordCheck && (
-                  <p className='error-text'>{errors.passwordCheck.message}</p>
-                )}
               </div>
+
               <div className='join-button'>
                 <Button size='medium' onClick={handleClick}>
                   회원가입
                 </Button>
+              </div>
+              <div className='login-link'>
+                기존 계정으로
+                <span onClick={() => navigate('/login')}>로그인하기</span>
               </div>
             </fieldset>
           </form>
@@ -185,7 +200,7 @@ export const JoinStyle = styled.div`
     width: 550px;
     box-sizing: border-box;
     padding: 50px;
-    margin-top: 70px;
+    margin-top: 40px;
 
     fieldset {
       border: none;
@@ -194,18 +209,16 @@ export const JoinStyle = styled.div`
       align-items: center;
       width: 100%;
       margin-top: 40px;
-      gap: 5px;
+      gap: 17px;
 
       .error-text {
         color: ${({ theme }) => theme.color_textRed};
         font-size: ${({ theme }) => theme.fontSize_xxs};
-        margin-top: 5px;
       }
 
       .success-text {
         color: ${({ theme }) => theme.color_keyBlue};
         font-size: ${({ theme }) => theme.fontSize_xxs};
-        margin-top: 5px;
       }
     }
 
@@ -213,7 +226,11 @@ export const JoinStyle = styled.div`
       width: 400px;
       display: flex;
       flex-direction: column;
-      margin-bottom: 16px;
+
+      .head {
+        display: flex;
+        justify-content: space-between;
+      }
 
       label {
         margin-bottom: 10px;
@@ -228,7 +245,7 @@ export const JoinStyle = styled.div`
         border: 1px solid #ddd;
         border-radius: 8px;
         outline: none;
-        font-size: ${({ theme }) => theme.fontSize_sm};
+        font-size: ${({ theme }) => theme.fontSize_xs};
       }
 
       .email-form {
@@ -249,6 +266,18 @@ export const JoinStyle = styled.div`
 
     .join-button {
       margin-top: 15px;
+    }
+
+    .login-link {
+      margin-top: 10px;
+      color: ${({ theme }) => theme.color_textGray};
+      font-size: ${({ theme }) => theme.fontSize_xs};
+
+      span {
+        margin-left: 5px;
+        color: ${({ theme }) => theme.color_key};
+        cursor: pointer;
+      }
     }
   }
 `;
