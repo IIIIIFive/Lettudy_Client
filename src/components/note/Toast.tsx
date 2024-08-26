@@ -9,7 +9,8 @@ function Toast({ onClose }: ToastProps, ref: ForwardedRef<HTMLDivElement>) {
   return (
     <ToastStyle ref={ref}>
       <span>
-        원하는 태그를 입력하고 엔터를 이용하여 태그를 등록할 수 있습니다.
+        원하는 태그를 입력하고 엔터를 이용하여 태그를 등록할 수 있습니다. (6개
+        이하로 입력 가능)
       </span>
       <img
         className='close'
