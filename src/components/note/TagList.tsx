@@ -57,6 +57,8 @@ const TagList = ({
   );
 };
 
+export default TagList;
+
 const TagListStyle = styled.div<{ showAllTags: boolean }>`
   margin-bottom: 32px;
   display: flex;
@@ -123,5 +125,3 @@ const TagListStyle = styled.div<{ showAllTags: boolean }>`
     }
   }
 `;
-
-export default TagList;

@@ -24,10 +24,18 @@ export const createClient = (config?: AxiosRequestConfig) => {
       return request;
     },
     (error) => {
+      return Promise.reject(error);
+    },
+  );
+
+  axiosInstance.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
       if (error.response && error.response.status === 401) {
         removeToken();
-        window.location.href = '/login';
-        return;
+        return Promise.reject('Unauthorized');
       }
       return Promise.reject(error);
     },

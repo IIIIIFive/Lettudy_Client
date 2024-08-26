@@ -1,13 +1,61 @@
-import { Note } from '@/store/noteStore';
 import styled from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Note, NoteContentRes } from '@/model/note.model';
+import { deleteNote, getNoteContent } from '@/api/note.api';
 import { formatDate } from '@/utils/formatDate';
 
 type NoteDetailProps = {
   note: Note | null;
+  onDelete: (noteId: string) => void;
 };
 
-const NoteDetail = ({ note }: NoteDetailProps) => {
-  if (!note) return <p>노트를 선택해주세요.</p>;
+const NoteDetail = ({ note, onDelete }: NoteDetailProps) => {
+  const { roomId } = useParams<{ roomId: string }>();
+  const navigate = useNavigate();
+  const [content, setContent] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchNoteContent = async () => {
+      if (note?.noteId && roomId) {
+        try {
+          const response: NoteContentRes = await getNoteContent(
+            roomId,
+            note.noteId,
+          );
+          setContent(response.content);
+        } catch (error) {
+          console.error('노트 상세보기 오류가 발생했습니다:', error);
+        }
+      }
+    };
+
+    fetchNoteContent();
+  }, [note?.noteId, roomId]);
+
+  const handleDelete = async () => {
+    if (!roomId || !note || !note.noteId) return;
+
+    const isConfirmed = window.confirm('정말로 삭제하시겠습니까?');
+
+    if (!isConfirmed) {
+      return;
+    }
+    try {
+      await deleteNote({ roomId, noteId: note.noteId });
+      onDelete(note.noteId);
+    } catch (error) {
+      console.error('노트 삭제 오류가 발생했습니다:', error);
+    }
+  };
+
+  const handleEdit = () => {
+    if (note && roomId) {
+      navigate(`/room/${roomId}/edit-note/${note.noteId}`);
+    }
+  };
+
+  if (!note) return <NoteDetailStyle className='empty-note'></NoteDetailStyle>;
 
   return (
     <NoteDetailStyle>
@@ -23,14 +71,20 @@ const NoteDetail = ({ note }: NoteDetailProps) => {
       </div>
       <hr />
       <div className='note-actions'>
-        <span className='note-action'>수정</span>
-        <span className='note-action'>삭제</span>
+        <span className='note-action' onClick={handleEdit}>
+          수정
+        </span>
+        <span className='note-action' onClick={handleDelete}>
+          삭제
+        </span>
       </div>
       <div
         className='note-content'
-        dangerouslySetInnerHTML={{ __html: note.content }}
+        dangerouslySetInnerHTML={{ __html: content || note.content }}
       />
-      <div className='note-date'>작성일 {formatDate(note.date)}</div>
+      <div className='note-date'>
+        작성일: {formatDate(new Date(note.createdAt))}
+      </div>
     </NoteDetailStyle>
   );
 };
@@ -92,13 +146,52 @@ const NoteDetailStyle = styled.div`
       }
     }
   }
+  .ql-align-center {
+    text-align: center;
+  }
+
+  .ql-align-right {
+    text-align: right;
+  }
+
+  .ql-align-left {
+    text-align: left;
+  }
 
   .note-content {
     padding: 10px;
     margin-bottom: 10px;
-    font-size: ${({ theme }) => theme.fontSize_reg};
+    font-size: ${({ theme }) => theme.fontSize_sm};
     color: ${({ theme }) => theme.color_textBlack};
     line-height: 1.8;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+
+    strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+      padding-top: 20px;
+    }
+
+    ol {
+      list-style-type: decimal;
+      padding-left: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      pointer-events: none;
+    }
   }
 
   .note-date {

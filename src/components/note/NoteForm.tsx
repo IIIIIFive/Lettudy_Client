@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import RegisterButton from '@/components/note/RegisterButton';
 import TagInput from '@/components/note/TagInput';
@@ -7,6 +7,9 @@ import Toast from '@/components/note/Toast';
 import styled from 'styled-components';
 import useNoteStore from '@/store/noteStore';
 import { formatDate } from '@/utils/formatDate';
+import ImageResize from 'quill-image-resize';
+
+Quill.register('modules/ImageResize', ImageResize);
 
 const modules = {
   toolbar: {
@@ -20,6 +23,9 @@ const modules = {
       ['clean'],
     ],
   },
+  ImageResize: {
+    parchment: Quill.import('parchment'),
+  },
 };
 
 interface NoteFormProps {
@@ -29,9 +35,15 @@ interface NoteFormProps {
     content: string;
     date: string;
   }) => void;
+  initialData?: {
+    title: string;
+    tags: string[];
+    content: string;
+    date: string;
+  };
 }
 
-function NoteForm({ onSubmit }: NoteFormProps) {
+function NoteForm({ onSubmit, initialData }: NoteFormProps) {
   const {
     title,
     tags,
@@ -48,6 +60,7 @@ function NoteForm({ onSubmit }: NoteFormProps) {
     clearTags,
   } = useNoteStore();
 
+  const quillRef = useRef<ReactQuill>(null);
   const toastRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -67,6 +80,16 @@ function NoteForm({ onSubmit }: NoteFormProps) {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [setShowToast, setDate]);
+
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title);
+      clearTags();
+      initialData.tags.forEach((tag) => addTag(tag));
+      setContent(initialData.content);
+      setDate(initialData.date);
+    }
+  }, [initialData, setTitle, addTag, clearTags, setContent, setDate]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -93,7 +116,11 @@ function NoteForm({ onSubmit }: NoteFormProps) {
   };
 
   const handleTagKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && tags.trim() !== '') {
+    if (
+      event.key === 'Enter' &&
+      event.nativeEvent.isComposing == false &&
+      tags.trim() !== ''
+    ) {
       event.preventDefault();
       addTag(tags.trim());
     }
@@ -140,6 +167,7 @@ function NoteForm({ onSubmit }: NoteFormProps) {
         <div className='form-group'>
           <h3>내용</h3>
           <ReactQuill
+            ref={quillRef}
             value={content}
             placeholder='내용을 입력하세요.'
             onChange={setContent}
@@ -155,6 +183,7 @@ function NoteForm({ onSubmit }: NoteFormProps) {
     </NoteFormStyle>
   );
 }
+export default NoteForm;
 
 const NoteFormStyle = styled.div`
   margin-bottom: 60px;
@@ -217,6 +246,15 @@ const NoteFormStyle = styled.div`
     font-size: ${({ theme }) => theme.fontSize_sm};
     font-style: normal;
   }
+  .ql-img-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .ql-img-wrapper img {
+    max-width: 100%;
+    height: auto;
+  }
 
   .register {
     margin-top: 16px;
@@ -224,4 +262,3 @@ const NoteFormStyle = styled.div`
     justify-content: flex-end;
   }
 `;
-export default NoteForm;

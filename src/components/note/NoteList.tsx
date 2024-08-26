@@ -1,4 +1,4 @@
-import { Note } from '@/store/noteStore';
+import { Note } from '@/model/note.model';
 import styled from 'styled-components';
 
 type NoteListProps = {
@@ -10,7 +10,7 @@ const NoteList = ({ notes, onNoteClick }: NoteListProps) => {
   return (
     <NoteListStyle>
       {notes.map((note) => (
-        <div key={note.id} className='note-item'>
+        <div key={note.noteId} className='note-item'>
           <div
             className='note-title-container'
             onClick={() => onNoteClick(note)}>

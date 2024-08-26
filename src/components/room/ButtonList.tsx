@@ -25,7 +25,7 @@ function ButtonList() {
       <ButtonItem
         iconSrc='/assets/images/notebook.png'
         featName='노트 보기'
-        onClick={() => handleButtonClick(`/room/${roomId}/note`)}
+        onClick={() => handleButtonClick(`/room/${roomId}/notes`)}
       />
       <ButtonItem
         iconSrc='/assets/images/box.png'
