@@ -28,7 +28,7 @@ export function useUserData() {
       };
       fetchUserData();
     }
-  }, [isLoggedIn, navigate, user]);
+  }, [isLoggedIn, navigate]);
 
   return { user, setUser };
 }
