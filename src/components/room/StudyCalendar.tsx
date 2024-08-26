@@ -47,10 +47,7 @@ function StudyCalendar() {
           : schedule.title;
       return (
         <div
-          className='event'
-          style={{
-            backgroundColor: schedule.isAttendance ? '#d3e5ef' : '#FBE2BF',
-          }}>
+          className={`event ${schedule.isAttendance ? 'attendance' : 'normal'}`}>
           {truncatedTitle}
         </div>
       );
@@ -191,6 +188,14 @@ const StudyCalendarStyle = styled.div`
       font-size: 11px;
       font-weight: 550;
       white-space: nowrap;
+
+      &.attendance {
+        background-color: #d3e5ef;
+      }
+
+      &.normal {
+        background-color: #fbe2bf;
+      }
     }
   }
 
