@@ -3,11 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Note, NoteContentRes } from '@/model/note.model';
 import { deleteNote, getNoteContent } from '@/api/note.api';
-
-export const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-};
+import { formatDate } from '@/utils/formatDate';
 
 type NoteDetailProps = {
   note: Note | null;
@@ -29,7 +25,7 @@ const NoteDetail = ({ note, onDelete }: NoteDetailProps) => {
           );
           setContent(response.content);
         } catch (error) {
-          console.error('콘텐츠를 가져오는 중 오류가 발생했습니다:', error);
+          console.error('노트 상세보기 오류가 발생했습니다:', error);
         }
       }
     };
@@ -86,7 +82,9 @@ const NoteDetail = ({ note, onDelete }: NoteDetailProps) => {
         className='note-content'
         dangerouslySetInnerHTML={{ __html: content || note.content }}
       />
-      <div className='note-date'>작성일: {formatDate(note.createdAt)}</div>
+      <div className='note-date'>
+        작성일: {formatDate(new Date(note.createdAt))}
+      </div>
     </NoteDetailStyle>
   );
 };

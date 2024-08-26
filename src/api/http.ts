@@ -35,8 +35,7 @@ export const createClient = (config?: AxiosRequestConfig) => {
     (error) => {
       if (error.response && error.response.status === 401) {
         removeToken();
-        alert('로그인이 만료되었습니다. 다시 로그인해주세요.');
-        window.location.href = '/login';
+        return Promise.reject('Unauthorized');
       }
       return Promise.reject(error);
     },

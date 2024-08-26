@@ -47,6 +47,8 @@ function TagInput({
   );
 }
 
+export default TagInput;
+
 const TagInputStyle = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -83,5 +85,3 @@ const TagInputStyle = styled.div`
     min-width: 120px;
   }
 `;
-
-export default TagInput;

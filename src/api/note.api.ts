@@ -4,7 +4,6 @@ import {
   DeleteNoteReq,
   NoteContentRes,
   NoteRes,
-  PreSignedUrlRes,
   TagsRes,
   UpdateNoteReq,
 } from '@/model/note.model';

@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { LoginProps } from '../pages/Login';
 import {
@@ -10,14 +11,33 @@ import {
 } from '../api/auth.api';
 import { JoinProps } from '../pages/Join';
 import { requestPermission } from '@/firebase/requestPermission';
-import { useState } from 'react';
 import { User } from '@/model/user.model';
 
 export const useAuth = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { storeLogin, storeLogout } = useAuthStore();
   const [loginError, setLoginError] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (location.pathname !== '/' && location.pathname !== '/join') {
+      const checkAuthStatus = async () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          try {
+          } catch (error) {
+            storeLogout();
+            navigate('/login');
+          }
+        } else {
+          navigate('/login');
+        }
+      };
+
+      checkAuthStatus();
+    }
+  }, [location.pathname, navigate, storeLogout]);
 
   const fetchUserName = async () => {
     const userData: User = await fetchMyPage();
