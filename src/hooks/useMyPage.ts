@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { updateAlarm, leaveRoom } from '../api/myPage.api';
 import { StudyRoom } from '@/model/user.model';
 
-export const useMyPage = (initialRooms: StudyRoom[]) => {
+export const useMyPage = (
+  initialRooms: StudyRoom[],
+  onRoomsUpdate: (updatedRooms: StudyRoom[]) => void,
+) => {
   const [studyRooms, setStudyRooms] = useState<StudyRoom[]>(initialRooms);
 
   const isNotificationEnabled = () => {
@@ -44,6 +47,7 @@ export const useMyPage = (initialRooms: StudyRoom[]) => {
 
       const updatedRooms = studyRooms.filter((room) => room.roomId !== roomId);
       setStudyRooms(updatedRooms);
+      onRoomsUpdate(updatedRooms);
     } catch (err) {
       console.error('방 나가기 오류가 발생했습니다.');
     }

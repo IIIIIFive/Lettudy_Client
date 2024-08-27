@@ -98,6 +98,10 @@ function NoteForm({ onSubmit, initialData }: NoteFormProps) {
       alert('제목을 입력하세요.');
       return;
     }
+    if (!content.trim()) {
+      alert('내용을 입력하세요.');
+      return;
+    }
 
     const isConfirmed = window.confirm('제출하시겠습니까?');
 
