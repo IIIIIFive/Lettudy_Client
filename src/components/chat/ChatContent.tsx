@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ChatItem from './ChatItem';
 import { Chats } from '@/model/chat.model';
+import { useUserData } from '@/hooks/useUserData';
 
 interface ChatContentProps {
   messages: Chats[];
@@ -10,9 +11,10 @@ interface ChatContentProps {
 
 function ChatContent({ messages, isMessageSent }: ChatContentProps) {
   const messageEndRef = useRef<HTMLDivElement | null>(null);
+  const { user } = useUserData();
 
   useEffect(() => {
-    if (messageEndRef.current) {
+    if (messages.length > 0 && messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isMessageSent]);
@@ -20,7 +22,7 @@ function ChatContent({ messages, isMessageSent }: ChatContentProps) {
   return (
     <ChatContentStyle>
       {messages.map((msg) => (
-        <ChatItem key={msg.chatItemId} message={msg} />
+        <ChatItem key={msg.chatItemId} message={msg} user={user} />
       ))}
       <div ref={messageEndRef} />
     </ChatContentStyle>
