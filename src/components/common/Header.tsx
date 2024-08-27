@@ -110,7 +110,6 @@ const HeaderStyle = styled.div`
       flex-direction: column;
       align-items: center;
       gap: 10px;
-      cursor: pointer;
 
       span {
         font-size: ${({ theme }) => theme.fontSize_xs};
