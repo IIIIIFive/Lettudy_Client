@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ButtonList from './ButtonList';
 import { useRoom } from '@/hooks/useRoom';
@@ -9,6 +9,8 @@ function TopSection() {
   const [isEditing, setIsEditing] = useState(false);
   const [notices, setNotices] = useState<string[]>([]);
   const [showCode, setShowCode] = useState(false);
+  const [isToastVisible, setIsToastVisible] = useState(false);
+  const codeRef = useRef<HTMLParagraphElement>(null);
 
   const handleEditClick = () => {
     const filteredNotices = notices.filter((n) => n.trim() !== '');
@@ -20,8 +22,22 @@ function TopSection() {
     if (roomData?.notice) setNotices(roomData.notice);
   }, [roomData?.notice]);
 
-  const toggleCodeVisibility = () => setShowCode(!showCode);
-  const allNoticesEmpty = notices.every((n) => n.trim() === '');
+  const copyCodeToClipboard = () => {
+    if (roomData?.code) {
+      navigator.clipboard.writeText(roomData.code).then(() => {
+        showCodeTemporarily();
+      });
+    }
+  };
+
+  const showCodeTemporarily = () => {
+    setShowCode(true);
+    setIsToastVisible(true);
+    setTimeout(() => {
+      setIsToastVisible(false);
+      setTimeout(() => setShowCode(false), 200);
+    }, 2000);
+  };
 
   return (
     <TopSectionStyle>
@@ -33,9 +49,9 @@ function TopSection() {
           height={50}
         />
         <h2>{roomData?.title}</h2>
-        <span onClick={toggleCodeVisibility}>
+        <span onClick={copyCodeToClipboard}>
           입장 코드
-          <p>{showCode ? roomData?.code : '• • • • • •'}</p>
+          <p ref={codeRef}>{showCode ? roomData?.code : '• • • • • •'}</p>
         </span>
       </div>
 
@@ -56,20 +72,21 @@ function TopSection() {
           ))}
         </div>
 
-        {!allNoticesEmpty && (
-          <img
-            className='edit-icon'
-            src={
-              isEditing
-                ? '/assets/icon/edit-check-icon.svg'
-                : '/assets/icon/edit-icon.svg'
-            }
-            alt={isEditing ? 'check' : 'edit'}
-            width={30}
-            onClick={handleEditClick}
-          />
-        )}
+        <img
+          className='edit-icon'
+          src={
+            isEditing
+              ? '/assets/icon/edit-check-icon.svg'
+              : '/assets/icon/edit-icon.svg'
+          }
+          alt={isEditing ? 'check' : 'edit'}
+          width={30}
+          onClick={handleEditClick}
+        />
       </div>
+
+      {isToastVisible && <div className='toast'>복사되었습니다!</div>}
+
       <ButtonList />
     </TopSectionStyle>
   );
@@ -105,6 +122,7 @@ const TopSectionStyle = styled.div`
       p {
         margin-top: 7px;
         font-weight: 600;
+        transition: opacity 0.3s;
       }
     }
   }
@@ -131,6 +149,22 @@ const TopSectionStyle = styled.div`
       right: 40px;
       cursor: pointer;
     }
+  }
+
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: ${({ theme }) => theme.color_bgWhite};
+    color: ${({ theme }) => theme.color_textBlack};
+    padding: 10px 20px;
+    border: 1px solid ${({ theme }) => theme.color_borderGray};
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-size: ${({ theme }) => theme.fontSize_sm};
+    text-align: center;
   }
 `;
 

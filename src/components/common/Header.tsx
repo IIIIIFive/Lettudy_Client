@@ -11,7 +11,7 @@ function Header() {
   const { userLogout } = useAuth();
   const { isLoggedIn } = useAuthStore();
   const [chatVisible, setChatVisible] = useState(false);
-
+  console.log(isLoggedIn);
   const handleImageClick = () => {
     setChatVisible(true);
   };
@@ -95,6 +95,10 @@ const HeaderStyle = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
+
+  img {
+    cursor: pointer;
+  }
 
   .icons {
     display: flex;

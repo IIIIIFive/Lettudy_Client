@@ -30,7 +30,7 @@ function CalendarModal({
     if (isOpen) {
       if (schedule) {
         setTitle(schedule.title);
-        setTime(schedule.time);
+        setTime(schedule.time.substring(0, 5));
         setIsAttendance(schedule.isAttendance);
       } else {
         setTitle('');
@@ -49,9 +49,6 @@ function CalendarModal({
         isAttendance,
       };
 
-      if (schedule) {
-        await removeSchedule(schedule.scheduleId);
-      }
       await addSchedule(newSchedule);
       onClose();
     }
@@ -69,7 +66,7 @@ function CalendarModal({
       <CalendarModalStyle>
         <div className='title'>
           <img src='/assets/images/calendar.png' alt='calendar' width={35} />
-          <h4>{schedule ? '일정 수정' : '일정 추가'}</h4>
+          <h4>{schedule ? '일정 삭제' : '일정 추가'}</h4>
         </div>
         <div className='label'>
           <div className='label-input'>
@@ -78,6 +75,7 @@ function CalendarModal({
               type='text'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              disabled={!!schedule}
             />
           </div>
           <div className='label-input'>
@@ -86,6 +84,7 @@ function CalendarModal({
               type='time'
               value={time}
               onChange={(e) => setTime(e.target.value)}
+              disabled={!!schedule}
             />
           </div>
         </div>
@@ -95,18 +94,24 @@ function CalendarModal({
               type='checkbox'
               checked={isAttendance}
               onChange={(e) => setIsAttendance(e.target.checked)}
+              disabled={!!schedule}
             />
-            <span>알람 ON</span>
+            <span>출석 생성</span>
           </div>
           <div className='button'>
-            <NormalButton text='저장' size='small' onClick={handleSave} />
-            {schedule && (
-              <NormalButton text='삭제' size='small' onClick={handleDelete} />
+            {schedule ? (
+              <div className='button'>
+                <NormalButton text='삭제' size='small' onClick={handleDelete} />
+              </div>
+            ) : (
+              <div className='button'>
+                <NormalButton text='저장' size='small' onClick={handleSave} />
+              </div>
             )}
           </div>
         </div>
         <div className='notice'>
-          알람 ON 선택시 출석부가 생성되며, 10분 전 웹 알람이 울립니다.
+          출석 생성 선택 시 출석부가 생성되며, 10분 전 웹 알람이 울립니다.
         </div>
       </CalendarModalStyle>
     </Modal>

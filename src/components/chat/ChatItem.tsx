@@ -11,6 +11,8 @@ interface ChatItemProps {
 function ChatItem({ message }: ChatItemProps) {
   const { user } = useUserData();
 
+  if (!user) return null;
+
   const isUserMessage = message.sender === user?.name;
 
   return (

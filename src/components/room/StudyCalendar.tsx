@@ -45,22 +45,37 @@ function StudyCalendar() {
         schedule.title.length > 6
           ? `${schedule.title.slice(0, 7)}..`
           : schedule.title;
-      return <div className='event'>{truncatedTitle}</div>;
+      return (
+        <div
+          className={`event ${schedule.isAttendance ? 'attendance' : 'normal'}`}>
+          {truncatedTitle}
+        </div>
+      );
     }
     return null;
   };
 
   return (
     <StudyCalendarStyle>
-      <Calendar
-        onChange={onChangeCalendar}
-        value={calendarValue}
-        next2Label={null}
-        prev2Label={null}
-        formatDay={(_, date) => moment(date).format('DD')}
-        tileContent={renderTileContent}
-        onClickDay={handleDateClick}
-      />
+      <div className='calendar-container'>
+        <Calendar
+          onChange={onChangeCalendar}
+          value={calendarValue}
+          next2Label={null}
+          prev2Label={null}
+          formatDay={(_, date) => moment(date).format('DD')}
+          tileContent={renderTileContent}
+          onClickDay={handleDateClick}
+        />
+        <div className='calendar-header'>
+          <div className='content'>
+            <img src='/assets/images/rectangle1.png' alt='rectangle1' /> 출석
+          </div>
+          <div className='content'>
+            <img src='/assets/images/rectangle2.png' alt='rectangle2' /> 일정
+          </div>
+        </div>
+      </div>
       <CalendarModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
@@ -73,13 +88,21 @@ function StudyCalendar() {
 }
 
 const StudyCalendarStyle = styled.div`
-  .react-calendar {
+  .calendar-container {
+    position: relative;
     width: 100%;
     max-height: 540px;
     background: ${({ theme }) => theme.color_bgWhite};
     border: 0.5px solid ${({ theme }) => theme.color_borderGray};
     border-radius: 5px;
     font-size: ${({ theme }) => theme.fontSize_reg};
+    overflow: hidden;
+    padding-bottom: 60px;
+  }
+
+  .react-calendar {
+    width: 100%;
+    border: none;
   }
 
   .react-calendar__navigation {
@@ -107,21 +130,36 @@ const StudyCalendarStyle = styled.div`
     pointer-events: none;
   }
 
+  .calendar-header {
+    position: absolute;
+    top: 80px;
+    right: 55px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    font-size: ${({ theme }) => theme.fontSize_xxs};
+    color: ${({ theme }) => theme.color_textBlack};
+    background: ${({ theme }) => theme.color_bgWhite};
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 1;
+  }
+
+  .calendar-header .content {
+    display: flex;
+    align-items: center;
+  }
+
+  .calendar-header img {
+    margin-right: 5px;
+  }
+
   .react-calendar__month-view {
-    padding: 55px 30px;
+    padding: 55px 30px 20px 30px;
 
     abbr {
       color: ${({ theme }) => theme.color_textBlack};
       font-size: ${({ theme }) => theme.fontSize_sm};
-    }
-  }
-
-  .react-calendar__month-view__weekdays {
-    margin-bottom: 20px;
-
-    abbr {
-      font-size: ${({ theme }) => theme.fontSize_sm};
-      font-weight: 600;
       text-decoration: none;
     }
   }
@@ -143,7 +181,6 @@ const StudyCalendarStyle = styled.div`
     align-items: center;
 
     .event {
-      background-color: #d3e5ef;
       color: ${({ theme }) => theme.color_textBlack};
       padding: 1px 6px;
       border-radius: 4px;
@@ -151,6 +188,14 @@ const StudyCalendarStyle = styled.div`
       font-size: 11px;
       font-weight: 550;
       white-space: nowrap;
+
+      &.attendance {
+        background-color: #d3e5ef;
+      }
+
+      &.normal {
+        background-color: #fbe2bf;
+      }
     }
   }
 
@@ -166,7 +211,7 @@ const StudyCalendarStyle = styled.div`
   }
 
   .react-calendar__tile--now {
-    background: ${({ theme }) => theme.color_bgWhite};
+    background: ${({ theme }) => theme.color_bgLightGray};
     border-radius: 12px;
   }
 

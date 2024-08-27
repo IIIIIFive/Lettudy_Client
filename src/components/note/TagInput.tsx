@@ -19,6 +19,8 @@ function TagInput({
   onTagFocus,
   onTagRemove,
 }: TagInputProps) {
+  const isMaxTags = tagList.length >= 6;
+
   return (
     <TagInputStyle>
       {tagList.map((tag, index) => (
@@ -33,16 +35,21 @@ function TagInput({
           />
         </div>
       ))}
-      <input
-        className='tag-input'
-        type='text'
-        placeholder='태그를 입력하세요.'
-        value={tags}
-        onChange={onTagChange}
-        onFocus={onTagFocus}
-        onKeyDown={onTagKeyDown}
-        ref={inputRef}
-      />
+      {!isMaxTags && (
+        <input
+          className='tag-input'
+          type='text'
+          placeholder={
+            isMaxTags ? '6개까지만 입력 가능합니다' : '태그를 입력하세요.'
+          }
+          value={tags}
+          onChange={onTagChange}
+          onFocus={onTagFocus}
+          onKeyDown={onTagKeyDown}
+          ref={inputRef}
+          disabled={isMaxTags}
+        />
+      )}
     </TagInputStyle>
   );
 }
