@@ -13,8 +13,12 @@ function TopSection() {
   const codeRef = useRef<HTMLParagraphElement>(null);
 
   const handleEditClick = () => {
-    const filteredNotices = notices.filter((n) => n.trim() !== '');
-    if (isEditing) updateNotice(filteredNotices);
+    if (isEditing) {
+      const filteredNotices = notices.filter((n) => n.trim() !== '');
+      updateNotice(filteredNotices.length > 0 ? filteredNotices : ['']);
+    } else {
+      setNotices(notices.length > 0 ? notices : ['']);
+    }
     setIsEditing(!isEditing);
   };
 
@@ -145,7 +149,7 @@ const TopSectionStyle = styled.div`
 
     .edit-icon {
       position: absolute;
-      top: 22px;
+      top: 20px;
       right: 40px;
       cursor: pointer;
     }
