@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import RegisterButton from '@/components/note/RegisterButton';
@@ -8,25 +8,10 @@ import styled from 'styled-components';
 import useNoteStore from '@/store/noteStore';
 import { formatDate } from '@/utils/formatDate';
 import ImageResize from 'quill-image-resize';
+import { getPreSignedUrl, uploadImageToS3 } from '@/api/note.api';
+import { useParams } from 'react-router-dom';
 
 Quill.register('modules/ImageResize', ImageResize);
-
-const modules = {
-  toolbar: {
-    container: [
-      [{ header: [3, 4, 5, false] }],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      ['bold', 'italic', 'underline'],
-      [{ color: [] }, { background: [] }],
-      [{ align: [] }],
-      ['image'],
-      ['clean'],
-    ],
-  },
-  ImageResize: {
-    parchment: Quill.import('parchment'),
-  },
-};
 
 interface NoteFormProps {
   onSubmit: (data: {
@@ -63,6 +48,64 @@ function NoteForm({ onSubmit, initialData }: NoteFormProps) {
   const quillRef = useRef<ReactQuill>(null);
   const toastRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const { roomId } = useParams();
+
+  const handleImageUpload = useCallback(async () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const fileName = file.name;
+
+        try {
+          const preSignedUrlResponse = await getPreSignedUrl(roomId!, fileName);
+          const preSignedUrl = preSignedUrlResponse.preSignedUrl;
+
+          await uploadImageToS3(preSignedUrl, file);
+
+          const imageUrl = preSignedUrl.split('?')[0];
+
+          const quillEditor = quillRef.current?.getEditor();
+          if (quillEditor) {
+            const range = quillEditor.getSelection();
+            if (range) {
+              quillEditor.insertEmbed(range.index, 'image', imageUrl);
+            } else {
+              console.error('선택 범위를 가져올 수 없습니다.');
+            }
+          } else {
+            console.error('에디터 초기화 오류가 발생했습니다.');
+          }
+        } catch (error) {
+          console.error('이미지 업로드 오류가 발생했습니다.');
+        }
+      }
+    };
+  }, [roomId]);
+  const modules = {
+    toolbar: {
+      container: [
+        [{ header: [3, 4, 5, false] }],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['bold', 'italic', 'underline'],
+        [{ color: [] }, { background: [] }],
+        [{ align: [] }],
+        ['image'],
+        ['clean'],
+      ],
+      handlers: {
+        image: handleImageUpload,
+      },
+    },
+    ImageResize: {
+      parchment: Quill.import('parchment'),
+    },
+  };
 
   useEffect(() => {
     setDate(formatDate(new Date()));
