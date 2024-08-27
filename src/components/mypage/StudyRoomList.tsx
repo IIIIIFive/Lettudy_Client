@@ -9,15 +9,19 @@ import { useNavigate } from 'react-router-dom';
 interface StudyRoomListProps {
   studyRooms: StudyRoom[];
   userName: string;
+  onRoomsUpdate: (updatedRooms: StudyRoom[]) => void;
   toggleAlarm: (id: string) => void;
 }
 
 function StudyRoomList({
   studyRooms: initialStudyRooms,
   userName,
+  onRoomsUpdate,
 }: StudyRoomListProps) {
-  const { studyRooms, toggleAlarm, handleLeaveRoom } =
-    useMyPage(initialStudyRooms);
+  const { studyRooms, toggleAlarm, handleLeaveRoom } = useMyPage(
+    initialStudyRooms,
+    onRoomsUpdate,
+  );
 
   const navigate = useNavigate();
 
