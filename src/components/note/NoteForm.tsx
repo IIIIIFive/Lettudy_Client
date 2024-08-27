@@ -75,7 +75,6 @@ function NoteForm({ onSubmit, initialData }: NoteFormProps) {
             const range = quillEditor.getSelection();
             if (range) {
               quillEditor.insertEmbed(range.index, 'image', imageUrl);
-              console.log('이미지 업로드에 성공했습니다.');
             } else {
               console.error('선택 범위를 가져올 수 없습니다.');
             }
@@ -83,7 +82,7 @@ function NoteForm({ onSubmit, initialData }: NoteFormProps) {
             console.error('에디터 초기화 오류가 발생했습니다.');
           }
         } catch (error) {
-          console.error('이미지 업로드 오류가 발생했습니다.', error);
+          console.error('이미지 업로드 오류가 발생했습니다.');
         }
       }
     };
@@ -105,9 +104,6 @@ function NoteForm({ onSubmit, initialData }: NoteFormProps) {
     },
     ImageResize: {
       parchment: Quill.import('parchment'),
-    },
-    clipboard: {
-      matchVisual: false, // 기본 붙여넣기 동작을 변경
     },
   };
 

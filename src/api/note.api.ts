@@ -72,7 +72,6 @@ export const getPreSignedUrl = async (roomId: string, fileName: string) => {
     const response = await httpClient.post(`/notes/${roomId}/presigned`, {
       fileName,
     });
-    console.log('Pre-signed URL:', response.data);
     return response.data;
   } catch (error) {
     console.error('Pre-signed URL 발급 오류가 발생했습니다.');
