@@ -64,7 +64,7 @@ function EditNote() {
           images: noteData?.images || [],
           tags: data.tags,
         });
-        navigate(`/room/${roomId}/notes`);
+        navigate(`/room/${roomId}/notes`, { replace: true });
       } catch (error) {
         console.error('노트 수정 오류가 발생했습니다.');
       }

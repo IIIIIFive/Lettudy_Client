@@ -27,7 +27,7 @@ function CreateNote() {
       };
 
       await createNote(roomId, newNote);
-      navigate(`/room/${roomId}/notes`);
+      navigate(`/room/${roomId}/notes`, { replace: true });
     } catch (error) {
       console.error('노트 등록 오류가 발생했습니다:');
     }
