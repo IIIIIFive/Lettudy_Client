@@ -3,6 +3,7 @@ import { getToken, removeToken } from '@/store/authStore';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const DEFAULT_TIMEOUT = 30000;
+let hasAlerted = false;
 
 export const createClient = (config?: AxiosRequestConfig) => {
   const axiosInstance = axios.create({
@@ -33,9 +34,22 @@ export const createClient = (config?: AxiosRequestConfig) => {
       return response;
     },
     (error) => {
-      if (error.response && error.response.status === 401) {
-        removeToken();
-        return Promise.reject('Unauthorized');
+      if (error.response) {
+        const { status, config } = error.response;
+
+        if (status === 401) {
+          const isLoginRequest = config.url.includes('/login');
+
+          if (!isLoginRequest) {
+            if (!hasAlerted) {
+              alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+              hasAlerted = true;
+            }
+            removeToken();
+            window.location.href = '/login';
+          }
+          return Promise.reject('Unauthorized');
+        }
       }
       return Promise.reject(error);
     },
