@@ -2,15 +2,13 @@ import styled from 'styled-components';
 import { Chats } from '@/model/chat.model';
 import { animalIcon } from '@/constants/animals';
 import { formatChatDate } from '@/utils/formatChatDate';
-import { useUserData } from '@/hooks/useUserData';
 
 interface ChatItemProps {
   message: Chats;
+  user: { name: string } | null;
 }
 
-function ChatItem({ message }: ChatItemProps) {
-  const { user } = useUserData();
-
+function ChatItem({ message, user }: ChatItemProps) {
   if (!user) return null;
 
   const isUserMessage = message.sender === user?.name;
