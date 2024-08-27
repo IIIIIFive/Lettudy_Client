@@ -26,7 +26,7 @@ function Notice({
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const newNotices = [...notices];
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && e.nativeEvent.isComposing == false) {
       e.preventDefault();
       newNotices.splice(index + 1, 0, '');
       setNotices(newNotices);
