@@ -72,21 +72,27 @@ export const getPreSignedUrl = async (roomId: string, fileName: string) => {
     const response = await httpClient.post(`/notes/${roomId}/presigned`, {
       fileName,
     });
+    console.log('Pre-signed URL:', response.data);
     return response.data;
   } catch (error) {
-    throw error;
+    console.error('Pre-signed URL 발급 오류가 발생했습니다.');
   }
 };
 
 export const uploadImageToS3 = async (preSignedUrl: string, file: File) => {
   try {
-    const headers = {
-      'Content-Type': file.type,
-    };
-    const response = await httpClient.put(preSignedUrl, file, { headers });
-    return response.data;
+    const response = await fetch(preSignedUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': file.type,
+      },
+    });
+    if (!response.ok) {
+      throw new Error('이미지 업로드 실패');
+    }
   } catch (error) {
-    throw error;
+    console.error('이미지 업로드 오류가 발생했습니다.');
   }
 };
 
