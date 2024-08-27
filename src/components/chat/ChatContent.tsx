@@ -14,7 +14,7 @@ function ChatContent({ messages, isMessageSent }: ChatContentProps) {
   const { user } = useUserData();
 
   useEffect(() => {
-    if (messageEndRef.current) {
+    if (messages.length > 0 && messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isMessageSent]);
