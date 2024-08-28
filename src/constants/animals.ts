@@ -3,6 +3,7 @@ const PATH = '/assets/animal/';
 export const animalIcon: {
   [key: number]: string;
 } = {
+  0: PATH + 'rabbit.png',
   1: PATH + 'bear.png',
   2: PATH + 'fox.png',
   3: PATH + 'hatching-chick.png',
@@ -10,5 +11,4 @@ export const animalIcon: {
   5: PATH + 'panda.png',
   6: PATH + 'dog.png',
   7: PATH + 'koala.png',
-  8: PATH + 'rabbit.png',
 };
