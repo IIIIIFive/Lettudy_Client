@@ -9,6 +9,5 @@ export const animalIcon: {
   4: PATH + 'hamster.png',
   5: PATH + 'panda.png',
   6: PATH + 'dog.png',
-  7: PATH + 'koala.png',
-  8: PATH + 'rabbit.png',
+  7: PATH + 'rabbit.png',
 };

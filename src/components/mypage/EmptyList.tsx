@@ -58,7 +58,7 @@ const EmptyListStyle = styled.div`
   }
 
   .main-link {
-    margin-top: 120px;
+    margin-top: 80px;
     font-size: ${({ theme }) => theme.fontSize_xs};
     color: ${({ theme }) => theme.color_textKey};
 

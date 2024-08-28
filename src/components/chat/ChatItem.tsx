@@ -11,8 +11,9 @@ interface ChatItemProps {
 function ChatItem({ message, user }: ChatItemProps) {
   if (!user) return null;
 
+  console.log('Profile Number:', message.profileNum);
+  console.log('Image Source:', animalIcon[message.profileNum]);
   const isUserMessage = message.sender === user?.name;
-
   return (
     <ChatItemStyle $isUserMessage={isUserMessage}>
       <div className='chat-container'>

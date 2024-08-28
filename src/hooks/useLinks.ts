@@ -20,8 +20,10 @@ export const useLink = () => {
     try {
       await httpClient.post(`/links/${roomId}`, newLink);
       queryClient.invalidateQueries({ queryKey: ['links', roomId] });
-    } catch (error) {
+    } catch (error: any) {
       console.error('링크 추가 오류가 발생했습니다.');
+      const errorMessage = error?.response?.data?.message;
+      alert(errorMessage);
     }
   };
 

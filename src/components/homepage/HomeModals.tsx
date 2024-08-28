@@ -71,6 +71,11 @@ function HomeModals({ isOpen, onClose, type, onConfirm }: HomeModalsProps) {
             <NormalButton text='확인' onClick={handleConfirm} />
           </div>
         </div>
+        {type === 'join' && (
+          <div className='message'>
+            입장 코드는 생성된 스터디룸 상단에서 확인 가능합니다.
+          </div>
+        )}
       </HomeModalsStyle>
     </Modal>
   );
@@ -121,6 +126,12 @@ const HomeModalsStyle = styled.div<{ isError: boolean }>`
     .button {
       margin-left: 30px;
     }
+  }
+  .message {
+    margin-top: 0px;
+    color: ${({ theme }) => theme.color_textKey};
+    font-size: ${({ theme }) => theme.fontSize_xxs};
+    text-align: center;
   }
 `;
 
