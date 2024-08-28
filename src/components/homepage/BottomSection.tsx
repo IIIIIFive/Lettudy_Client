@@ -34,7 +34,7 @@ function BottomSection() {
             <h3>스터디 입장</h3>
           </div>
         </div>
-        <span>제목만 입력하면 간편하게 스터디룸을 만들 수 있어요.</span>
+        {/* <span>제목만 입력하면 간편하게 스터디룸을 만들 수 있어요.</span> */}
       </div>
       <RoomList />
     </BottomSectionStyle>
