@@ -25,6 +25,7 @@
     "react-hook-form": "^7.52.2",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.26.0",
+    "react-time-picker": "^7.0.0",
     "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.12",
     "styled-reset": "^4.5.2",
