@@ -5,8 +5,13 @@ function BackButton({ text }: { text: string }) {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate(-1);
+    if (text === '마이페이지') {
+      navigate('/');
+    } else {
+      navigate(-1);
+    }
   };
+
   return (
     <BackButtonStyle>
       <button className='back-button' onClick={handleBack}>
@@ -26,9 +31,7 @@ const BackButtonStyle = styled.div`
   .back-button {
     display: flex;
     align-items: center;
-
     gap: 30px;
-
     background-color: ${({ theme }) => theme.color_bgLightGray};
   }
 `;
